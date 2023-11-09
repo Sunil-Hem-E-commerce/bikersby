@@ -1,0 +1,11 @@
+### Ignore
+## Dir - Contains all the directory to ignore from commiting
+node_modules/
+
+
+
+
+## Files - Files to be ignored from commiting
+
+
+
