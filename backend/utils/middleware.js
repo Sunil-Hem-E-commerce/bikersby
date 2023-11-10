@@ -5,6 +5,7 @@ const unknownEndpoint = (request, response) => {
 };
 
 const errorHandler = (error, request, response, next) => {
+  console.log("ErrorHandler Middeware HIT");
   logger.error(error.message);
 
   if (error.name === "CastError") {

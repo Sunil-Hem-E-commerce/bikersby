@@ -1,77 +1,77 @@
 const userRouter = require("express").Router();
 const client = require("../connection.js");
 
-userRouter.get("/", async (req, res) => {
+userRouter.get("/", async (req, res, next) => {
   try {
     const resDB = await client.query(`Select * from users`);
     res.send(resDB.rows);
   } catch (error) {
     next(error);
   } finally {
-    await client.end();
+    await client.end;
   }
 });
 
-userRouter.get("/:id", (req, res) => {
+userRouter.get("/:id", async (req, res, next) => {
   try {
-    client.query(
-      `Select * from users where id=${req.params.id}`,
-      (err, resDB) => {
-        res.send(resDB.rows);
-      }
+    const resDB = await client.query(
+      `Select * from users where id=${req.params.id}`
     );
-    client.end;
-  } catch (exception) {
-    next(exception);
+    res.send(resDB.rows);
+  } catch (error) {
+    next(error);
+  } finally {
+    await client.end;
   }
 });
 
-userRouter.post("/users", (req, res) => {
+userRouter.post("/", async (req, res, next) => {
   const user = req.body;
-  let insertQuery = `insert into users(user_id, full_name, assigned_task) 
-                         values(${user.id}, '${user.fName}', '${user.task}')`;
-
-  client.query(insertQuery, (err, resDB) => {
-    if (!err) {
-      res.send("Insertion was successful");
-    } else {
-      console.log(`ERROR:: ${err.message}`);
-    }
-  });
-  client.end;
+  console.log("here", user);
+  try {
+    let insertQuery = `insert into users (email, full_name, pwd_hash) values ('${user.email}', '${user.fullName}', '${user.pwdHash}')`;
+    const resDB = await client.query(insertQuery);
+    res.send(resDB);
+  } catch (error) {
+    next(error);
+  } finally {
+    await client.end;
+  }
 });
 
-userRouter.put("/users/:id", (req, res) => {
+// Need to recheck the below  Route code.
+userRouter.put("/:id", async (req, res, next) => {
   let user = req.body;
-  let id = req.params.id;
+  let idToUpdate = req.params.id;
+  console.log(user);
   let updateQuery = `update users
-                         set full_name = '${user.fName}',
-                         assigned_task = '${user.task}'
-                         where user_id = ${id}`;
+                         set full_name = '${user.fullName}',
+                         email = '${user.email}',
+                         phone = '${user.phone}',
+                         where id = '${idToUpdate}'`;
 
-  client.query(updateQuery, (err, resDB) => {
-    if (!err) {
-      res.send("Update was successful");
-    } else {
-      console.log(err.message);
-    }
-  });
-  client.end;
+  try {
+    const resDB = await client.query(updateQuery);
+    // need to check what will be it's returned value.
+    console.log("response after update", resDB);
+  } catch (error) {
+    next(error);
+  } finally {
+    await client.end;
+  }
 });
 
-userRouter.delete("/users/:id", (req, res) => {
-  let deleteQuery = `delete from users where user_id=${req.params.id}`;
+userRouter.delete("/:id", async (req, res, next) => {
+  let deleteQuery = `delete from users where id=${req.params.id}`;
 
-  client.query(deleteQuery, (err, result) => {
-    if (!err) {
-      res.send("Deletion was successful");
-    } else {
-      console.log(err.message);
-    }
-  });
-  client.end;
+  try {
+    const resDB = await client.query(deleteQuery);
+    console.log("returned after deletion", resDB);
+  } catch (error) {
+    next(error);
+  } finally {
+    await client.end;
+  }
 });
-
-// client.connect();
 
 module.exports = userRouter;

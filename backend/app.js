@@ -5,7 +5,10 @@ const logger = require("./utils/logger.js");
 
 const userRouter = require("./routers/users.js");
 
+const bodyParser = require("body-parser");
+
 const app = express();
+app.use(bodyParser.json());
 
 client
   .connect()

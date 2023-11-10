@@ -3,6 +3,7 @@ const info = (...params) => {
 };
 
 const error = (...params) => {
+  console.log("------------Logger Error HIT--------");
   console.error(...params);
 };
 

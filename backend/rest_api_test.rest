@@ -1,0 +1,25 @@
+GET http://localhost:3001/api/users HTTP/1.1
+
+###
+POST http://localhost:3001/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "email" : "restfulapi1@yahoo.com",
+    "fullName" : "Janardan Sharma",
+    "pwdHash" : "loremipsumtextgenerate"
+}
+
+###
+PUT http://localhost:3001/api/users/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "email" : "restfulapi@yahoo.com",
+    "fullName" : "Janardan Sharma",
+    "pwdHash" : "loremipsumtextgenerate",
+    "phone" : "999999"
+}
+
+###
+DELETE http://localhost:3001/api/users/2 HTTP/1.1
