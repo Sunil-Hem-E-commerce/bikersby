@@ -1,5 +1,6 @@
 const client = require("./connection.js");
 const express = require("express");
+const middleware = require("./utils/middleware.js");
 
 const app = express();
 
@@ -17,5 +18,8 @@ app.get("/users", (req, res) => {
     client.end;
   });
 });
+
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 client.connect();
