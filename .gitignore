@@ -1,11 +1,12 @@
 ### Ignore
 ## Dir - Contains all the directory to ignore from commiting
 node_modules/
+test_*/
 
 
 
 
 ## Files - Files to be ignored from commiting
-Developer_Docs.md
-
+dev_*
+.env
 
