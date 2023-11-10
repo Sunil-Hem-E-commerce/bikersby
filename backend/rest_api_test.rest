@@ -5,10 +5,20 @@ POST http://localhost:3001/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "email" : "restfulapi1@yahoo.com",
-    "fullName" : "Janardan Sharma",
-    "pwdHash" : "loremipsumtextgenerate"
+    "email" : "bcrypt@yahoo.com",
+    "fullName" : "Bcrypt Kumar",
+    "password" : "admin"
 }
+
+###
+POST http://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email" : "bcrypt@yahoo.com",
+    "password" : "admin"
+}
+
 
 ###
 PUT http://localhost:3001/api/users/2 HTTP/1.1

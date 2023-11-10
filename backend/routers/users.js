@@ -1,5 +1,6 @@
 const userRouter = require("express").Router();
 const client = require("../connection.js");
+const bcrypt = require("bcrypt");
 
 userRouter.get("/", async (req, res, next) => {
   try {
@@ -25,11 +26,17 @@ userRouter.get("/:id", async (req, res, next) => {
   }
 });
 
+// Sign up Route
 userRouter.post("/", async (req, res, next) => {
-  const user = req.body;
-  console.log("here", user);
+  const { fullName, email, password } = req.body;
+
+  if (password.length < 4) {
+    return res.status(400).send("Password cannot be less then 4 characters");
+  }
+  const passwordHash = await bcrypt.hash(password, 10);
+
   try {
-    let insertQuery = `insert into users (email, full_name, pwd_hash) values ('${user.email}', '${user.fullName}', '${user.pwdHash}')`;
+    let insertQuery = `insert into users (email, full_name, pwd_hash) values ('${email}', '${fullName}', '${passwordHash}')`;
     const resDB = await client.query(insertQuery);
     res.send(resDB);
   } catch (error) {
