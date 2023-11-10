@@ -4,6 +4,7 @@ const middleware = require("./utils/middleware.js");
 const logger = require("./utils/logger.js");
 
 const userRouter = require("./routers/users.js");
+const loginRouter = require("./routers/login.js");
 
 const bodyParser = require("body-parser");
 
@@ -23,6 +24,7 @@ app.listen(3001, () => {
   console.log("Sever is now listening at port 3001");
 });
 
+app.use("/api/login", loginRouter);
 app.use("/api/users", userRouter);
 
 app.use(middleware.unknownEndpoint);
