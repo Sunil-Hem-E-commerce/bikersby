@@ -9,7 +9,7 @@ userRouter.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   } finally {
-    await client.end;
+    await client.end();
   }
 });
 
@@ -22,7 +22,7 @@ userRouter.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   } finally {
-    await client.end;
+    await client.end();
   }
 });
 
@@ -42,7 +42,7 @@ userRouter.post("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   } finally {
-    await client.end;
+    await client.end();
   }
 });
 
@@ -64,7 +64,7 @@ userRouter.put("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   } finally {
-    await client.end;
+    await client.end();
   }
 });
 
@@ -77,7 +77,7 @@ userRouter.delete("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   } finally {
-    await client.end;
+    await client.end();
   }
 });
 
