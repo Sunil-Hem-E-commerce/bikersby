@@ -1,0 +1,11 @@
+{
+  "name": "bikersby-backend",
+  "version": "1.0.0",
+  "description": "This is backend for our project bikersby, an e-commerce website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hemlal and Sunil",
+  "license": "ISC"
+}
