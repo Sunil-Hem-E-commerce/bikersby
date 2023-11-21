@@ -19,13 +19,13 @@ db.sequelize = sequelize;
 
 (async () => {
   db.district = require("./district")(sequelize, DataTypes);
-  await db.district.sync({ force: true });
+  //   await db.district.sync({ force: true });
   db.address = require("./address")(sequelize, DataTypes);
-  await db.address.sync({ force: true });
-  //   db.user = require("./user")(sequelize, DataTypes);
+  //   await db.address.sync({ force: true });
+  db.user = require("./user")(sequelize, DataTypes);
   //   await db.user.sync({ force: true });
 
-  //   await sequelize.sync({ force: true });
+  await db.sequelize.sync({ force: true });
 })();
 console.log("index ++", db.district);
 console.log("index -+", db.address);

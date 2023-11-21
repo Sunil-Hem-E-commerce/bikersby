@@ -2,7 +2,7 @@ const usersRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 const db = require("../models");
 
-const User = db.district;
+const User = db.user;
 
 console.log("from user", User);
 usersRouter.post("/", async (req, res) => {
