@@ -1,6 +1,5 @@
 const express = require("express");
-const userRouter = require("./src/controllers/users");
-const productsRouter = require("./src/controllers/products");
+require("./models");
 
 const app = express();
 
@@ -8,7 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/users", userRouter);
-app.use("/api/products", productsRouter);
+app.get("/", (req, res) => {
+  res.send("Hello there!!");
+});
 
 module.exports = app;
