@@ -1,25 +1,23 @@
 const express = require("express");
 const app = express();
+const morgan = require("morgan");
+app.use(morgan("tiny"));
 app.use(express.json());
 require("dotenv").config();
+const { url } = require("./utils/config");
+const mongoose = require("mongoose");
+const productRouter = require("./controller/products");
+const { api } = require("./utils/config");
 
-const api = process.env.API_URL;
-const PORT = process.env.PORT;
-app.get(`${api}/products`, (req, res) => {
-  const product = {
-    id: 1,
-    name: "Hemlal Dulal",
-    image: "myImg",
-  };
-  res.send(product);
-});
+mongoose
+  .connect(url)
+  .then(() => {
+    console.log("Connected Successfully to MongoDB!");
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB!");
+  });
 
-app.post(`${api}/products`, (req, res) => {
-  const newProduct = req.body;
-  console.log(newProduct);
-  res.send(newProduct);
-});
+app.use(`${api}`, productRouter);
 
-app.listen(3000, () => {
-  console.log("Server is running at PORT 3000");
-});
+module.exports = app;
