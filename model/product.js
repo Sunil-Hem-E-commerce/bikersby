@@ -10,6 +10,7 @@ const productSchema = mongoose.Schema({
   price: Number,
   colors: [],
   description: String,
+  url: [],
   category: String,
   featured: Boolean,
   shipping: Boolean,

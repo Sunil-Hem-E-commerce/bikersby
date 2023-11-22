@@ -1,13 +1,16 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-app.use(morgan("tiny"));
-app.use(express.json());
 require("dotenv").config();
 const { url } = require("./utils/config");
 const mongoose = require("mongoose");
 const productRouter = require("./controller/products");
+const userRouter = require("./controller/users");
 const { api } = require("./utils/config");
+
+//! Middleware
+app.use(morgan("tiny"));
+app.use(express.json());
 
 mongoose
   .connect(url)
@@ -18,6 +21,7 @@ mongoose
     console.log("Error connecting to MongoDB!");
   });
 
-app.use(`${api}`, productRouter);
+app.use(`${api}/products`, productRouter);
+app.use(`${api}/users`, userRouter);
 
 module.exports = app;
