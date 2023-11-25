@@ -3,9 +3,11 @@ const app = express();
 const morgan = require("morgan");
 require("dotenv").config();
 const { url } = require("./utils/config");
+const errorHandler = require("./middleware/errorHandler");
 const mongoose = require("mongoose");
 const productRouter = require("./controller/products");
 const userRouter = require("./controller/users");
+const categoryRouter = require("./controller/categories");
 const { api } = require("./utils/config");
 
 //! Middleware
@@ -23,5 +25,7 @@ mongoose
 
 app.use(`${api}/products`, productRouter);
 app.use(`${api}/users`, userRouter);
+app.use(`${api}/category`, categoryRouter);
+app.use(errorHandler);
 
 module.exports = app;
