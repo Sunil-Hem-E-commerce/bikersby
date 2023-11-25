@@ -6,7 +6,7 @@ const { url } = require("./utils/config");
 const errorHandler = require("./middleware/errorHandler");
 const mongoose = require("mongoose");
 const productRouter = require("./controller/products");
-const userRouter = require("./controller/users");
+const userRouter = require("./controller/login");
 const categoryRouter = require("./controller/categories");
 const { api } = require("./utils/config");
 
