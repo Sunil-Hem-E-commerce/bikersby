@@ -1,13 +1,13 @@
 const role = sequelize.define(
   "role",
   {
-    role_id: {
+    roleId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    role_name: {
+    roleName: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
