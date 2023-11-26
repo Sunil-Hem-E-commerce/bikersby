@@ -1,7 +1,7 @@
 const user = sequelize.define(
   "user",
   {
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -14,15 +14,15 @@ const user = sequelize.define(
     phone: {
       type: DataTypes.STRING(25),
     },
-    user_name: {
+    userName: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    pwd_hash: {
+    pwdHash: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    default_address: {
+    defaultAddress: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -30,20 +30,16 @@ const user = sequelize.define(
         key: "address_id",
       },
     },
-    user_status: {
+    userStatus: {
       type: DataTypes.CHAR,
       allowNull: false,
     },
-    joined_on: {
-      type: DataTypes.TIMESTAMP,
-      allowNull: false,
-    },
-    user_role: {
+    userRole: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: "role",
-        key: "role_id",
+        key: "roleId",
       },
     },
     profile_img: {
@@ -53,7 +49,7 @@ const user = sequelize.define(
   {
     tableName: "users",
     timestamps: true,
-    createdAt: "JoinedAt",
+    createdAt: "joinedAt",
   }
 );
 
