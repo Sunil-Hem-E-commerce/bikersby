@@ -1,5 +1,6 @@
 const express = require("express");
 const usersRouter = require("./controllers/users");
+const loginRouter = require("./controllers/login");
 require("./models/");
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users/", usersRouter);
+app.use("/api/login/", loginRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello there!!!");

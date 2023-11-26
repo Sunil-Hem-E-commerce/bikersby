@@ -1,19 +1,27 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const loginRouter = require("express").Router();
-const client = require("../connection.js");
+const db = require("../models");
+
+const User = db.user;
 
 loginRouter.post("/", async (req, res) => {
   const { email, password } = req.body;
 
-  const userQuery = await client.query(
-    `select * from users where email = '${email}'`
-  );
-
-  const user = userQuery.rows[0];
+  // const userQuery = await client.query(
+  //   `select * from users where email = '${email}'`
+  // );
+  const user = await User.findOne({ where: { email: email } });
+  if (user === null) {
+    console.log("Not found!");
+  } else {
+    console.log("Found", user.dataValues);
+    // console.log(project instanceof Project); // true
+    // console.log(project.title); // 'My Title'
+  }
 
   const passwordCorrect = user
-    ? await bcrypt.compare(password, user.pwd_hash)
+    ? await bcrypt.compare(password, user.dataValues.pwdHash)
     : false;
 
   if (!(user && passwordCorrect)) {
@@ -23,8 +31,8 @@ loginRouter.post("/", async (req, res) => {
   }
 
   const userForToken = {
-    username: user.full_name,
-    id: user.id,
+    username: user.dataValues.userName,
+    id: user.userId,
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET, {
@@ -33,9 +41,9 @@ loginRouter.post("/", async (req, res) => {
 
   res.status(200).send({
     token,
-    fullName: user.full_name,
-    email: user.email,
-    id: user.id,
+    userName: user.dataValues.userName,
+    email: user.dataValues.email,
+    id: user.userId,
   });
 });
 
