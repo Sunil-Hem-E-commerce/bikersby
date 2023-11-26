@@ -63,7 +63,7 @@ db.role = require("./role")(sequelize, Sequelize.DataTypes);
 db.user = require("./user")(sequelize, Sequelize.DataTypes);
 
 // Associations
-db.district.hasMany(db.address);
-db.address.belongsTo(db.district);
+// db.district.hasMany(db.address);
+// db.address.belongsTo(db.district);
 
 module.exports = db;
