@@ -2,6 +2,7 @@ const { User } = require("../model/user");
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const validateTokenHandler = require("../middleware/validateTokenHandler");
 
 const secret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -64,7 +65,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { userId: user.id, username: user.username },
       secret,
-      { expiresIn: "1h" },
+      { expiresIn: 5 * 60 },
     );
 
     //! Return the token along with any other user data
@@ -77,6 +78,15 @@ router.post("/login", async (req, res) => {
       .status(500)
       .send({ message: "Error logging in!", error: error, success: false });
   }
+});
+
+//! To check the current user who used the token
+router.get("/current", validateTokenHandler, (req, res) => {
+  const currentUser = req.user;
+  res.send({
+    message: "Current user information",
+    user: currentUser.username,
+  });
 });
 
 module.exports = router;
