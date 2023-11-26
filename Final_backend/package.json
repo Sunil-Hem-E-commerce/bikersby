@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:create": "npx sequelize-cli migration:generate --name",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "migrate:undo-all": "npx sequelize-cli db:migrate:undo:all",
+    "seed:run": "npx sequelize-cli db:seed:all",
+    "seed:create": "npx sequelize-cli seed:generate --name"
   },
   "author": "Sunil and Hemlal",
   "license": "ISC",
