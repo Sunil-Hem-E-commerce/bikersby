@@ -36,10 +36,12 @@ module.exports = {
       userStatus: {
         type: Sequelize.CHAR,
         allowNull: false,
+        defaultValue: "Y",
       },
       userRole: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 1,
         references: {
           model: "roles",
           key: "roleId",
