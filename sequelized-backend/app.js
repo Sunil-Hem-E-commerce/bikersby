@@ -1,5 +1,6 @@
 const express = require("express");
 const usersRouter = require("./controllers/users");
+const defaultRouter = require("./controllers/default");
 require("./models");
 
 const app = express();

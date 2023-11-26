@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize("bikers", "postgres", "admin", {
   host: "localhost",
   dialect: "postgres",
-  logging: false,
+  // logging: false,
 });
 
 try {
@@ -17,16 +17,15 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-(async () => {
-  db.district = require("./district")(sequelize, DataTypes);
-  //   await db.district.sync({ force: true });
-  db.address = require("./address")(sequelize, DataTypes);
-  //   await db.address.sync({ force: true });
-  db.user = require("./user")(sequelize, DataTypes);
-  //   await db.user.sync({ force: true });
+db.district = require("./district")(sequelize, DataTypes);
+//   await db.district.sync({ force: true });
+db.address = require("./address")(sequelize, DataTypes);
+//   await db.address.sync({ force: true });
+db.user = require("./user")(sequelize, DataTypes);
+//   await db.user.sync({ force: true });
 
-  await db.sequelize.sync({ force: true });
-})();
+db.sequelize.sync({ force: true });
+
 console.log("index ++", db.district);
 console.log("index -+", db.address);
 

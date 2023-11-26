@@ -1,11 +1,9 @@
-const usersRouter = require("express").Router();
-const bcrypt = require("bcrypt");
+const defaultRouter = require("express").Router();
 const db = require("../models");
 
-const User = db.user;
+const District = db.district;
 
-console.log("from user", User);
-usersRouter.post("/", async (req, res) => {
+defaultRouter.post("/", async (req, res) => {
   const { email, phone, userName, password } = req.body;
 
   if (password.length < 8) {
@@ -25,7 +23,7 @@ usersRouter.post("/", async (req, res) => {
   console.log("second", addUser.name); // "Jane"
   console.log("third", addUser.toJSON()); // This is good!
 
-  res.send(addUser.toJSON());
+  res.send(200).json(addUser.toJSON());
 });
 
-module.exports = usersRouter;
+module.exports = defaultRouter;

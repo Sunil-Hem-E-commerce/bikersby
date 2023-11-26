@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) =>
       },
       defaultAddress: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "Addresses",
           key: "addressId",
@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) =>
       userStatus: {
         type: DataTypes.CHAR(1),
         allowNull: false,
+        defaultValue: "Y",
       },
       profileImg: {
         type: DataTypes.STRING(255),
