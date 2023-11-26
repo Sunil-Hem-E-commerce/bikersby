@@ -27,7 +27,7 @@ module.exports = {
       },
       defaultAddress: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "addresses",
           key: "addressId",
