@@ -5,12 +5,14 @@ const db = require("../models");
 const User = db.user;
 
 usersRouter.get("/", async (req, res) => {
-  const allUser = await User.findAll();
+  const allUser = await User.findAll({
+    attributes: { exclude: ["updatedAt"] },
+  });
   res.status(200).json(allUser);
 });
 
 usersRouter.post("/", async (req, res) => {
-  const { email, phone, userName, password } = req.body;
+  const { email, phone, fullName, password } = req.body;
 
   if (password.length < 8) {
     return res.status(400).send("Password cannot be less then 8 characters");
@@ -21,13 +23,13 @@ usersRouter.post("/", async (req, res) => {
   const addUser = await User.create({
     email: email,
     phone: phone | null,
-    userName: userName,
+    userName: fullName,
     pwdHash,
   });
 
-  console.log("first", addUser instanceof User); // true
-  console.log("second", addUser.name); // "Jane"
-  console.log("third", addUser.toJSON()); // This is good!
+  // const result = await addUser.save();
+
+  console.log("RESULT:: ", addUser);
 
   res.send(addUser.toJSON());
 });

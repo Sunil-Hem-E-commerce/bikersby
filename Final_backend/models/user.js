@@ -25,7 +25,7 @@ const user = (sequelize, DataTypes) =>
       },
       defaultAddress: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "address",
           key: "address_id",
@@ -34,10 +34,12 @@ const user = (sequelize, DataTypes) =>
       userStatus: {
         type: DataTypes.CHAR,
         allowNull: false,
+        defaultValue: "Y",
       },
       userRole: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 1,
         references: {
           model: "role",
           key: "roleId",
@@ -51,6 +53,7 @@ const user = (sequelize, DataTypes) =>
       tableName: "users",
       timestamps: true,
       createdAt: "joinedAt",
+      updatedAt: false,
     }
   );
 
