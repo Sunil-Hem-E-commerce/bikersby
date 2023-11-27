@@ -10,8 +10,16 @@ const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+
+if (config.url) {
+  sequelize = new Sequelize(config.url, {
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+      },
+    },
+  });
 } else {
   sequelize = new Sequelize(
     config.database,
@@ -24,7 +32,9 @@ if (config.use_env_variable) {
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Postgres connection has been established successfully.");
+    console.log(
+      `Postgres connection has been established successfully to database: ${sequelize.config.database} by user: ${sequelize.config.username}`
+    );
   })
   .catch((error) => {
     console.error("Unable to connect to the database::", error);

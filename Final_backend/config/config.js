@@ -9,6 +9,8 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: "postgres",
     migrationStorageTableName: process.env.DB_SEQUELIZE_META,
+    // using render url:
+    url: process.env.DB_URL,
   },
   test: {
     username: process.env.DB_USERNAME,
