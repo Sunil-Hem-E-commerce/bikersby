@@ -1,0 +1,132 @@
+[
+  {
+    "id": "1",
+    "name": "Royal Enfield Classic 350",
+    "company": "Royal Enfield",
+    "price": "49900000",
+    "colors": ["#ff0000", "#000000", "#CDD0D0"],
+    "image": "https://autowheelify.com/wp-content/uploads/2023/06/royal-enfield-classic-350-reborn.jpg",
+    "description": "The Classic Royal Enfield 350 is an iconic retro motorcycle known for its timeless design, robust performance, and legendary heritage, perfect for those seeking a classic riding experience.",
+    "category": "Bike",
+    "featured": true
+  },
+  {
+    "id": "2",
+    "name": "Honda CB 150R",
+    "company": "Honda",
+    "price": "39000000",
+    "colors": ["#000", "#22D3EF"],
+    "image": "https://autowheelify.com/wp-content/uploads/2023/11/Screenshot-2023-11-06-at-6.23.58%E2%80%AFPM.png",
+    "description": "The mobile is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "Bike",
+    "shipping": true
+  },
+  {
+    "id": "3",
+    "name": "Hero XPulse 200",
+    "company": "Honda",
+    "price": 45000000,
+    "colors": ["#22D3EF", "#CDD0D0"],
+    "image": "https://i0.wp.com/ngmhero.com/wp-content/uploads/2020/07/xpluse-white-600x478-1.jpg?resize=500%2C398&ssl=1",
+    "description": "The Laptop is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "laptop"
+  },
+  {
+    "id": "4",
+    "name": "Nokia 420",
+    "company": "nokia",
+    "price": 12599,
+    "colors": ["#000", "#000000", "#CDD0D0"],
+    "image": "https://images.pexels.com/photos/4224099/pexels-photo-4224099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "The mobile is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "mobile",
+    "shipping": true
+  },
+  {
+    "id": "5",
+    "name": "Mac Pc",
+    "company": "apple",
+    "price": 4000099,
+    "colors": ["#000", "#CDD0D0"],
+    "image": "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "The Computer is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "computer",
+    "shipping": true
+  },
+  {
+    "id": "6",
+    "name": "Macbook Pro",
+    "company": "apple",
+    "price": 42999,
+    "colors": ["#000000", "#CDD0D0"],
+    "image": "https://images.pexels.com/photos/303383/pexels-photo-303383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "The Laptop is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "laptop",
+    "shipping": true
+  },
+  {
+    "id": "7",
+    "name": "Asus gseries",
+    "company": "asus",
+    "price": 23999,
+    "colors": ["#CDD0D0", "#000"],
+    "image": "https://images.pexels.com/photos/261662/pexels-photo-261662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "The laptop is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "laptop",
+    "shipping": true
+  },
+  {
+    "id": "8",
+    "name": "Pulsar NS200",
+    "price": "41000000",
+    "company": "Bajaj",
+    "colors": ["#000", "#CDD0D0"],
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/58025/pulsar-ns-right-front-three-quarter-6.jpeg?isig=0&q=80",
+    "description": "The Pulsar NS200 Dual Channel ABS is a sporty and agile motorcycle offering dynamic performance. With dual-channel ABS, it provides precise control and safety for thrilling rides.",
+    "category": "Bike",
+    "featured": true,
+    "shipping": true
+  },
+  {
+    "id": "9",
+    "name": "Iwatch",
+    "price": 39999,
+    "company": "apple",
+    "colors": ["#000000"],
+    "image": "https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "This watch is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "watch",
+    "shipping": true
+  },
+  {
+    "id": "10",
+    "name": "user need",
+    "company": "apple",
+    "price": 300099,
+    "colors": ["#ff0000", "#22D3EF", "#000000"],
+    "image": "https://images.pexels.com/photos/1619651/pexels-photo-1619651.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "The mobile is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "accessories"
+  },
+  {
+    "id": "11",
+    "name": "rolex premium",
+    "company": "rolex",
+    "price": 999999,
+    "colors": ["#000000", "#CDD0D0"],
+    "image": "https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "This watch is compact with its 6.2-inch OLED screen and far lighter at 168g. It perfectly captures the design, looks, and feel of the expensive one. It comes with a snapdragon processor with a 5n chip in it. It has a 200mp camera in the rear 100mp in front perfect for selfie lovers. It also support HDR content means you can watch 4K content on it.",
+    "category": "watch"
+  },
+  {
+    "id": "12",
+    "name": "KTM Duke 250",
+    "price": "56400000",
+    "company": "KTM DUCK",
+    "colors": ["#22D3EF", "#ff0000", "#000000"],
+    "image": "https://i0.wp.com/techlekh.com/wp-content/uploads/2022/06/Front-Styling-in-KTM-Duke-200.png?w=918&ssl=1",
+    "description": "The KTM Duke 250 is a high-performance and stylish street motorcycle. It's known for its powerful engine, sporty design, and agile handling, making it a favorite among enthusiasts.",
+    "category": "Bike",
+    "featured": true
+  }
+]
