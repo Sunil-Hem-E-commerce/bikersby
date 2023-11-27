@@ -23,8 +23,8 @@ const address = (sequelize, DataTypes) =>
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "District",
-          key: "district_id",
+          model: "district",
+          key: "districtId",
         },
       },
     },
