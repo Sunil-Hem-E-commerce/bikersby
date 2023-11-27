@@ -5,12 +5,13 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useCartContext } from "../context/cart_context";
 import { Button } from "../styles/Button";
-import { useAuth0 } from "@auth0/auth0-react";
+
+// import { useAuth0 } from "@auth0/auth0-react";
 
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -207,7 +208,17 @@ const Nav = () => {
             </NavLink>
           </li>
 
-          {isAuthenticated && <p>{user.name}</p>}
+          <li>
+            <NavLink to="/signup">
+              <Button>SignUp</Button>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/login">
+              <Button>Login</Button>
+            </NavLink>
+          </li>
+          {/* {isAuthenticated && <p>{user.name}</p>}
 
           {isAuthenticated ? (
             <li>
@@ -221,9 +232,9 @@ const Nav = () => {
             </li>
           ) : (
             <li>
-              <Button onClick={() => loginWithRedirect()}>Log In</Button>
+              <Button>Log In</Button>
             </li>
-          )}
+          )} */}
 
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
