@@ -71,16 +71,7 @@ const SignUp = () => {
       </p>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label>First Name:</Label>
-          <Input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Last Name:</Label>
+          <Label>Full Name:</Label>
           <Input
             type="text"
             value={lastName}
