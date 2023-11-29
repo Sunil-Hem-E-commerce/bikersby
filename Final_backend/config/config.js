@@ -8,6 +8,12 @@ module.exports = {
     database: process.env.DB_DEV_NAME,
     host: process.env.DB_HOST,
     dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
     migrationStorageTableName: process.env.DB_SEQUELIZE_META,
     // using render url:
     url: process.env.DB_URL,
