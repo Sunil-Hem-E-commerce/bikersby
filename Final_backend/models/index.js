@@ -14,12 +14,15 @@ let sequelize;
 if (config.url) {
   sequelize = new Sequelize(config.url, {
     dialect: "postgres",
+    protocol: "postgres",
     dialectOptions: {
       ssl: {
         require: true,
+        rejectUnauthorized: false,
       },
     },
   });
+  console.log("here");
 } else {
   sequelize = new Sequelize(
     config.database,
