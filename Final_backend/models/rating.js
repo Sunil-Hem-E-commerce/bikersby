@@ -3,7 +3,7 @@ const rating = (sequelize, DataTypes) =>
     "rating",
     {
       ratingId: {
-        type: DataTypes.INTEGE,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
