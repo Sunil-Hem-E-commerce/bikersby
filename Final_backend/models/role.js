@@ -11,6 +11,7 @@ const role = (sequelize, DataTypes) =>
       roleName: {
         type: DataTypes.STRING(30),
         allowNull: false,
+        unique: true,
       },
     },
     {
