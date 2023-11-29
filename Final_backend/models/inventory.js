@@ -25,9 +25,9 @@ const inventory = (sequelize, DataTypes) =>
         },
       },
       isShipping: {
-        type: DataTypes.CHAR,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: "y",
+        defaultValue: false,
       },
       quantity: {
         type: DataTypes.INTEGER,
