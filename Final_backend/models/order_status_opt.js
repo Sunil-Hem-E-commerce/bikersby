@@ -11,6 +11,7 @@ const orderStatusOpts = (sequelize, DataTypes) =>
       order_status_value: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        unique: true,
       },
     },
     {

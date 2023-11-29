@@ -15,9 +15,11 @@ module.exports = {
         order_status_value: {
           type: Sequelize.STRING(50),
           allowNull: false,
+          unique: true,
         },
       },
       {
+        tableName: "order_status_opts",
         timestamps: false,
       }
     );
@@ -41,6 +43,10 @@ module.exports = {
       order_status: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "order_status_opts",
+          key: "optionId",
+        },
       },
       sub_total: {
         type: Sequelize.INTEGER,
