@@ -1,0 +1,63 @@
+"use strict";
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable(
+      "product_items",
+      {
+        itemId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+          allowNull: false,
+        },
+        productId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: "products",
+            key: "productId",
+          },
+        },
+        colorId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: "colors",
+            key: "colorId",
+          },
+        },
+        companyId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: "companies",
+            key: "companyId",
+          },
+        },
+        catId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: "categories",
+            key: "catId",
+          },
+        },
+        isfeatured: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
+      },
+      {
+        tableName: "product_items",
+        timestamps: false,
+      }
+    );
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("product_items");
+  },
+};

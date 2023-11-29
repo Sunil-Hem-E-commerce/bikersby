@@ -34,7 +34,7 @@ module.exports = {
           type: Sequelize.TEXT,
         },
         updatedAt: {
-          type: Sequelize.TIMESTAMP,
+          type: Sequelize.DATE,
           allowNull: false,
         },
       },
