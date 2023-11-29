@@ -13,6 +13,7 @@ module.exports = {
       districtName: {
         allowNull: false,
         type: Sequelize.STRING,
+        unique: true,
       },
     });
   },

@@ -11,6 +11,7 @@ const district = (sequelize, DataTypes) =>
       districtName: {
         type: DataTypes.STRING(30),
         allowNull: false,
+        unique: true,
       },
     },
     {
