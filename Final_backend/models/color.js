@@ -11,10 +11,12 @@ const color = (sequelize, DataTypes) =>
       color: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: true,
       },
       hex: {
         type: DataTypes.STRING(6),
         allowNull: false,
+        unique: true,
       },
     },
     {

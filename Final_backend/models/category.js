@@ -11,6 +11,7 @@ const category = (sequelize, DataTypes) =>
       category: {
         type: DataTypes.STRING(30),
         allowNull: false,
+        unique: true,
       },
     },
     {

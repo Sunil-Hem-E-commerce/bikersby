@@ -13,10 +13,12 @@ module.exports = {
       color: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        unique: true,
       },
       hex: {
         type: Sequelize.STRING(6),
         allowNull: false,
+        unique: true,
       },
     });
 
@@ -31,6 +33,7 @@ module.exports = {
       company: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        unique: true,
       },
       logo: {
         type: Sequelize.TEXT,
@@ -48,6 +51,7 @@ module.exports = {
       category: {
         type: Sequelize.STRING(30),
         allowNull: false,
+        unique: true,
       },
     });
   },

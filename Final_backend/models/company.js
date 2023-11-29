@@ -11,6 +11,7 @@ const company = (sequelize, DataTypes) =>
       company: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: true,
       },
       logo: {
         type: DataTypes.TEXT,
