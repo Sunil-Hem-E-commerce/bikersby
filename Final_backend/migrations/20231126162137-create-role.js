@@ -13,6 +13,7 @@ module.exports = {
       roleName: {
         allowNull: false,
         type: Sequelize.STRING,
+        unique: true,
       },
     });
   },
