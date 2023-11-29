@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.createTable(
       "order_status_opts",
       {
-        option_id: {
+        optionId: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
