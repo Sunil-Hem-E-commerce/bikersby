@@ -1,4 +1,4 @@
-const Rating = (sequelize, DataTypes) =>
+const rating = (sequelize, DataTypes) =>
   sequelize.define(
     "rating",
     {
@@ -30,17 +30,12 @@ const Rating = (sequelize, DataTypes) =>
       indv_comment: {
         type: DataTypes.TEXT,
       },
-      created_on: {
-        type: DataTypes.TIMESTAMP,
-        allowNull: false,
-      },
     },
     {
       tableName: "ratings",
-      timestamps: false,
       timestamps: true,
       createdAt: false,
-      updatedAt: "reviwedAt",
+      updatedAt: true,
       uniqueKeys: {
         unique_rating: {
           fields: ["user_id", "product_id"],

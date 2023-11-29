@@ -33,13 +33,12 @@ module.exports = {
         indv_comment: {
           type: Sequelize.TEXT,
         },
-        created_on: {
+        updatedAt: {
           type: Sequelize.TIMESTAMP,
           allowNull: false,
         },
       },
       {
-        timestamps: false,
         uniqueKeys: {
           unique_rating: {
             fields: ["userId", "productId"],
