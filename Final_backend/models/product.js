@@ -11,6 +11,7 @@ const product = (sequelize, DataTypes) =>
       productName: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: true,
       },
       productDes: {
         type: DataTypes.STRING(255),

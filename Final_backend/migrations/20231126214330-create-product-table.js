@@ -12,6 +12,7 @@ module.exports = {
       productName: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        unique: true,
       },
       productDes: {
         type: Sequelize.STRING(255),
