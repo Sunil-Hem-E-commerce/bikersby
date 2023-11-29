@@ -49,6 +49,18 @@ module.exports = {
           allowNull: false,
           defaultValue: false,
         },
+        prod_img1: {
+          type: Sequelize.TEXT,
+        },
+        prod_img2: {
+          type: Sequelize.TEXT,
+        },
+        prod_img3: {
+          type: Sequelize.TEXT,
+        },
+        prod_img4: {
+          type: Sequelize.TEXT,
+        },
       },
       {
         tableName: "product_items",
