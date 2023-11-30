@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("./models/");
 
 // For post request
 app.use(express.json());
