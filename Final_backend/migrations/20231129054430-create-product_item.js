@@ -28,22 +28,6 @@ module.exports = {
             key: "colorId",
           },
         },
-        companyId: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          references: {
-            model: "companies",
-            key: "companyId",
-          },
-        },
-        catId: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          references: {
-            model: "categories",
-            key: "catId",
-          },
-        },
         isfeatured: {
           type: Sequelize.BOOLEAN,
           allowNull: false,

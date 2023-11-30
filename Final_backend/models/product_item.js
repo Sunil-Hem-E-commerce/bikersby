@@ -24,22 +24,6 @@ const product_items = (sequelize, DataTypes) =>
           key: "colorId",
         },
       },
-      companyId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "company",
-          key: "companyId",
-        },
-      },
-      catId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "category",
-          key: "catId",
-        },
-      },
       isfeatured: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

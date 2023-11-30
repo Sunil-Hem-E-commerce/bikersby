@@ -13,6 +13,22 @@ const product = (sequelize, DataTypes) =>
         allowNull: false,
         unique: true,
       },
+      companyId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "company",
+          key: "companyId",
+        },
+      },
+      catId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "category",
+          key: "catId",
+        },
+      },
       productDes: {
         type: DataTypes.STRING(255),
         allowNull: false,
