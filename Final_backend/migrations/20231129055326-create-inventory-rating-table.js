@@ -88,7 +88,7 @@ module.exports = {
         },
         discounted_price: {
           type: Sequelize.INTEGER,
-          allowNull: false,
+          allowNull: true,
         },
       },
       {

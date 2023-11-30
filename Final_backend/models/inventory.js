@@ -40,7 +40,7 @@ const inventory = (sequelize, DataTypes) =>
       },
       discounted_price: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
     },
     {
