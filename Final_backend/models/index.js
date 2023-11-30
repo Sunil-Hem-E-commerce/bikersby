@@ -22,7 +22,6 @@ if (config.url) {
       },
     },
   });
-  console.log("here");
 } else {
   sequelize = new Sequelize(
     config.database,
@@ -74,6 +73,19 @@ db.district = require("./district")(sequelize, Sequelize.DataTypes);
 db.address = require("./address")(sequelize, Sequelize.DataTypes);
 db.role = require("./role")(sequelize, Sequelize.DataTypes);
 db.user = require("./user")(sequelize, Sequelize.DataTypes);
+db.product = require("./product")(sequelize, Sequelize.DataTypes);
+db.category = require("./category")(sequelize, Sequelize.DataTypes);
+db.company = require("./company")(sequelize, Sequelize.DataTypes);
+db.color = require("./color")(sequelize, Sequelize.DataTypes);
+db.product_item = require("./product_item")(sequelize, Sequelize.DataTypes);
+db.inventory = require("./inventory")(sequelize, Sequelize.DataTypes);
+db.rating = require("./rating")(sequelize, Sequelize.DataTypes);
+db.order_status_opt = require("./order_status_opt")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.order_item = require("./order_item")(sequelize, Sequelize.DataTypes);
+db.order = require("./order")(sequelize, Sequelize.DataTypes);
 
 // Associations
 // db.district.hasMany(db.address);

@@ -73,14 +73,14 @@ module.exports = {
           },
         },
         isShipping: {
-          type: Sequelize.CHAR,
+          type: Sequelize.BOOLEAN,
           allowNull: false,
-          defaultValue: "y",
+          defaultValue: false,
         },
         quantity: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          defaultValue: 0,
+          defaultValue: 1,
         },
         price: {
           type: Sequelize.INTEGER,
@@ -88,7 +88,7 @@ module.exports = {
         },
         discounted_price: {
           type: Sequelize.INTEGER,
-          allowNull: false,
+          allowNull: true,
         },
       },
       {

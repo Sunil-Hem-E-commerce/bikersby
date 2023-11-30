@@ -25,7 +25,7 @@ const rating = (sequelize, DataTypes) =>
         },
       },
       indv_rating: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT(5),
       },
       indv_comment: {
         type: DataTypes.TEXT,

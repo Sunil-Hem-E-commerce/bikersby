@@ -24,26 +24,22 @@ const product_items = (sequelize, DataTypes) =>
           key: "colorId",
         },
       },
-      companyId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "company",
-          key: "companyId",
-        },
-      },
-      catId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "category",
-          key: "catId",
-        },
-      },
       isfeatured: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      prod_img1: {
+        type: DataTypes.TEXT,
+      },
+      prod_img2: {
+        type: DataTypes.TEXT,
+      },
+      prod_img3: {
+        type: DataTypes.TEXT,
+      },
+      prod_img4: {
+        type: DataTypes.TEXT,
       },
     },
     {

@@ -12,6 +12,23 @@ module.exports = {
       productName: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        unique: true,
+      },
+      companyId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "companies",
+          key: "companyId",
+        },
+      },
+      catId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "categories",
+          key: "catId",
+        },
       },
       productDes: {
         type: Sequelize.STRING(255),

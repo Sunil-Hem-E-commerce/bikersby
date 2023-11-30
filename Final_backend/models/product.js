@@ -11,6 +11,23 @@ const product = (sequelize, DataTypes) =>
       productName: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: true,
+      },
+      companyId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "company",
+          key: "companyId",
+        },
+      },
+      catId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "category",
+          key: "catId",
+        },
       },
       productDes: {
         type: DataTypes.STRING(255),
@@ -21,7 +38,7 @@ const product = (sequelize, DataTypes) =>
         allowNull: false,
       },
       mileage: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(10),
         allowNull: false,
       },
     },

@@ -19,6 +19,10 @@ const order = (sequelize, DataTypes) =>
       order_status: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "order_status_opts",
+          key: "optionId",
+        },
       },
       sub_total: {
         type: DataTypes.INTEGER,
