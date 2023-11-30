@@ -5,6 +5,7 @@ import React, { useState } from "react";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [role, setRole] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,6 +64,22 @@ const LoginForm = () => {
             required
           />
         </div>
+        <div style={{ marginBottom: "20px" }}>
+          <p>Role:</p>
+          <label className={{ marginRight: " 10px" }}>
+            <input type="radio" name="role" value="individual" className={{}} />
+            Individual
+          </label>
+          <label>
+            <input type="radio" name="role" value="showroom" />
+            Showroom
+          </label>
+          <label>
+            <input type="radio" name="role" value="recondition" />
+            Recondition
+          </label>
+        </div>
+
         <button
           type="submit"
           style={{

@@ -48,8 +48,7 @@ const SubmitButton = styled.button`
 `;
 
 const SignUp = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -74,8 +73,8 @@ const SignUp = () => {
           <Label>Full Name:</Label>
           <Input
             type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             required
           />
         </FormGroup>
@@ -97,6 +96,21 @@ const SignUp = () => {
             required
           />
         </FormGroup>
+        <div style={{ marginBottom: "20px" }}>
+          <p>Role:</p>
+          <label className={{ marginRight: " 10px" }}>
+            <input type="radio" name="role" value="individual" className={{}} />
+            Individual
+          </label>
+          <label>
+            <input type="radio" name="role" value="showroom" />
+            Showroom
+          </label>
+          <label>
+            <input type="radio" name="role" value="recondition" />
+            Recondition
+          </label>
+        </div>
         <SubmitButton type="submit">Register</SubmitButton>
       </Form>
     </RegistrationFormContainer>
