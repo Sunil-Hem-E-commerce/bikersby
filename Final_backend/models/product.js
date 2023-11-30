@@ -22,7 +22,7 @@ const product = (sequelize, DataTypes) =>
         allowNull: false,
       },
       mileage: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(10),
         allowNull: false,
       },
     },
