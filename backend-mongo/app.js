@@ -9,6 +9,7 @@ const productRouter = require("./controller/products");
 const userRouter = require("./controller/login");
 const categoryRouter = require("./controller/categories");
 const { api } = require("./utils/config");
+const validateTokenHandler = require("./middleware/validateTokenHandler");
 
 //! Middleware
 app.use(morgan("tiny"));
@@ -23,6 +24,7 @@ mongoose
     console.log("Error connecting to MongoDB!");
   });
 
+app.use(validateTokenHandler);
 app.use(`${api}/products`, productRouter);
 app.use(`${api}/users`, userRouter);
 app.use(`${api}/category`, categoryRouter);

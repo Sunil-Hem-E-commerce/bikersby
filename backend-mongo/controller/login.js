@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
 });
 
 //! To check the current user who used the token
-router.get("/current", validateTokenHandler, (req, res) => {
+router.get("/current", (req, res) => {
   const currentUser = req.user;
   res.send({
     message: "Current user information",
