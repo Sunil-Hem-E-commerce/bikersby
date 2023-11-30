@@ -22,7 +22,6 @@ if (config.url) {
       },
     },
   });
-  console.log("here");
 } else {
   sequelize = new Sequelize(
     config.database,
