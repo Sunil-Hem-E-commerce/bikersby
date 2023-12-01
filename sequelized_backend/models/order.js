@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "user",
       });
+      Order.belongsTo(models.Order_status_opt, {
+        foreignKey: "status_id",
+        as: "order_status",
+      });
     }
   }
   Order.init(
