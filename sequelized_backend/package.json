@@ -8,7 +8,9 @@
     "start:local": "cross-env NODE_ENV=development_local node index.js",
     "start:remote": "cross-env NODE_ENV=development_remote node index.js",
     "dev:local": "cross-env NODE_ENV=development_local nodemon index.js",
-    "dev:remote": "cross-env NODE_ENV=development_remote nodemon index.js"
+    "dev:remote": "cross-env NODE_ENV=development_remote nodemon index.js",
+    "migrate:local": "cross-env NODE_ENV=development_local sequelize-cli db:migrate",
+    "migrate:remote": "cross-env NODE_ENV=development_remote sequelize-cli db:migrate"
   },
   "author": "Hemlal & Sunil",
   "license": "ISC",
