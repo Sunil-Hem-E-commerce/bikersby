@@ -5,11 +5,11 @@ POST http://localhost:3001/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "email" : "hemsir4@yahoo.com",
-    "fullName" : "Hemlal Dulal",
+    "user_email" : "hemsir4@yahoo.com",
+    "user_name" : "Hemlal Dulal",
     "password" : "root-user",
-    "phone": "98674",
-    "userStatus":"Y"
+    "user_phone": "98674",
+    "role": 1
 }
 
 ###
