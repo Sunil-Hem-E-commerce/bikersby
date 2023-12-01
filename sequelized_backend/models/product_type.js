@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "type_id",
         as: "inventories",
       });
+      Product_type.belongsTo(models.Color, {
+        foreignKey: "color_id",
+        as: "color",
+      });
     }
   }
   Product_type.init(
