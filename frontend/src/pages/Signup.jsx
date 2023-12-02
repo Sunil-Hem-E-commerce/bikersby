@@ -1,6 +1,7 @@
 // Import necessary libraries
 import React, { useState } from "react";
 import styled from "styled-components";
+import { postUser } from "../services/user";
 
 const RegistrationFormContainer = styled.div`
   max-width: 400px;
@@ -48,12 +49,23 @@ const SubmitButton = styled.button`
 `;
 
 const SignUp = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [register, setRegister] = useState({
+    user_email: "",
+    user_name: "",
+    password: "",
+    role_id: "",
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setRegister({ ...register, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await postUser(register);
+    console.log(response);
+    // if (response) {
+
+    // }
   };
 
   return (
@@ -73,8 +85,9 @@ const SignUp = () => {
           <Label>Full Name:</Label>
           <Input
             type="text"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            value={register.user_name}
+            name="user_name"
+            onChange={handleChange}
             required
           />
         </FormGroup>
@@ -82,8 +95,9 @@ const SignUp = () => {
           <Label>Email:</Label>
           <Input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={register.user_email}
+            name="user_email"
+            onChange={handleChange}
             required
           />
         </FormGroup>
@@ -91,23 +105,39 @@ const SignUp = () => {
           <Label>Password:</Label>
           <Input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={register.password}
+            name="password"
+            onChange={handleChange}
             required
           />
         </FormGroup>
         <div style={{ marginBottom: "20px" }}>
           <p>Role:</p>
           <label className={{ marginRight: " 10px" }}>
-            <input type="radio" name="role" value="individual" className={{}} />
+            <input
+              type="radio"
+              name="role_id"
+              value="1"
+              onChange={handleChange}
+            />
             Individual
           </label>
           <label>
-            <input type="radio" name="role" value="showroom" />
+            <input
+              type="radio"
+              name="role_id"
+              value="2"
+              onChange={handleChange}
+            />
             Showroom
           </label>
           <label>
-            <input type="radio" name="role" value="recondition" />
+            <input
+              type="radio"
+              name="role_id"
+              value="3"
+              onChange={handleChange}
+            />
             Recondition
           </label>
         </div>
