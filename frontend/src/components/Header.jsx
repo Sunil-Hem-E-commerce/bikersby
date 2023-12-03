@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
 
-const Hearder = () => {
+const Hearder = ({ user, setUser }) => {
   return (
     <>
       <MainHeader>
@@ -22,7 +22,7 @@ const Hearder = () => {
             BikersBy
           </h2>
         </NavLink>
-        <Nav />
+        <Nav user={user} setUser={setUser} />
       </MainHeader>
     </>
   );

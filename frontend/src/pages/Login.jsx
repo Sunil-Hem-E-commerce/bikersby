@@ -1,16 +1,29 @@
 // LoginForm.js
 
 import React, { useState } from "react";
+import { postUser } from "../services/login";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
-  const [sigin, setSignin] = useState({ email: "", password: "", role_id: "" });
+const LoginForm = ({ setUpdate }) => {
+  const navigate = useNavigate();
+  const [signin, setSignin] = useState({
+    email: "",
+    password: "",
+    role_id: "",
+  });
 
   const handleChange = (e) => {
-    setSignin({ ...sigin, [e.target.name]: e.target.value });
+    setSignin({ ...signin, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await postUser(signin);
+    if (response.status === 200) {
+      // localStorage.setItem("token", response.data.token);
+      navigate("/");
+      setUpdate(response.data.token);
+    }
   };
 
   return (
@@ -39,7 +52,7 @@ const LoginForm = () => {
           <input
             type="email"
             name="email"
-            value={sigin.email}
+            value={signin.email}
             onChange={handleChange}
             style={{
               padding: "10px",
@@ -56,7 +69,7 @@ const LoginForm = () => {
           <input
             type="password"
             name="password"
-            value={sigin.password}
+            value={signin.password}
             onChange={handleChange}
             style={{
               padding: "10px",

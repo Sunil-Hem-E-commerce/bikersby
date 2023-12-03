@@ -17,21 +17,21 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { getUser } from "./services/user";
 
 const App = () => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
+  const [update, setUpdate] = useState(null);
 
   //* create Login Funtion
-  const login = () => {
-    setUser(true);
-  };
-
-  //* create logout Funtion
-  const logout = () => {
-    setUser(false);
-  };
+  useEffect(() => {
+    if (update) {
+      setUser(true);
+    } else {
+      setUser(false);
+    }
+  }, [update]);
 
   const theme = {
     colors: {
@@ -61,8 +61,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <GlobalStyle />
-        <Header />
-        <Routes user={user} login={login} logout={logout}>
+        <Header user={user} setUser={setUser} />
+        <Routes user={user}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
@@ -71,14 +71,13 @@ const App = () => {
           <Route
             path="/cart"
             element={
-              // <Cart />
-              <ProtectedRoute>
+              <ProtectedRoute user={user}>
                 <Cart user={user} />
               </ProtectedRoute>
             }
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUpdate={setUpdate} />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
@@ -94,6 +93,6 @@ export const ProtectedRoute = ({ user, children }) => {
   if (user) {
     return children;
   } else {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 };
