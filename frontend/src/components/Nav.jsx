@@ -8,7 +8,7 @@ import { Button } from "../styles/Button";
 
 // import { useAuth0 } from "@auth0/auth0-react";
 
-const Nav = () => {
+const Nav = ({ user, login, logout }) => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
   // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
@@ -213,11 +213,21 @@ const Nav = () => {
               <Button>SignUp</Button>
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/login">
-              <Button>Login</Button>
-            </NavLink>
-          </li>
+
+          {user ? (
+            <li>
+              <NavLink to="/logout">
+                <Button style={{ backgroundColor: "red" }}>Logout</Button>
+              </NavLink>
+            </li>
+          ) : (
+            <li>
+              <NavLink to="/login">
+                <Button>Login</Button>
+              </NavLink>
+            </li>
+          )}
+
           {/* {isAuthenticated && <p>{user.name}</p>}
 
           {isAuthenticated ? (
