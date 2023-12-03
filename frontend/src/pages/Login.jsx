@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const [role, setRole] = useState("");
+  const [sigin, setSignin] = useState({ email: "", password: "", role_id: "" });
+
+  const handleChange = (e) => {
+    setSignin({ ...sigin, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,8 +38,9 @@ const LoginForm = () => {
           <p>Email:</p>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={sigin.email}
+            onChange={handleChange}
             style={{
               padding: "10px",
               fontSize: "16px",
@@ -52,8 +55,9 @@ const LoginForm = () => {
           <p>Password:</p>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={sigin.password}
+            onChange={handleChange}
             style={{
               padding: "10px",
               fontSize: "16px",
@@ -67,15 +71,30 @@ const LoginForm = () => {
         <div style={{ marginBottom: "20px" }}>
           <p>Role:</p>
           <label className={{ marginRight: " 10px" }}>
-            <input type="radio" name="role" value="individual" className={{}} />
+            <input
+              type="radio"
+              name="role_id"
+              value="1"
+              onChange={handleChange}
+            />
             Individual
           </label>
           <label>
-            <input type="radio" name="role" value="showroom" />
+            <input
+              type="radio"
+              name="role_id"
+              value="2"
+              onChange={handleChange}
+            />
             Showroom
           </label>
           <label>
-            <input type="radio" name="role" value="recondition" />
+            <input
+              type="radio"
+              name="role_id"
+              value="3"
+              onChange={handleChange}
+            />
             Recondition
           </label>
         </div>

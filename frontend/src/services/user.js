@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl = "/api/users";
-const getUsers = async ({ user_email, user_name, password, role_id }) => {
+const getUsers = async ({ email, username, password, role_id }) => {
   const response = await axios.get(baseUrl);
   const user = response.data;
   console.log("checking user", user);

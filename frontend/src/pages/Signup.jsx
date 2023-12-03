@@ -50,8 +50,8 @@ const SubmitButton = styled.button`
 
 const SignUp = () => {
   const [register, setRegister] = useState({
-    user_email: "",
-    user_name: "",
+    email: "",
+    username: "",
     password: "",
     role_id: "",
   });
@@ -85,8 +85,8 @@ const SignUp = () => {
           <Label>Full Name:</Label>
           <Input
             type="text"
-            value={register.user_name}
-            name="user_name"
+            value={register.username}
+            name="username"
             onChange={handleChange}
             required
           />
@@ -95,8 +95,8 @@ const SignUp = () => {
           <Label>Email:</Label>
           <Input
             type="email"
-            value={register.user_email}
-            name="user_email"
+            value={register.email}
+            name="email"
             onChange={handleChange}
             required
           />
