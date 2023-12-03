@@ -4,18 +4,18 @@ const bcrypt = require("bcrypt");
 const User = require("../models").User;
 
 module.exports = {
+  // tested
   async loginUser(req, res) {
-    const { user_email, password } = req.body;
-    console.log("here");
-    const user = await User.findOne({ where: { user_email } });
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { user_email: email } });
 
     if (user === null) {
+      res.status(400).send("User not found!!");
       console.log(" UserNot found!");
     } else {
       console.log("Found", user.dataValues);
     }
 
-    console.log("console here::", user.dataValues);
     const correctPwd = user
       ? await bcrypt.compare(password, user.dataValues.pwd_hash)
       : false;
@@ -37,8 +37,8 @@ module.exports = {
 
     res.status(200).send({
       token,
-      user_name: user.dataValues.user_name,
-      user_email: user.dataValues.user_email,
+      username: user.dataValues.user_name,
+      email: user.dataValues.user_email,
       id: user.dataValues.id,
     });
   },

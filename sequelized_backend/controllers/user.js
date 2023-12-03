@@ -23,27 +23,27 @@ module.exports = {
   },
 
   // create user
+  // completed
   async addUser(req, res) {
-    const { user_email, user_phone, user_name, password, role_id } = req.body;
+    const { email, username, password, role_id } = req.body;
 
     if (password.length < 8) {
       return res.status(400).send("Password cannot be less then 8 characters");
     }
 
-    const userInDb = await User.findOne({ where: { user_email } });
+    const userInDb = await User.findOne({ where: { user_email: email } });
     if (!userInDb) {
-      const pwd_hash = await bcrypt.hash(password, 13);
+      const pwd_hash = await bcrypt.hash(password, 10);
 
       const addUser = await User.create({
-        user_email,
-        user_phone,
-        user_name,
+        user_email: email,
+        user_name: username,
         pwd_hash,
         role_id,
       });
       res.status(200).send(addUser);
     } else {
-      res.status(400).send("User already exists");
+      res.status(412).send("User already exists");
     }
   },
 };
