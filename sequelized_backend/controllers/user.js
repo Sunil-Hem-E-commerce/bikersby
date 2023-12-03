@@ -30,15 +30,20 @@ module.exports = {
       return res.status(400).send("Password cannot be less then 8 characters");
     }
 
-    const pwd_hash = await bcrypt.hash(password, 13);
+    const userInDb = await User.findOne({ where: { user_email } });
+    if (!userInDb) {
+      const pwd_hash = await bcrypt.hash(password, 13);
 
-    const addUser = await User.create({
-      user_email,
-      user_phone,
-      user_name,
-      pwd_hash,
-      role_id,
-    });
-    res.status(200).send(addUser);
+      const addUser = await User.create({
+        user_email,
+        user_phone,
+        user_name,
+        pwd_hash,
+        role_id,
+      });
+      res.status(200).send(addUser);
+    } else {
+      res.status(400).send("User already exists");
+    }
   },
 };
