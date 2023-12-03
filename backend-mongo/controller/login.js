@@ -16,42 +16,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res, next) => {
-  try {
-    const { email, username, password } = req.body;
-    if (!username || !email || !password) {
-      return res.status(400).send({ message: "All fields are required" });
-    }
-
-    const userAvailable = await User.findOne({ email });
-    if (userAvailable) {
-      return res.status(400).send({ message: "User already registered" });
-    }
-
-    //! Hash Password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await new User({ username, email, password: hashedPassword });
-    await user.save();
-    res.send(user);
-  } catch (error) {
-    return res
-      .status(500)
-      .send({ message: "Error saving user", error: error, success: false });
-  }
-});
-
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
-    if (!username || !password) {
-      return res.status(400).send({ message: "Provide username and password" });
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).send({ message: "Provide email and password" });
     }
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).send({ message: "Invalid username or password" });
+      return res.status(401).send({ message: "Invalid email or password" });
     }
 
     //! Compare password with hashed password
@@ -63,7 +38,7 @@ router.post("/login", async (req, res) => {
 
     //! Generate a JWT token
     const token = jwt.sign(
-      { userId: user.id, username: user.username },
+      { userId: user.id, uername: user.username },
       secret,
       { expiresIn: 5 * 60 },
     );
