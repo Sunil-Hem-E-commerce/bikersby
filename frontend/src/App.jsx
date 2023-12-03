@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -12,8 +17,22 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { useState } from "react";
+// import { getUser } from "./services/user";
 
 const App = () => {
+  const [user, setUser] = useState(true);
+
+  //* create Login Funtion
+  const login = () => {
+    setUser(true);
+  };
+
+  //* create logout Funtion
+  const logout = () => {
+    setUser(false);
+  };
+
   const theme = {
     colors: {
       heading: "rgb(24 24 29)",
@@ -43,13 +62,21 @@ const App = () => {
       <Router>
         <GlobalStyle />
         <Header />
-        <Routes>
+        <Routes user={user} login={login} logout={logout}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
           <Route path="/singleProduct/:id" element={<SingleProduct />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/cart"
+            element={
+              // <Cart />
+              <ProtectedRoute>
+                <Cart user={user} />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<ErrorPage />} />
@@ -61,3 +88,12 @@ const App = () => {
 };
 
 export default App;
+
+//* Create Protected Route Function
+export const ProtectedRoute = ({ user, children }) => {
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to="/" />;
+  }
+};
