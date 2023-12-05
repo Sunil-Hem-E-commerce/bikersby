@@ -22,7 +22,9 @@ const LoginForm = ({ setUpdate }) => {
     if (response.status === 200) {
       // localStorage.setItem("token", response.data.token);
       navigate("/");
-      setUpdate(response.data.token);
+      const token = response.data.token;
+
+      setUpdate(token);
     }
   };
 
