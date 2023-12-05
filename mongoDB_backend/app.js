@@ -6,8 +6,11 @@ const cors = require("cors");
 const logger = require("./utils/logger");
 const middleware = require("./utils/middleware");
 const usersRouter = require("./controllers/users");
-// const blogsRouter = require("./controllers/blogs");
+const productsRouter = require("./controllers/products");
 const loginRouter = require("./controllers/login");
+const productAdminRouter = require("./controllers/product_admin");
+
+require("./script");
 
 console.log("Connecting to ", config.mongoUrl);
 
@@ -25,7 +28,8 @@ app.use(express.json());
 
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
-// app.use("/api/blogs", blogsRouter);
+app.use("/api/products", productsRouter);
+app.use("/admin/products", productAdminRouter);
 
 if (process.env.NODE_ENV === "test") {
   const testingRouter = require("./controllers/testing");

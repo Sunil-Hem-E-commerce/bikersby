@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dui Pangre Admin</title>
+  </head>
+  <body>
+    <h1>Admin Panel</h1>
+    <h2>Product Entry</h2>
+    <form id="productForm" action="/admin/products" method="post">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" /><br />
+      <label for="company">Company:</label><br />
+      <select id="company-select">
+        <option value="">--Please choose an option--</option>
+        <option value="Aprilia">Aprilia</option>
+        <option value="Bajaj">Bajaj</option>
+        <option value="Benelli">Benelli</option>
+        <option value="Hero">Hero</option>
+        <option value="Honda">Honda</option>
+        <option value="KTM">KTM</option>
+        <option value="Royal Enfield">Royal Enfield</option>
+        <option value="TVS">TVS</option>
+        <option value="Yamaha">Yamaha</option>
+      </select>
+      <br />
+      <label for="price">Price:</label><br />
+      <input type="number" id="price" name="price" step="0.01" /><br />
+      <label for="category">Category:</label><br />
+      <label for="category">Sport</label
+      ><input type="radio" id="category" name="category" value="sport" />
+      <label for="">non-sport</label
+      ><input type="radio" id="category" name="category" value="non-sport" />
+      <br />
+      <label for="image">Image:</label><br />
+      <input type="file" id="image" name="image" accept="image/*" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+    <script>
+      document
+        .getElementById("productForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var name = document.getElementById("name").value;
+          var company = document.getElementById("company").value;
+          var price = document.getElementById("price").value;
+          var category = document.getElementById("category").value;
+          var image = document.getElementById("image").value;
+
+          fetch("http://localhost:3001/admin/products", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: name,
+              company: company,
+              price: price,
+              category: category,
+              image: image,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>
