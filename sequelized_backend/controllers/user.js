@@ -1,20 +1,31 @@
 const User = require("../models").User;
 const Address = require("../models").Address;
 const Role = require("../models").Role;
+const District = require("../models").District;
 const bcrypt = require("bcrypt");
 
 module.exports = {
   // get all users
   async list(req, res) {
     const userList = await User.findAll({
+      attributes: { exclude: ["address_id", "role_id", "pwd_hash"] },
       include: [
-        {
-          model: Address,
-          as: "address",
-        },
         {
           model: Role,
           as: "user_role",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: Address,
+          as: "address",
+          attributes: { exclude: ["id"] },
+          include: [
+            {
+              model: District,
+              as: "district",
+              attributes: { exclude: ["id"] },
+            },
+          ],
         },
       ],
       order: [["createdAt", "DESC"]],
