@@ -34,6 +34,22 @@ module.exports = {
       ],
     });
     res.status(200).send(list);
+
+    // const flattenedList = list.map((item) => {
+    //   const { category, company, types, ...productData } = item.get({
+    //     plain: true,
+    //   });
+    //   const { color, ...typeData } = types;
+    //   return {
+    //     ...productData,
+    //     categoryName: category.name,
+    //     companyName: company.name,
+    //     typeName: typeData.name,
+    //     colorName: color.name,
+    //   };
+    // });
+
+    // res.status(200).send(flattenedList);
   },
 
   async listV2(req, res) {
