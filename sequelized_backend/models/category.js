@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Category.init(
     {
-      product_category: DataTypes.STRING,
+      product_category: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
     },
     {
       sequelize,

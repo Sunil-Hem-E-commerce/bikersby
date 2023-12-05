@@ -11,6 +11,7 @@ module.exports = {
       },
       district_name: {
         type: Sequelize.STRING,
+        unique: true,
       },
     });
   },

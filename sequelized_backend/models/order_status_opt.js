@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Order_status_opt.init(
     {
-      status_opt: DataTypes.STRING,
+      status_opt: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
     },
     {
       sequelize,

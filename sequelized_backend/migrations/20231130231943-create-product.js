@@ -11,6 +11,7 @@ module.exports = {
       },
       product_name: {
         type: Sequelize.STRING,
+        unique: true,
       },
       product_des: {
         type: Sequelize.STRING,

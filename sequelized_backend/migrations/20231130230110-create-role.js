@@ -11,6 +11,7 @@ module.exports = {
       },
       user_role: {
         type: Sequelize.STRING,
+        unique: true,
       },
     });
   },

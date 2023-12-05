@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Rating",
+      indexes: [
+        {
+          unique: true,
+          fields: ["user_id", "product_id"],
+        },
+      ],
     }
   );
   return Rating;

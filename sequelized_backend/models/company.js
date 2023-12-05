@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Company.init(
     {
-      company_name: DataTypes.STRING,
+      company_name: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       company_logo: DataTypes.STRING,
     },
     {

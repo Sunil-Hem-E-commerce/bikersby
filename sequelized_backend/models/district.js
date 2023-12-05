@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   District.init(
     {
-      district_name: DataTypes.STRING,
+      district_name: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
     },
     {
       sequelize,

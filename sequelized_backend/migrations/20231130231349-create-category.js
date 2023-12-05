@@ -11,6 +11,7 @@ module.exports = {
       },
       product_category: {
         type: Sequelize.STRING,
+        unique: true,
       },
     });
   },

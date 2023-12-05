@@ -20,6 +20,12 @@ module.exports = {
       },
       district_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Districts",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
     });
   },

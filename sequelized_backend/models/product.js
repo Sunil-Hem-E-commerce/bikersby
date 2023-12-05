@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product.init(
     {
-      product_name: DataTypes.STRING,
+      product_name: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       product_des: DataTypes.STRING,
       overall_rating: DataTypes.INTEGER,
       mileage: DataTypes.STRING,

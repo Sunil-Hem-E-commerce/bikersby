@@ -11,6 +11,7 @@ module.exports = {
       },
       status_opt: {
         type: Sequelize.STRING,
+        unique: true,
       },
     });
   },

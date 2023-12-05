@@ -11,6 +11,7 @@ module.exports = {
       },
       product_color: {
         type: Sequelize.STRING,
+        unique: true,
       },
       color_hex: {
         type: Sequelize.STRING,
