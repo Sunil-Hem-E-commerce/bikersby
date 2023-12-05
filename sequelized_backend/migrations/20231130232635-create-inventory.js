@@ -11,9 +11,21 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       type_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Product_types",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       is_shipping: {
         type: Sequelize.BOOLEAN,

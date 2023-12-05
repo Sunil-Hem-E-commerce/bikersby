@@ -11,9 +11,21 @@ module.exports = {
       },
       product_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Products",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       color_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Colors",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       is_featured: {
         type: Sequelize.BOOLEAN,

@@ -24,9 +24,21 @@ module.exports = {
       },
       category_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Categories",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       company_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Companies",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
     });
   },

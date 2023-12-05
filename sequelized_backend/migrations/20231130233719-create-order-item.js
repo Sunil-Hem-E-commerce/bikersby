@@ -11,9 +11,21 @@ module.exports = {
       },
       order_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Orders",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       inventory_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Inventories",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       subtotal: {
         type: Sequelize.INTEGER,
