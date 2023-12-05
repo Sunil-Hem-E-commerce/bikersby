@@ -35,4 +35,9 @@ module.exports = {
     });
     res.status(200).send(list);
   },
+
+  async listV2(req, res) {
+    const list = await Product_type.findAll({});
+    res.status(200).send(list);
+  },
 };

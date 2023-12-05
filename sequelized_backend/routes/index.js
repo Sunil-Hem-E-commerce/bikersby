@@ -15,4 +15,5 @@ router.post("/api/users/", userController.addUser);
 router.post("/api/login/", loginController.loginUser);
 
 router.get("/api/products/", productController.list);
+router.get("/api/products/v2", productController.listV2);
 module.exports = router;

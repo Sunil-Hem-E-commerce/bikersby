@@ -52,3 +52,15 @@ NOTE: replace `local` with `remote` if you are using remote database.
 | `npm run migrate-undo:remote` `{migration-file-name}` | Undo the migration in remote database upto the given migration file name |
 | `npm run seed:remote`                                 | Create the dummy data in remote database                                 |
 | `npm run seed-undo:remote`                            | Undo the dummy data from remote database                                 |
+
+## Routes:
+
+### Creating user in database:
+
+> Method: POST  
+> Route: /api/users/  
+> Post json:
+>
+> > {
+> >
+> > }

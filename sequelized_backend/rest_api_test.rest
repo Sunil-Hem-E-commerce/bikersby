@@ -24,3 +24,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3001/api/products HTTP/1.1
+
+###
+GET http://localhost:3001/api/products/v2 HTTP/1.1
