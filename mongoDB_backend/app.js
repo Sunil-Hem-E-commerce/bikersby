@@ -30,6 +30,11 @@ app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/products", productsRouter);
 app.use("/admin/products", productAdminRouter);
+// code to serve the public static files;
+
+app.use("/admin", express.static("public"));
+app.use(express.static(__dirname + "/public"));
+app.use("/uploads", express.static("uploads"));
 
 if (process.env.NODE_ENV === "test") {
   const testingRouter = require("./controllers/testing");
