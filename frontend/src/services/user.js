@@ -4,7 +4,6 @@ const baseUrl = "/api/users";
 const getUsers = async ({ email, username, password, role_id }) => {
   const response = await axios.get(baseUrl);
   const user = response.data;
-  console.log("checking user", user);
   const filtereduser = user.filter((user) => user.username === username);
   return filtereduser[0];
 };

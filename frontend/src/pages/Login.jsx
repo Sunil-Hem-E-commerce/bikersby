@@ -19,10 +19,11 @@ const LoginForm = ({ setUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await postUser(signin);
+    console.log(response);
     if (response.status === 200) {
       // localStorage.setItem("token", response.data.token);
       navigate("/");
-      const token = response.data.token;
+      const token = response.data.accessToken;
 
       setUpdate(token);
     }
