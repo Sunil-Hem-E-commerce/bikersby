@@ -9,6 +9,7 @@ const usersRouter = require("./controllers/users");
 const productsRouter = require("./controllers/products");
 const loginRouter = require("./controllers/login");
 const productAdminRouter = require("./controllers/product_admin");
+const file = require("express-fileupload");
 
 require("./script");
 
@@ -25,21 +26,21 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(file({ useTempFiles: true }));
 
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/products", productsRouter);
 app.use("/admin/products", productAdminRouter);
+// app.use("/", testingRouter);
 // code to serve the public static files;
-
 app.use("/admin", express.static("public"));
-app.use(express.static(__dirname + "/public"));
-app.use("/uploads", express.static("uploads"));
 
-if (process.env.NODE_ENV === "test") {
-  const testingRouter = require("./controllers/testing");
-  app.use("/api/testing", testingRouter);
-}
+// if (process.env.NODE_ENV === "test") {
+const testingRouter = require("./controllers/testing");
+app.use("/api/testing", testingRouter);
+// }
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

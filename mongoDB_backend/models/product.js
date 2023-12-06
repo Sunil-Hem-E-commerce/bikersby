@@ -11,23 +11,18 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number, min: 0 },
   rating: { type: Number, min: 0 },
   star: { type: Number, min: 0, max: 5 },
-  colors: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Color",
-    },
-  ],
-  images: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Image",
-    },
-  ],
+  img: { type: String, minLength: 5 },
+  // colors: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Color",
+  //   },
+  // ],
 });
 
 productSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
+    // returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   },

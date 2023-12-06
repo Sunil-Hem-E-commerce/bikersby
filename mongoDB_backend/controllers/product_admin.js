@@ -2,33 +2,54 @@ const { tokenExtractor, userExtractor } = require("../utils/middleware");
 const productAdminRouter = require("express").Router();
 const Product = require("../models/product");
 const Color = require("../models/color");
+const cloudinary = require("../script");
 
-productAdminRouter.post(
-  "/",
-  tokenExtractor,
-  userExtractor,
-  async (req, res, next) => {
-    console.log("here", req.body);
-    try {
-      const user = req.user;
-      const { name, company, price, description, image, colors } = req.body;
-      console.log("here", image);
-      const product = new Product({
-        name,
-        company,
-        price,
-        description,
-        image,
-        colors,
-      });
+productAdminRouter.post("/", async (req, res, next) => {
+  const sentFile = req.files.img;
+  cloudinary.uploader.upload(sentFile.tempFilePath, async (err, result) => {
+    if (err) {
+      next(err);
+    } else {
+      try {
+        const img = result.url;
+        const {
+          name,
+          company,
+          price,
+          discountedPrice,
+          description,
+          category,
+          featured,
+          stock,
+          rating,
+          star,
+          colors,
+        } = req.body;
 
-      const savedProduct = await product.save();
+        const product = new Product({
+          name,
+          company,
+          price,
+          discountedPrice,
+          description,
+          category,
+          featured,
+          stock,
+          rating,
+          star,
+          colors,
+          img,
+        });
 
-      res.status(201).json(savedProduct);
-    } catch (error) {
-      next(error);
+        const savedProduct = await product.save();
+
+        res.status(201).json(savedProduct);
+      } catch (error) {
+        console.log("heeror here");
+        next(error);
+      }
     }
-  }
-);
+  });
+});
 
 module.exports = productAdminRouter;

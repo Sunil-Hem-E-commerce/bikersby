@@ -4,7 +4,7 @@ const Color = require("../models/color");
 
 productRouter.get("/", async (req, res, next) => {
   try {
-    const products = await Product.find({}).populate("colors", {});
+    const products = await Product.find({});
     res.json(products);
   } catch (error) {
     next(error);

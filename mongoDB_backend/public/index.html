@@ -5,11 +5,11 @@
 <body>
     <h1>Admin Panel</h1>
     <h2>Product Entry</h2>
-    <form id="productForm" action="/admin/products" method="post" enctype="multipart/form-data">
+    <form id="productForm" action="/admin/products" method="POST" enctype="multipart/form-data" name="productForm">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" /><br />
       <label for="company">Company:</label>
-      <select id="company-select">
+      <select id="company-select" name="company">
         <option value="">--Please choose an option--</option>
         <option value="Aprilia">Aprilia</option>
         <option value="Bajaj">Bajaj</option>
@@ -39,7 +39,7 @@
     
     <hr>
 
-    <form method="POST" action="/admin/proudcts" enctype="multipart/form-data">
+    <!-- <form method="POST" action="/admin/proudcts" enctype="multipart/form-data">
         <div>
             <label>Upload Product Picture</label>
             <input type="file" name="profile-file" required/>
@@ -59,6 +59,6 @@
         <div>
             <input type="submit" value="Upload" />
         </div>
-    </form>
+    </form> -->
 </body>
 </html>
