@@ -8,11 +8,14 @@ import { Button } from "../styles/Button";
 
 // import { useAuth0 } from "@auth0/auth0-react";
 
-const Nav = ({ user, login, logout }) => {
+const Nav = ({ user, setUser }) => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
   // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(false);
+  };
   const Nav = styled.nav`
     .navbar-lists {
       display: flex;
@@ -216,8 +219,13 @@ const Nav = ({ user, login, logout }) => {
 
           {user ? (
             <li>
-              <NavLink to="/logout">
-                <Button style={{ backgroundColor: "red" }}>Logout</Button>
+              <NavLink to="/">
+                <Button
+                  style={{ backgroundColor: "red" }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
               </NavLink>
             </li>
           ) : (

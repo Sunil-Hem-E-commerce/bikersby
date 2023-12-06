@@ -1,14 +1,13 @@
 import axios from "axios";
 
-const baseUrl = "/api/users";
+const baseUrl = "/api/login";
 
-const postUser = async (sigin) => {
-  const response = await axios.post(baseUrl, sigin, {
+const postUser = async (signin) => {
+  const response = await axios.post(baseUrl, signin, {
     headers: {
       "Content-Type": "application/json",
     },
   });
-  console.log("Checking response", response);
   return response;
 };
 

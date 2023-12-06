@@ -6,14 +6,17 @@ const { url } = require("./utils/config");
 const errorHandler = require("./middleware/errorHandler");
 const mongoose = require("mongoose");
 const productRouter = require("./controller/products");
-const userRouter = require("./controller/login");
+const singnUp = require("./controller/users");
+const loginRouter = require("./controller/login");
 const categoryRouter = require("./controller/categories");
 const { api } = require("./utils/config");
-const validateTokenHandler = require("./middleware/validateTokenHandler");
+const cookieParser = require("cookie-parser");
+// const validateTokenHandler = require("./middleware/validateTokenHandler");
 
 //! Middleware
 app.use(morgan("tiny"));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose
   .connect(url)
@@ -24,9 +27,11 @@ mongoose
     console.log("Error connecting to MongoDB!");
   });
 
-app.use(validateTokenHandler);
+// app.use(validateTokenHandler);
 app.use(`${api}/products`, productRouter);
-app.use(`${api}/users`, userRouter);
+
+app.use(`${api}/`, singnUp);
+app.use(`${api}/`, loginRouter);
 app.use(`${api}/category`, categoryRouter);
 app.use(errorHandler);
 
