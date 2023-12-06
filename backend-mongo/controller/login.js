@@ -43,6 +43,15 @@ router.post("/login", async (req, res) => {
       { expiresIn: 5 * 60 },
     );
 
+    //* To set token in Cookie
+    res.cookie("jwt", token, {
+      expires: new Date(Date.now() + 30000),
+      httpOnly: true,
+      // secure:true
+    });
+
+    console.log(`This is cookie: ${req.cookies.jwt}`);
+
     //! Return the token along with any other user data
     res.send({
       token,

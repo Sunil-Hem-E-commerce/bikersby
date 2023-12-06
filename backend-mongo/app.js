@@ -10,11 +10,13 @@ const singnUp = require("./controller/users");
 const loginRouter = require("./controller/login");
 const categoryRouter = require("./controller/categories");
 const { api } = require("./utils/config");
+const cookieParser = require("cookie-parser");
 // const validateTokenHandler = require("./middleware/validateTokenHandler");
 
 //! Middleware
 app.use(morgan("tiny"));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose
   .connect(url)
