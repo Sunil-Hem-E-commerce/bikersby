@@ -5,6 +5,9 @@ const bcrypt = require("bcrypt");
 const validateTokenHandler = require("../middleware/validateTokenHandler");
 
 const secret = process.env.ACCESS_TOKEN_SECRET;
+const refreshSecret = process.env.REFRESH_TOKEN_SECRET;
+const accessTokenExpiry = "5m";
+const refreshTokenExpiry = "7d";
 
 router.get("/", async (req, res) => {
   try {
@@ -16,30 +19,29 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res, next) => {
-  try {
-    const { email, username, password } = req.body;
-    if (!username || !email || !password) {
-      return res.status(400).send({ message: "All fields are required" });
-    }
+// router.post("/register", async (req, res, next) => {
+//   try {
+//     const { email, username, password } = req.body;
+//     if (!username || !email || !password) {
+//       return res.status(400).send({ message: "All fields are required" });
+//     }
 
-    const userAvailable = await User.findOne({ email });
-    if (userAvailable) {
-      return res.status(400).send({ message: "User already registered" });
-    }
+//     const userAvailable = await User.findOne({ email });
+//     if (userAvailable) {
+//       return res.status(400).send({ message: "User already registered" });
+//     }
 
-    //! Hash Password
-    const hashedPassword = await bcrypt.hash(password, 10);
+//     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await new User({ username, email, password: hashedPassword });
-    await user.save();
-    res.send(user);
-  } catch (error) {
-    return res
-      .status(500)
-      .send({ message: "Error saving user", error: error, success: false });
-  }
-});
+//     const user = await new User({ username, email, password: hashedPassword });
+//     await user.save();
+//     res.send(user);
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .send({ message: "Error saving user", error: error, success: false });
+//   }
+// });
 
 router.post("/login", async (req, res) => {
   try {
@@ -54,33 +56,41 @@ router.post("/login", async (req, res) => {
       return res.status(401).send({ message: "Invalid username or password" });
     }
 
-    //! Compare password with hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Wrong credentials !" });
     }
 
-    //! Generate a JWT token
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       { userId: user.id, username: user.username },
       secret,
-      { expiresIn: 5 * 60 },
+      { expiresIn: accessTokenExpiry },
     );
 
-    //! Return the token along with any other user data
+    const refreshToken = jwt.sign(
+      { userId: user.id, username: user.username },
+      refreshSecret,
+      { expiresIn: refreshTokenExpiry },
+    );
+
+    user.refreshToken = refreshToken;
+    await user.save();
+
     res.send({
-      token,
+      accessToken,
+      refreshToken,
       user: { id: user.id, username: user.username, email: user.email },
     });
   } catch (error) {
-    res
-      .status(500)
-      .send({ message: "Error logging in!", error: error, success: false });
+    res.status(500).send({
+      message: "Error logging in!",
+      error: error,
+      success: false,
+    });
   }
 });
 
-//! To check the current user who used the token
 router.get("/current", validateTokenHandler, (req, res) => {
   const currentUser = req.user;
   res.send({
