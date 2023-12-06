@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <title>Product create Form</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <h2>Product Entry</h2>
+    <form id="productForm" action="/admin/products" method="POST" enctype="multipart/form-data" name="productForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" /><br />
+      <label for="company">Company:</label>
+      <select id="company-select" name="company">
+        <option value="">--Please choose an option--</option>
+        <option value="Aprilia">Aprilia</option>
+        <option value="Bajaj">Bajaj</option>
+        <option value="Benelli">Benelli</option>
+        <option value="Hero">Hero</option>
+        <option value="Honda">Honda</option>
+        <option value="KTM">KTM</option>
+        <option value="Royal Enfield">Royal Enfield</option>
+        <option value="TVS">TVS</option>
+        <option value="Yamaha">Yamaha</option>
+      </select>
+      <br />
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" step="0.01" /><br />
+      <label for="category">Category: </label>
+      <input type="radio" id="category" name="category" value="sport" />
+      <label for="category">Sport</label
+      >
+      <input type="radio" id="category" name="category" value="non-sport" />
+      <label for="">non-sport</label
+      >
+      <br />
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image" accept="image/*" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+    
+    <hr>
+
+    <!-- <form method="POST" action="/admin/proudcts" enctype="multipart/form-data">
+        <div>
+            <label>Upload Product Picture</label>
+            <input type="file" name="profile-file" required/>
+        </div>
+        <div>
+            <input type="submit" value="Upload" />
+        </div>
+    </form>
+
+    <hr>
+
+    <form method="POST" action="/profile-upload-multiple" enctype="multipart/form-data">
+        <div>
+            <label>Upload multiple profile picture</label>
+            <input type="file" name="profile-files" required multiple  />
+        </div>
+        <div>
+            <input type="submit" value="Upload" />
+        </div>
+    </form> -->
+</body>
+</html>
