@@ -6,8 +6,8 @@ const validateTokenHandler = require("../middleware/validateTokenHandler");
 
 const secret = process.env.ACCESS_TOKEN_SECRET;
 const refreshSecret = process.env.REFRESH_TOKEN_SECRET;
-const accessTokenExpiry = "5m";
-const refreshTokenExpiry = "7d";
+// const accessTokenExpiry = "5m";
+// const refreshTokenExpiry = "7d";
 
 router.get("/", async (req, res) => {
   try {
@@ -45,15 +45,15 @@ router.get("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).send({ message: "Provide email and password" });
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).send({ message: "Provide username and password" });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(401).send({ message: "Invalid email or password" });
+      return res.status(401).send({ message: "Invalid username or password" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -65,31 +65,13 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign(
       { userId: user.id, username: user.username },
       secret,
-      { expiresIn: accessTokenExpiry },
+      { expiresIn: "1hr" },
     );
-
-    //* To set token in Cookie
-    res.cookie("jwt", token, {
-      expires: new Date(Date.now() + 30000),
-      httpOnly: true,
-      // secure:true
-    });
-
-    console.log(`This is cookie: ${req.cookies.jwt}`);
-
-    //* To set token in Cookie
-    res.cookie("jwt", token, {
-      expires: new Date(Date.now() + 30000),
-      httpOnly: true,
-      // secure:true
-    });
-
-    console.log(`This is cookie: ${req.cookies.jwt}`);
 
     const refreshToken = jwt.sign(
       { userId: user.id, username: user.username },
       refreshSecret,
-      { expiresIn: refreshTokenExpiry },
+      { expiresIn: "7d" },
     );
 
     user.refreshToken = refreshToken;
