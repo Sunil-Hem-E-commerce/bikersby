@@ -2,6 +2,7 @@ const { tokenExtractor, userExtractor } = require("../utils/middleware");
 const productAdminRouter = require("express").Router();
 const Product = require("../models/product");
 const Color = require("../models/color");
+const Image = require("../models/image");
 const cloudinary = require("../script");
 
 productAdminRouter.post("/", async (req, res, next) => {
@@ -33,10 +34,11 @@ productAdminRouter.post("/", async (req, res, next) => {
     });
 
     const savedProduct = await product.save();
+    console.log("Saved Prouctd: ", savedProduct);
 
     const color = new Color({ hex: req.body.hex, product: savedProduct._id });
     await color.save();
-
+    console.log("saved Color", color);
     //sending image to cloudinary
     const sentFile = req.files.image;
     cloudinary.uploader.upload(sentFile.tempFilePath, async (err, result) => {
@@ -45,11 +47,9 @@ productAdminRouter.post("/", async (req, res, next) => {
       } else {
         try {
           const img = result.url;
-          const image = new Image({ url: img, product: savedProduct._id });
+          const image = new Image({ url: img, product: savedProduct.id });
           await image.save();
-          res
-            .status(201)
-            .send("Product created successfully with image sucessufully");
+          res.status(201).send("Product created with image sucessufully");
         } catch (error) {
           next(error);
         }
