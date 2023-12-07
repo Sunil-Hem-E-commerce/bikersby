@@ -34,10 +34,15 @@ productAdminRouter.post("/", async (req, res, next) => {
     });
 
     const savedProduct = await product.save();
+
     console.log("Saved Prouctd: ", savedProduct);
 
     const color = new Color({ hex: req.body.hex, product: savedProduct._id });
     await color.save();
+
+    savedProduct.colors = savedProduct.colors.concat(color._id);
+    await savedProduct.save();
+
     console.log("saved Color", color);
     //sending image to cloudinary
     const sentFile = req.files.image;
@@ -49,6 +54,8 @@ productAdminRouter.post("/", async (req, res, next) => {
           const img = result.url;
           const image = new Image({ url: img, product: savedProduct.id });
           await image.save();
+          savedProduct.images = savedProduct.images.concat(image._id);
+          await savedProduct.save();
           res.status(201).send("Product created with image sucessufully");
         } catch (error) {
           next(error);
