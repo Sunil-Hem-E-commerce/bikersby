@@ -13,10 +13,9 @@ productRouter.get("/", async (req, res, next) => {
 
 productRouter.get("/:id", async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).populate(
-      "colors",
-      {}
-    );
+    const product = await Product.findById(req.params.id)
+      .populate("colors", {})
+      .populate("images", {});
     res.json(product);
   } catch (error) {
     next(error);
