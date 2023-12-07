@@ -5,50 +5,59 @@ const Color = require("../models/color");
 const cloudinary = require("../script");
 
 productAdminRouter.post("/", async (req, res, next) => {
-  const sentFile = req.files.img;
-  cloudinary.uploader.upload(sentFile.tempFilePath, async (err, result) => {
-    if (err) {
-      next(err);
-    } else {
-      try {
-        const img = result.url;
-        const {
-          name,
-          company,
-          price,
-          discountedPrice,
-          description,
-          category,
-          featured,
-          stock,
-          rating,
-          star,
-          colors,
-        } = req.body;
+  try {
+    const {
+      name,
+      company,
+      price,
+      discountedPrice,
+      description,
+      category,
+      featured,
+      stock,
+      rating,
+      star,
+    } = req.body;
 
-        const product = new Product({
-          name,
-          company,
-          price,
-          discountedPrice,
-          description,
-          category,
-          featured,
-          stock,
-          rating,
-          star,
-          colors,
-          img,
-        });
+    const product = new Product({
+      name,
+      company,
+      price,
+      discountedPrice,
+      description,
+      category,
+      featured,
+      stock,
+      rating,
+      star,
+    });
 
-        const savedProduct = await product.save();
+    const savedProduct = await product.save();
 
-        res.status(201).json(savedProduct);
-      } catch (error) {
-        next(error);
+    const color = new Color({ hex: req.body.hex, product: savedProduct._id });
+    await color.save();
+
+    //sending image to cloudinary
+    const sentFile = req.files.image;
+    cloudinary.uploader.upload(sentFile.tempFilePath, async (err, result) => {
+      if (err) {
+        next(err);
+      } else {
+        try {
+          const img = result.url;
+          const image = new Image({ url: img, product: savedProduct._id });
+          await image.save();
+          res
+            .status(201)
+            .send("Product created successfully with image sucessufully");
+        } catch (error) {
+          next(error);
+        }
       }
-    }
-  });
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 productAdminRouter.put("/:id", async (req, res, next) => {

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  name: { type: String, minLength: 5 },
+  name: { type: String, minLength: 5, unique: true },
   company: { type: String, minLength: 5 },
   price: { type: Number, min: 0 },
   discountedPrice: { type: Number, min: 0 },
@@ -11,13 +11,18 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number, min: 0 },
   rating: { type: Number, min: 0 },
   star: { type: Number, min: 0, max: 5 },
-  img: { type: String, minLength: 5 },
-  // colors: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "Color",
-  //   },
-  // ],
+  images: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Image",
+    },
+  ],
+  colors: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Color",
+    },
+  ],
 });
 
 productSchema.set("toJSON", {

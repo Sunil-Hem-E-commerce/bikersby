@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 
 const colorSchema = new mongoose.Schema({
-  name: String,
-  hex: String,
+  hex: { type: String, required: true },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
 });
 
 colorSchema.set("toJSON", {
