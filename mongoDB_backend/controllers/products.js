@@ -23,10 +23,4 @@ productRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-productRouter.post("/", async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-});
 module.exports = productRouter;
