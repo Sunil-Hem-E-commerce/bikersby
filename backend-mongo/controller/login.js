@@ -39,6 +39,14 @@ router.post("/login", async (req, res) => {
     );
 
     user.refreshToken = refreshToken;
+
+    res.cookie("jwt", accessToken, {
+      expires: new Date(Date.now() + 30000),
+      httpOnly: true,
+      // secure:true
+    });
+
+    console.log(`This is cookie: ${req.cookies.jwt}`);
     await user.save();
 
     res.send({
