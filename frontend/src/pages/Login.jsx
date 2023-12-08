@@ -84,7 +84,7 @@ const LoginForm = ({ setUpdate }) => {
             required
           />
         </div>
-        <div style={{ marginBottom: "20px" }}>
+        {/* <div style={{ marginBottom: "20px" }}>
           <p>Role:</p>
           <label className={{ marginRight: " 10px" }}>
             <input
@@ -113,7 +113,37 @@ const LoginForm = ({ setUpdate }) => {
             />
             Recondition
           </label>
-        </div>
+          <div style={{ marginBottom: "20px" }}>
+            <p>Role:</p>
+            <label className={{ marginRight: " 10px" }}>
+              <input
+                type="radio"
+                name="role_id"
+                value="1"
+                onChange={handleChange}
+              />
+              Individual
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="role_id"
+                value="2"
+                onChange={handleChange}
+              />
+              Showroom
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="role_id"
+                value="3"
+                onChange={handleChange}
+              />
+              Recondition
+            </label>
+          </div>
+        </div> */}
 
         <button
           type="submit"

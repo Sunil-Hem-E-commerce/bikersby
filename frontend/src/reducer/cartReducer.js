@@ -73,7 +73,7 @@ const cartReducer = (state, action) => {
     case "SET_INCREMENT": {
       let updatedProductInc = state.cart.map((curElem) => {
         if (curElem.id === action.payload) {
-          let incAmount = curElem.amount + 11;
+          let incAmount = curElem.amount + 1;
 
           if (incAmount >= curElem.max) {
             incAmount = curElem.max;

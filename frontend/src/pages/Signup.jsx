@@ -111,7 +111,7 @@ const SignUp = () => {
             required
           />
         </FormGroup>
-        <div style={{ marginBottom: "20px" }}>
+        {/* <div style={{ marginBottom: "20px" }}>
           <p>Role:</p>
           <label className={{ marginRight: " 10px" }}>
             <input
@@ -140,7 +140,7 @@ const SignUp = () => {
             />
             Recondition
           </label>
-        </div>
+        </div> */}
         <SubmitButton type="submit">Register</SubmitButton>
       </Form>
     </RegistrationFormContainer>
