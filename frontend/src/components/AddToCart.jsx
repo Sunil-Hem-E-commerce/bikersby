@@ -15,11 +15,15 @@ const AddToCart = ({ product }) => {
   const [amount, setAmount] = useState(1);
 
   const setDecrease = () => {
-    amount > 1 ? setAmount(amount - 1) : setAmount(1);
+    setAmount((prevAmount) => (prevAmount > 1 ? prevAmount - 1 : 1));
   };
 
   const setIncrease = () => {
-    amount < stock ? setAmount(amount + 1) : setAmount(stock);
+    setAmount((prevAmount) => (prevAmount < stock ? prevAmount + 1 : stock));
+  };
+
+  const handleAddToCart = () => {
+    addToCart(id, amount, color, product);
   };
 
   return (
@@ -49,7 +53,7 @@ const AddToCart = ({ product }) => {
         setIncrease={setIncrease}
       />
 
-      <NavLink to="/cart" onClick={() => addToCart(id, color, amount, product)}>
+      <NavLink to="/cart" onClick={handleAddToCart}>
         <Button className="btn">Add To Cart</Button>
       </NavLink>
     </Wrapper>

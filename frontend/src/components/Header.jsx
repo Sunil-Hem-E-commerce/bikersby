@@ -19,7 +19,7 @@ const Hearder = ({ user, setUser }) => {
               padding: "0.5rem",
             }}
           >
-            BikersBy
+            २Pangre
           </h2>
         </NavLink>
         <Nav user={user} setUser={setUser} />
