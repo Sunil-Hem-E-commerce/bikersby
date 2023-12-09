@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { postUser } from "../services/user";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationFormContainer = styled.div`
   max-width: 400px;
@@ -49,6 +50,7 @@ const SubmitButton = styled.button`
 `;
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [register, setRegister] = useState({
     email: "",
     username: "",
@@ -63,6 +65,8 @@ const SignUp = () => {
     e.preventDefault();
     const response = await postUser(register);
     console.log(response);
+    navigate("/");
+
     // if (response) {
 
     // }
