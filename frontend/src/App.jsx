@@ -24,12 +24,19 @@ const App = () => {
   const [user, setUser] = useState(false);
   const [update, setUpdate] = useState(null);
 
-  //* create Login Funtion
+  //* Check for token in localStorage on app load
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUser(true);
+    }
+  }, []);
+
+  //* Update user state on successful login
   useEffect(() => {
     if (update) {
       setUser(true);
-    } else {
-      setUser(false);
+      localStorage.setItem("token", update);
     }
   }, [update]);
 
