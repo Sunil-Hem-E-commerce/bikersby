@@ -10,6 +10,7 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "../components/Star";
 import AddToCart from "../components/AddToCart";
+import { getOneProduct } from "../services/product";
 
 const API = "https://api.pujakaitem.com/api/products/thapaserialnoj"; //! Our API Here.
 const SingleProduct = () => {
@@ -17,6 +18,7 @@ const SingleProduct = () => {
     useProductContext();
 
   const { id } = useParams();
+  const singleData = getOneProduct(id);
 
   const {
     id: alias,

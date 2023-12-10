@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducer/productReducer";
 import data from "../../products.json";
+import { getAllProducts, getOneProduct } from "../services/product";
 
 const AppContext = createContext();
 
@@ -19,13 +20,15 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getProducts = async (url) => {
+  const getProducts = async () => {
     dispatch({ type: "SET_LOADING" });
 
     try {
+      const data = await getAllProducts();
+      console.log(data);
       // const res = await axios.get(url);
       // const products = res.data;
-      dispatch({ type: "SET_API_DATA", payload: url });
+      dispatch({ type: "SET_API_DATA", payload: data });
     } catch (error) {
       dispatch({ type: "API_ERROR" });
     }
