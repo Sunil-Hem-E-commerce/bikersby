@@ -2,6 +2,7 @@
 ## Dir - Contains all the directory to ignore from commiting
 node_modules/
 test_*/
+tmp/
 
 
 
