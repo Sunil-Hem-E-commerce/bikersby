@@ -3,9 +3,7 @@ const app = express();
 const cors = require("cors");
 const middleware = require("./utils/middleware");
 
-const usersRouter = require("./controllers/users");
 const productsRouter = require("./controllers/products");
-const loginRouter = require("./controllers/login");
 const productAdminRouter = require("./controllers/product_admin");
 
 const file = require("express-fileupload");
@@ -20,8 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(file({ useTempFiles: true }));
 
 app.use("/", indexRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/login", loginRouter);
 app.use("/api/products", productsRouter);
 app.use("/admin/products", productAdminRouter);
 // app.use("/", testingRouter);
