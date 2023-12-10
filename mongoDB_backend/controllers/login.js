@@ -27,11 +27,18 @@ loginRouter.post("/", async (req, res, next) => {
       expiresIn: 60 * 5,
     });
 
+    // res.cookie("token", token, {
+    //   expires: new Date(Date.now() + 300000),
+    //   httpOnly: true,
+    //   // secure:true
+    // });
+
     res.status(200).send({
-      token,
+      accessToken: token,
       fullName: user.fullName,
       email: user.email,
       user: { id: user._id },
+      orders: user.orders,
     });
   } catch (error) {
     next(error);
