@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
   discountedPrice: { type: Number, min: 0 },
   description: { type: String, minLength: 10 },
   category: { type: String, minLength: 5 },
-  fetured: { type: Boolean, default: false },
+  featured: { type: Boolean, default: false },
   stock: { type: Number, min: 0 },
   rating: { type: Number, min: 0 },
   star: { type: Number, min: 0, max: 5 },
