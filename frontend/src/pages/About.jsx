@@ -5,7 +5,7 @@ const About = () => {
   const { myName } = useProductContext();
 
   const data = {
-    name: "BikersBy Ecommerce",
+    name: "२Pangre Ecommerce",
   };
 
   return (

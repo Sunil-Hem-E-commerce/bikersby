@@ -26,10 +26,10 @@ const Footer = () => {
         <footer>
           <div className="container grid grid-four-column">
             <div className="footer-about">
-              <h3>BikersBy Store</h3>
+              <h3>२Pangre Store</h3>
               <p>
-                Rev up your ride with BikersBy! Discover top-quality bikes,
-                gear, and accessories online. Unleash your inner biker with our
+                Rev up your ride with २Pangre! Discover top-quality bikes, gear,
+                and accessories online. Unleash your inner biker with our
                 unbeatable selection. Shop now and hit the open road!
               </p>
             </div>

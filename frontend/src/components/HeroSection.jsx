@@ -13,7 +13,7 @@ const HeroSection = ({ myData }) => {
             <p className="intro-data">Welcome to </p>
             <h2> {name} </h2>
             <p>
-              BikersBy is Your ultimate online bike store for quality bicycles,
+              २Pangre is Your ultimate online bike store for quality bicycles,
               accessories, and gear. Explore our wide selection and gear up for
               your next cycling adventure today!
             </p>
