@@ -4,6 +4,8 @@ const loginController = require("../controllers/login");
 const productController = require("../controllers/products");
 const adminController = require("../controllers/product_admin");
 const testingController = require("../controllers/testing");
+const cartController = require("../controllers/cart");
+const { userExtractor, tokenExtractor } = require("../utils/middleware");
 
 router.get("/", (req, res, next) => {
   res.send("Hello 2-pangre users!!");
@@ -16,6 +18,25 @@ router.post("/api/login/", loginController.loginUser);
 
 router.get("/api/products/", productController.list);
 router.get("/api/products/:id", productController.listOne);
+
+router.post(
+  "/api/inx-cart/:id",
+  tokenExtractor,
+  userExtractor,
+  cartController.inxCart
+);
+router.post(
+  "/api/dec-cart/:id",
+  tokenExtractor,
+  userExtractor,
+  cartController.decCart
+);
+router.post(
+  "/api/add-cart/:id",
+  tokenExtractor,
+  userExtractor,
+  cartController.addToCart
+);
 
 router.post("/admin/products/", adminController.addProduct);
 router.put("/admin/products/:id", adminController.updateProduct);

@@ -3,17 +3,58 @@ const User = require("../models/user");
 module.exports = {
   async addToCart(req, res, next) {
     try {
-      const { productId } = req.body;
-      const user = await User.findById(req.user._id);
-      const product = user.cart.find((item) => item.product == productId);
+      const { qtyToAdd } = req.body;
+      const productId = req.params.id;
+      const user = await User.findById(req.user);
+      const product = user.orders.find((item) => item.product == productId);
+      if (product) {
+        product.quantity = qtyToAdd;
+        await user.save();
+        res.status(200).send("Updated the cart quantity");
+      } else {
+        user.orders.push({
+          product: productId,
+          quantity: qtyToAdd,
+          status: "cart",
+        });
+        await user.save();
+        res.status(200).send("Product added to cart");
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async inxCart(req, res, next) {
+    try {
+      const productId = req.params.id;
+      const user = await User.findById(req.user);
+      const product = user.orders.find((item) => item.product == productId);
       if (product) {
         product.quantity += 1;
         await user.save();
-        res.status(200).send("Product added to cart");
+        res.status(200).send("Increase the cart quantity");
       } else {
-        user.cart.push({ product: productId, quantity: 1 });
+        user.orders.push({ product: productId, quantity: 1, status: "cart" });
         await user.save();
         res.status(200).send("Product added to cart");
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async decCart(req, res, next) {
+    try {
+      const productId = req.params.id;
+      const user = await User.findById(req.user);
+      const product = user.orders.find((item) => item.product == productId);
+      if (product) {
+        product.quantity -= 1;
+        await user.save();
+        res.status(200).send("Decrease the cart quantity");
+      } else {
+        res.status(200).send("Add the product to the cart first");
       }
     } catch (error) {
       next(error);
