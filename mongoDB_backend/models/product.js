@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
   price: { type: Number, min: 0 },
   discountedPrice: { type: Number, min: 0 },
   description: { type: String, minLength: 10 },
-  category: { type: String, minLength: 5 },
+  category: { type: String, minLength: 3 },
   featured: { type: Boolean, default: false },
   stock: { type: Number, min: 0 },
   reviews: { type: Number, min: 0 },
