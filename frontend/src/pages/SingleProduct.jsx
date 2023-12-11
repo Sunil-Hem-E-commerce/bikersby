@@ -17,7 +17,6 @@ const SingleProduct = () => {
   const { singleProduct, getSingleProduct, isSingleLoading } =
     useProductContext();
   const { id } = useParams();
-  console.log(singleProduct, isSingleLoading, "hello");
   const handleCart = () => {
     AddToCart(singleProduct);
   };
