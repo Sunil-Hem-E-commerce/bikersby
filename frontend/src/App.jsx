@@ -21,7 +21,10 @@ import { useEffect, useState } from "react";
 // import { getUser } from "./services/user";
 
 const App = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem("token");
+    return token ? true : false;
+  });
   const [update, setUpdate] = useState(null);
 
   //* Check for token in localStorage on app load
