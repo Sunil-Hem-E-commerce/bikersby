@@ -12,14 +12,15 @@ import Star from "../components/Star";
 import AddToCart from "../components/AddToCart";
 import { getOneProduct } from "../services/product";
 
-const API = "https://api.pujakaitem.com/api/products/thapaserialnoj"; //! Our API Here.
+// const API = "https://api.pujakaitem.com/api/products/thapaserialnoj"; //! Our API Here.
 const SingleProduct = () => {
-  const { getSingleProduct, isSingleLoading, singleProduct } =
+  const { singleProduct, getSingleProduct, isSingleLoading } =
     useProductContext();
-
   const { id } = useParams();
-  const singleData = getOneProduct(id);
-
+  console.log(singleProduct, isSingleLoading, "hello");
+  const handleCart = () => {
+    AddToCart(singleProduct);
+  };
   const {
     id: alias,
     name,
@@ -30,12 +31,14 @@ const SingleProduct = () => {
     stock,
     stars,
     reviews,
-    image,
+    images,
   } = singleProduct;
+  console.log(name, images);
 
   useEffect(() => {
-    getSingleProduct(`${API}?id=${id}`);
-  }, []);
+    console.log("hello suman");
+    getSingleProduct(id);
+  }, [id]);
 
   if (isSingleLoading) {
     return <div className="page_loading">Loading.....</div>;
@@ -48,7 +51,7 @@ const SingleProduct = () => {
         <div className="grid grid-two-column">
           {/* product Images  */}
           <div className="product_images">
-            <MyImage imgs={image} />
+            <MyImage imgs={images} />
           </div>
 
           {/* product dAta  */}
@@ -102,7 +105,12 @@ const SingleProduct = () => {
               </p>
             </div>
             <hr />
-            {stock > 0 && <AddToCart product={singleProduct} />}
+            {stock > 0 && (
+              // <span onClick={handleCart}>
+              // HELLO
+              <AddToCart product={singleProduct} />
+              // </span>
+            )}
           </div>
         </div>
       </Container>
