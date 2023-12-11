@@ -16,8 +16,8 @@ module.exports = {
         category,
         featured,
         stock,
-        rating,
-        star,
+        reviews,
+        stars,
       } = req.body;
 
       const product = new Product({
@@ -29,8 +29,8 @@ module.exports = {
         category,
         featured,
         stock,
-        rating,
-        star,
+        reviews,
+        stars,
       });
 
       const savedProduct = await product.save();

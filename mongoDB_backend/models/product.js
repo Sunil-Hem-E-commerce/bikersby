@@ -10,8 +10,8 @@ const productSchema = new mongoose.Schema({
   category: { type: String, minLength: 5 },
   featured: { type: Boolean, default: false },
   stock: { type: Number, min: 0 },
-  rating: { type: Number, min: 0 },
-  star: { type: Number, min: 0, max: 5 },
+  reviews: { type: Number, min: 0 },
+  stars: { type: Number, min: 0, max: 5 },
   images: [
     {
       type: mongoose.Schema.Types.ObjectId,
