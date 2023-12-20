@@ -7,16 +7,14 @@ import { useCartContext } from "../context/cart_context";
 import { Button } from "../styles/Button";
 import { useUserContext } from "../context/user_context";
 
-// import { useAuth0 } from "@auth0/auth0-react";
-
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
   const { user, setUser } = useUserContext();
-  // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const handleLogout = () => {
     setUser(null);
   };
+  console.log("total item", total_item);
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -237,24 +235,6 @@ const Nav = () => {
               </NavLink>
             </li>
           )}
-
-          {/* {isAuthenticated && <p>{user.name}</p>}
-
-          {isAuthenticated ? (
-            <li>
-              <Button
-                onClick={() =>
-                  logout({ logoutParams: { returnTo: window.location.origin } })
-                }
-              >
-                Log Out
-              </Button>
-            </li>
-          ) : (
-            <li>
-              <Button>Log In</Button>
-            </li>
-          )} */}
 
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">

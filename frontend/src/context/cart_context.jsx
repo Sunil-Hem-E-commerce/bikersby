@@ -4,7 +4,7 @@ import reducer from "../reducer/cartReducer";
 const CartContext = createContext();
 
 const getUserCart = () => {
-  let localCartData = localStorage.getItem("dulalCart");
+  let localCartData = localStorage.getItem("localCartData");
   if (!localCartData || localCartData === "[]") {
     return [];
   } else {
@@ -13,20 +13,21 @@ const getUserCart = () => {
 };
 
 const initialState = {
-  // cart: [],
   cart: getUserCart(),
-  total_item: "",
-  total_price: "",
+  total_item: 0,
+  total_price: 0,
   shipping_fee: 50000,
 };
 
 const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addToCart = (id, amount, color, product) => {
+  const addToCart = async (id, qty, color, product) => {
+    // axios call here.
+
     dispatch({
       type: "ADD_TO_CART",
-      payload: { id, amount, color, product },
+      payload: { id, qty, color, product },
     });
   };
 
@@ -50,10 +51,8 @@ const CartProvider = ({ children }) => {
 
   //! Add the data in localStorage
   useEffect(() => {
-    // dispatch({ type: "CART_TOTAL_ITEM" });
-    // dispatch({ type: "CART_TOTAL_PRICE" });
     dispatch({ type: "CART_ITEM_PRICE_TOTAL" });
-    localStorage.setItem("dulalCart", JSON.stringify(state.cart));
+    localStorage.setItem("localCartData", JSON.stringify(state.cart));
   }, [state.cart]);
 
   return (

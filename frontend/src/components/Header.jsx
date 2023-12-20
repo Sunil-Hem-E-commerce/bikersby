@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
 
-const Hearder = ({ user, setUser }) => {
+const Hearder = () => {
   return (
     <>
       <MainHeader>

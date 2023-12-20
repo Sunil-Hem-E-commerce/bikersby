@@ -1,7 +1,7 @@
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART": {
-      let { id, color, amount, product } = action.payload;
+      let { id, color, qty, product } = action.payload;
 
       //! Tackle the existing products
       let existingProduct = state.cart.find(
@@ -11,14 +11,14 @@ const cartReducer = (state, action) => {
       if (existingProduct) {
         let updatedProduct = state.cart.map((curItem) => {
           if (curItem.id === id + color) {
-            let newAmount = curItem.amount + amount;
+            let newQty = curItem.qty + qty;
 
-            if (newAmount >= curItem.max) {
-              newAmount = curItem.max;
+            if (newQty >= curItem.max) {
+              newQty = curItem.max;
             }
             return {
               ...curItem,
-              amount: newAmount,
+              qty: newQty,
             };
           } else {
             return curItem;
@@ -34,7 +34,7 @@ const cartReducer = (state, action) => {
           id: id + color,
           name: product.name,
           color,
-          amount,
+          qty,
           image: product.images[0].url,
           price: product.price,
           max: product.stock,
@@ -50,15 +50,15 @@ const cartReducer = (state, action) => {
     case "SET_DECREMENT": {
       let updatedProductDec = state.cart.map((curElem) => {
         if (curElem.id === action.payload) {
-          let decAmount = curElem.amount - 1;
+          let decQty = curElem.qty - 1;
 
-          if (decAmount <= 1) {
-            decAmount = 1;
+          if (decQty <= 1) {
+            decQty = 1;
           }
 
           return {
             ...curElem,
-            amount: decAmount,
+            amount: decQty,
           };
         } else {
           return curElem;
@@ -73,15 +73,15 @@ const cartReducer = (state, action) => {
     case "SET_INCREMENT": {
       let updatedProductInc = state.cart.map((curElem) => {
         if (curElem.id === action.payload) {
-          let incAmount = curElem.amount + 1;
+          let incQty = curElem.qty + 1;
 
-          if (incAmount >= curElem.max) {
-            incAmount = curElem.max;
+          if (incQty >= curElem.max) {
+            incQty = curElem.max;
           }
 
           return {
             ...curElem,
-            amount: incAmount,
+            amount: incQty,
           };
         } else {
           return curElem;
@@ -139,9 +139,9 @@ const cartReducer = (state, action) => {
     case "CART_ITEM_PRICE_TOTAL": {
       let { total_item, total_price } = state.cart.reduce(
         (accum, curElem) => {
-          let { price, amount } = curElem;
-          accum.total_item += amount;
-          accum.total_price += price * amount;
+          let { price, qty } = curElem;
+          accum.total_item += qty;
+          accum.total_price += price * qty;
 
           return accum;
         },

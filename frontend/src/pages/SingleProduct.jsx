@@ -10,16 +10,12 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "../components/Star";
 import AddToCart from "../components/AddToCart";
-import { getOneProduct } from "../services/product";
 
-// const API = "https://api.pujakaitem.com/api/products/thapaserialnoj"; //! Our API Here.
 const SingleProduct = () => {
   const { singleProduct, getSingleProduct, isSingleLoading } =
     useProductContext();
   const { id } = useParams();
-  const handleCart = () => {
-    AddToCart(singleProduct);
-  };
+
   const {
     id: alias,
     name,
@@ -32,10 +28,8 @@ const SingleProduct = () => {
     reviews,
     images,
   } = singleProduct;
-  console.log(name, images);
 
   useEffect(() => {
-    console.log("hello suman");
     getSingleProduct(id);
   }, [id]);
 
@@ -104,12 +98,7 @@ const SingleProduct = () => {
               </p>
             </div>
             <hr />
-            {stock > 0 && (
-              // <span onClick={handleCart}>
-              // HELLO
-              <AddToCart product={singleProduct} />
-              // </span>
-            )}
+            {stock > 0 && <AddToCart product={singleProduct} />}
           </div>
         </div>
       </Container>

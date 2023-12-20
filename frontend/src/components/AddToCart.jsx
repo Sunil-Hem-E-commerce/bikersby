@@ -12,18 +12,18 @@ const AddToCart = ({ product }) => {
   const { id, colors, stock } = product;
 
   const [color, setColor] = useState(colors[0]);
-  const [amount, setAmount] = useState(1);
+  const [qty, setQty] = useState(1);
 
   const setDecrease = () => {
-    setAmount((prevAmount) => (prevAmount > 1 ? prevAmount - 1 : 1));
+    setQty((prevqty) => (prevqty > 1 ? prevqty - 1 : 1));
   };
 
   const setIncrease = () => {
-    setAmount((prevAmount) => (prevAmount < stock ? prevAmount + 1 : stock));
+    setQty((prevqty) => (prevqty < stock ? prevqty + 1 : stock));
   };
 
   const handleAddToCart = () => {
-    addToCart(id, amount, color, product);
+    addToCart(id, qty, color, product);
   };
 
   return (
@@ -48,7 +48,7 @@ const AddToCart = ({ product }) => {
 
       {/* add to cart  */}
       <CartAmountToggle
-        amount={amount}
+        qty={qty}
         setDecrease={setDecrease}
         setIncrease={setIncrease}
       />
