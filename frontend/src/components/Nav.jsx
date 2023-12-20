@@ -5,17 +5,19 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useCartContext } from "../context/cart_context";
 import { Button } from "../styles/Button";
+import { useUserContext } from "../context/user_context";
 
 // import { useAuth0 } from "@auth0/auth0-react";
 
-const Nav = ({ user, setUser }) => {
+const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
+  const { user, setUser } = useUserContext();
   // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUser({});
+    setUser(null);
   };
+
   const Nav = styled.nav`
     .navbar-lists {
       display: flex;
