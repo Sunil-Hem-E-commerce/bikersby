@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducer/cartReducer";
+import cartService from "../services/cart";
 
 const CartContext = createContext();
 
@@ -23,8 +24,7 @@ const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToCart = async (id, qty, color, product) => {
-    // axios call here.
-
+    await cartService.addToCart(id, qty);
     dispatch({
       type: "ADD_TO_CART",
       payload: { id, qty, color, product },
