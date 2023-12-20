@@ -1,7 +1,7 @@
 // LoginForm.jsx
 
 import React, { useState } from "react";
-import { postUser } from "../services/login";
+import { loginUser } from "../services/login";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/user_context";
 
@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await postUser(signin);
+    const response = await loginUser(signin);
     if (response.status === 200) {
       navigate("/");
       setUser(response.data);
