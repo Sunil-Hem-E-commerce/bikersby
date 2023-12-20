@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { postUser } from "../services/login";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = ({ setUpdate }) => {
+const LoginForm = ({ setUpdate, setUser }) => {
   const navigate = useNavigate();
   const [signin, setSignin] = useState({
     email: "",
@@ -19,12 +19,10 @@ const LoginForm = ({ setUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await postUser(signin);
-    console.log(response);
     if (response.status === 200) {
-      // localStorage.setItem("token", response.data.token);
       navigate("/");
       const token = response.data.accessToken;
-
+      setUser(response.data);
       setUpdate(token);
     }
   };

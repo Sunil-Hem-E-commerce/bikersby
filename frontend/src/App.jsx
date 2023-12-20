@@ -21,27 +21,24 @@ import { useEffect, useState } from "react";
 // import { getUser } from "./services/user";
 
 const App = () => {
-  const [user, setUser] = useState(() => {
-    const token = localStorage.getItem("token");
-    return token ? true : false;
-  });
+  const [user, setUser] = useState({});
   const [update, setUpdate] = useState(null);
 
-  //* Check for token in localStorage on app load
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUser(true);
-    }
-  }, []);
+  // //* Check for token in localStorage on app load
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setUser(true);
+  //   }
+  // }, []);
 
   //* Update user state on successful login
-  useEffect(() => {
-    if (update) {
-      setUser(true);
-      localStorage.setItem("token", update);
-    }
-  }, [update]);
+  // useEffect(() => {
+  //   if (update) {
+  //     setUser(true);
+  //     localStorage.setItem("token", update);
+  //   }
+  // }, [update]);
 
   const theme = {
     colors: {
@@ -87,7 +84,10 @@ const App = () => {
             }
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login setUpdate={setUpdate} />} />
+          <Route
+            path="/login"
+            element={<Login setUpdate={setUpdate} setUser={setUser} />}
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
