@@ -11,13 +11,13 @@ router.get("/", (req, res, next) => {
   res.send("Hello 2-pangre users!!");
 });
 
-router.get("/api/users/", userController.list);
-router.post("/api/users/", userController.addUser);
+router.get("/users/", userController.list);
+router.post("/users/", userController.addUser);
 
-router.post("/api/login/", loginController.loginUser);
+router.post("/login/", loginController.loginUser);
 
-router.get("/api/products/", productController.list);
-router.get("/api/products/:id", productController.listOne);
+router.get("/products/", productController.list);
+router.get("/products/:id", productController.listOne);
 
 router.post(
   "/api/inx-cart/:id",
