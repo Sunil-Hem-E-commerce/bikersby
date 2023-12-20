@@ -24,6 +24,8 @@ const LoginForm = () => {
     if (response.status === 200) {
       navigate("/");
       setUser(response.data);
+      console.log(response.data.accessToken);
+      localStorage.setItem("user_token", response.data.accessToken);
     }
   };
 
