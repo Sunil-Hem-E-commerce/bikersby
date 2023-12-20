@@ -1,12 +1,12 @@
-// LoginForm.js
+// LoginForm.jsx
 
 import React, { useState } from "react";
 import { postUser } from "../services/login";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/user_context";
 
-const LoginForm = ({ setUpdate }) => {
-  const { user, setUser } = useUserContext();
+const LoginForm = () => {
+  const { setUser } = useUserContext();
   const navigate = useNavigate();
   const [signin, setSignin] = useState({
     email: "",
@@ -23,9 +23,7 @@ const LoginForm = ({ setUpdate }) => {
     const response = await postUser(signin);
     if (response.status === 200) {
       navigate("/");
-      const token = response.data.accessToken;
       setUser(response.data);
-      setUpdate(token);
     }
   };
 
@@ -84,66 +82,6 @@ const LoginForm = ({ setUpdate }) => {
             required
           />
         </div>
-        {/* <div style={{ marginBottom: "20px" }}>
-          <p>Role:</p>
-          <label className={{ marginRight: " 10px" }}>
-            <input
-              type="radio"
-              name="role_id"
-              value="1"
-              onChange={handleChange}
-            />
-            Individual
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="role_id"
-              value="2"
-              onChange={handleChange}
-            />
-            Showroom
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="role_id"
-              value="3"
-              onChange={handleChange}
-            />
-            Recondition
-          </label>
-          <div style={{ marginBottom: "20px" }}>
-            <p>Role:</p>
-            <label className={{ marginRight: " 10px" }}>
-              <input
-                type="radio"
-                name="role_id"
-                value="1"
-                onChange={handleChange}
-              />
-              Individual
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="role_id"
-                value="2"
-                onChange={handleChange}
-              />
-              Showroom
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="role_id"
-                value="3"
-                onChange={handleChange}
-              />
-              Recondition
-            </label>
-          </div>
-        </div> */}
 
         <button
           type="submit"
