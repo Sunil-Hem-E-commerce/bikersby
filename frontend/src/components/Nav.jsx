@@ -14,7 +14,7 @@ const Nav = ({ user, setUser }) => {
   // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setUser(false);
+    setUser({});
   };
   const Nav = styled.nav`
     .navbar-lists {
@@ -177,7 +177,7 @@ const Nav = ({ user, setUser }) => {
           <li>
             <NavLink
               to="/"
-              className="navbar-link "
+              className="navbar-link"
               onClick={() => setMenuIcon(false)}
             >
               Home

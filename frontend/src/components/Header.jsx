@@ -22,7 +22,7 @@ const Hearder = ({ user, setUser }) => {
             २Pangre
           </h2>
         </NavLink>
-        <Nav user={user} setUser={setUser} />
+        <Nav />
       </MainHeader>
     </>
   );

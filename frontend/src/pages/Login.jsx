@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import { postUser } from "../services/login";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/user_context";
 
-const LoginForm = ({ setUpdate, setUser }) => {
+const LoginForm = ({ setUpdate }) => {
+  const { user, setUser } = useUserContext();
   const navigate = useNavigate();
   const [signin, setSignin] = useState({
     email: "",

@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 // import { getUser } from "./services/user";
 
 const App = () => {
-  const [user, setUser] = useState({});
+  const user = "";
   const [update, setUpdate] = useState(null);
 
   // //* Check for token in localStorage on app load
@@ -64,12 +64,13 @@ const App = () => {
     },
   };
 
+  console.log("user right now:", user);
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <GlobalStyle />
-        <Header user={user} setUser={setUser} />
-        <Routes user={user}>
+        <Header />
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
@@ -78,16 +79,13 @@ const App = () => {
           <Route
             path="/cart"
             element={
-              <ProtectedRoute user={user}>
-                <Cart user={user} />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              // </ProtectedRoute>
+              <Cart />
             }
           />
           <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/login"
-            element={<Login setUpdate={setUpdate} setUser={setUser} />}
-          />
+          <Route path="/login" element={<Login setUpdate={setUpdate} />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
@@ -99,10 +97,10 @@ const App = () => {
 export default App;
 
 //* Create Protected Route Function
-export const ProtectedRoute = ({ user, children }) => {
-  if (user) {
-    return children;
-  } else {
-    return <Navigate to="/login" />;
-  }
-};
+// export const ProtectedRoute = ({ user, children }) => {
+//   if (user) {
+//     return children;
+//   } else {
+//     return <Navigate to="/login" />;
+//   }
+// };

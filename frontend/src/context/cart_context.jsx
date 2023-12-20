@@ -3,7 +3,7 @@ import reducer from "../reducer/cartReducer";
 
 const CartContext = createContext();
 
-const getLocalCardData = () => {
+const getUserCart = () => {
   let localCartData = localStorage.getItem("dulalCart");
   if (!localCartData || localCartData === "[]") {
     return [];
@@ -14,7 +14,7 @@ const getLocalCardData = () => {
 
 const initialState = {
   // cart: [],
-  cart: getLocalCardData(),
+  cart: getUserCart(),
   total_item: "",
   total_price: "",
   shipping_fee: 50000,
