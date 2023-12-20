@@ -13,6 +13,9 @@ router.get("/", (req, res, next) => {
 
 router.get("/api/users/", userController.list);
 router.post("/api/users/", userController.addUser);
+router.get("/api/users/:id", userController.listOne);
+router.delete("/api/users/:id", userController.deleteUser);
+// router.get("/api/users/login/:token", userController.userByToken);
 
 router.post("/api/login/", loginController.loginUser);
 
@@ -20,19 +23,19 @@ router.get("/api/products/", productController.list);
 router.get("/api/products/:id", productController.listOne);
 
 router.post(
-  "/api/inx-cart/:id",
+  "/api/cart/inx/:id",
   tokenExtractor,
   userExtractor,
   cartController.inxCart
 );
 router.post(
-  "/api/dec-cart/:id",
+  "/api/cart/dec/:id",
   tokenExtractor,
   userExtractor,
   cartController.decCart
 );
 router.post(
-  "/api/add-cart/:id",
+  "/api/cart/add/:id",
   tokenExtractor,
   userExtractor,
   cartController.addToCart
