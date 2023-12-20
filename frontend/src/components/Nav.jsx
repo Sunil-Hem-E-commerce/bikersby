@@ -13,8 +13,9 @@ const Nav = () => {
   const { user, setUser } = useUserContext();
   const handleLogout = () => {
     setUser(null);
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("localCartData");
   };
-  console.log("total item", total_item);
 
   const Nav = styled.nav`
     .navbar-lists {
