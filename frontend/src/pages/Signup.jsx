@@ -1,7 +1,7 @@
 // Import necessary libraries
 import React, { useState } from "react";
 import styled from "styled-components";
-import { postUser } from "../services/user";
+import { addUser } from "../services/user";
 import { useNavigate } from "react-router-dom";
 
 const RegistrationFormContainer = styled.div`
@@ -63,7 +63,7 @@ const SignUp = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await postUser(register);
+    const response = await addUser(register);
     console.log(response);
     navigate("/");
 
