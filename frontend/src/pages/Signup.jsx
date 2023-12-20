@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { postUser } from "../services/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegistrationFormContainer = styled.div`
   max-width: 400px;
@@ -11,6 +13,13 @@ const RegistrationFormContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  p {
+    text-align: center;
+    padding-bottom: 4px;
+    color: blue;
+    font-size: 3rem;
+  }
 `;
 
 const Form = styled.form`
@@ -61,61 +70,67 @@ const SignUp = () => {
   const handleChange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await postUser(register);
-    console.log(response);
-    navigate("/");
+    try {
+      const response = await postUser(register);
+      console.log(response);
 
-    // if (response) {
-
-    // }
+      if (response && response.status === 201 && !response.error) {
+        toast.success("User Registered Successfully !", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        navigate("/");
+      } else {
+        toast.error("Registration Failed. Please try again.", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    } catch (error) {
+      console.error("Error occurred:", error);
+      toast.error("Error occurred. Please try again.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   return (
-    <RegistrationFormContainer>
-      <p
-        style={{
-          textAlign: "center",
-          paddingBottom: "4px",
-          color: "blue",
-          fontSize: "3rem",
-        }}
-      >
-        Create an Account
-      </p>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label>Full Name:</Label>
-          <Input
-            type="text"
-            value={register.username}
-            name="username"
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Email:</Label>
-          <Input
-            type="email"
-            value={register.email}
-            name="email"
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Password:</Label>
-          <Input
-            type="password"
-            value={register.password}
-            name="password"
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
-        {/* <div style={{ marginBottom: "20px" }}>
+    <>
+      <RegistrationFormContainer>
+        <p>Create an Account</p>
+        <Form onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label>Full Name:</Label>
+            <Input
+              type="text"
+              value={register.username}
+              name="username"
+              onChange={handleChange}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Email:</Label>
+            <Input
+              type="email"
+              value={register.email}
+              name="email"
+              onChange={handleChange}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Password:</Label>
+            <Input
+              type="password"
+              value={register.password}
+              name="password"
+              onChange={handleChange}
+              required
+            />
+          </FormGroup>
+          {/* <div style={{ marginBottom: "20px" }}>
           <p>Role:</p>
           <label className={{ marginRight: " 10px" }}>
             <input
@@ -145,9 +160,10 @@ const SignUp = () => {
             Recondition
           </label>
         </div> */}
-        <SubmitButton type="submit">Register</SubmitButton>
-      </Form>
-    </RegistrationFormContainer>
+          <SubmitButton type="submit">Register</SubmitButton>
+        </Form>
+      </RegistrationFormContainer>
+    </>
   );
 };
 

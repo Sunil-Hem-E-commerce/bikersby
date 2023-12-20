@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl = "/api/users";
-const getUsers = async ({ email, username, password, role_id }) => {
+const getUsers = async ({ email, username, password }) => {
   const response = await axios.get(baseUrl);
   const user = response.data;
   const filtereduser = user.filter((user) => user.username === username);
