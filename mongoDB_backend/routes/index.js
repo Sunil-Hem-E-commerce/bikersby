@@ -6,6 +6,7 @@ const adminController = require("../controllers/product_admin");
 const testingController = require("../controllers/testing");
 const cartController = require("../controllers/cart");
 const { userExtractor, tokenExtractor } = require("../utils/middleware");
+const user = require("../models/user");
 
 router.get("/", (req, res, next) => {
   res.send("Hello 2-pangre users!!");
@@ -39,6 +40,20 @@ router.post(
   tokenExtractor,
   userExtractor,
   cartController.addToCart
+);
+
+router.put(
+  "/api/cart/remove",
+  tokenExtractor,
+  userExtractor,
+  cartController.delCart
+);
+
+router.put(
+  "/api/cart/remove/:id",
+  tokenExtractor,
+  userExtractor,
+  cartController.updateCart
 );
 
 router.post("/admin/products/", adminController.addProduct);

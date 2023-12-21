@@ -32,20 +32,24 @@ const CartProvider = ({ children }) => {
   };
 
   //! Increment or Decrement the product
-  const setDecrease = (id) => {
+  const setDecrease = async (id) => {
+    await cartService.decCart(id);
     dispatch({ type: "SET_DECREMENT", payload: id });
   };
 
-  const setIncrement = (id) => {
+  const setIncrement = async (id) => {
+    await cartService.incCart(id);
     dispatch({ type: "SET_INCREMENT", payload: id });
   };
 
-  const removeItem = (id) => {
+  const removeItem = async (id) => {
+    await cartService.removeCartItem(id);
     dispatch({ type: "REMOVE_ITEM", payload: id });
   };
 
   //! To clear the Cart
-  const clearCart = () => {
+  const clearCart = async () => {
+    await cartService.delCart();
     dispatch({ type: "CLEAR_CART" });
   };
 

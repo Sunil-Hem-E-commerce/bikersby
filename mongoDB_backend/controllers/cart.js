@@ -27,7 +27,7 @@ module.exports = {
 
   async inxCart(req, res, next) {
     try {
-      const productId = req.params.id;
+      var productId = req.params.id;
       const user = await User.findById(req.user);
       const product = user.orders.find((item) => item.product == productId);
       if (product) {
@@ -46,7 +46,7 @@ module.exports = {
 
   async decCart(req, res, next) {
     try {
-      const productId = req.params.id;
+      var productId = req.params.id;
       const user = await User.findById(req.user);
       const product = user.orders.find((item) => item.product == productId);
       if (product) {
@@ -56,6 +56,29 @@ module.exports = {
       } else {
         res.status(200).send("Add the product to the cart first");
       }
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async updateCart(req, res, next) {
+    try {
+      var productId = req.params.id;
+      const user = await User.findById(req.user);
+      user.orders = user.orders.filter((item) => item.product !== productId);
+      await user.save();
+      res.status(200).send("Product removed from cart");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async delCart(req, res, next) {
+    try {
+      const user = await User.findById(req.user);
+      user.orders = [];
+      await user.save();
+      res.status(200).send("Cart has been emptied");
     } catch (error) {
       next(error);
     }
