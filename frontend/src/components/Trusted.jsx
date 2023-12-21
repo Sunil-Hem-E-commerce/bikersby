@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import nepal from "../images/nepal.png";
+import any from "../images/any.jpeg";
+import it from "../images/it.jpeg";
 
 const Trusted = () => {
   return (
@@ -7,13 +10,13 @@ const Trusted = () => {
         <h3>Trusted By 100+ Companies</h3>
         <div className="brand-section-slider">
           <div className="slide">
-            <img src="../images/nepal.png" alt="trusted-brands" />
+            <img src={nepal} alt="trusted-brands" />
           </div>
           <div className="slide">
-            <img src="../images/any.jpeg" alt="trusted-brands" />
+            <img src={any} alt="trusted-brands" />
           </div>
           <div className="slide">
-            <img src="../images/it.jpeg" alt="trusted-brands" />
+            <img src={it} alt="trusted-brands" />
           </div>
           <div className="slide">
             <img
