@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { loginUser } from "../services/login";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/user_context";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
   const { setUser } = useUserContext();
@@ -25,6 +27,7 @@ const LoginForm = () => {
       navigate("/");
       setUser(response.data);
       localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+      toast.success("User Logged In sucessfully !");
     }
   };
 

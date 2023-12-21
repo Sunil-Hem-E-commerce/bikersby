@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { addUser } from "../services/user";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const RegistrationFormContainer = styled.div`
   max-width: 400px;
@@ -78,14 +77,10 @@ const SignUp = () => {
       console.log(response);
 
       if (response && response.status === 201 && !response.error) {
-        toast.success("User Registered Successfully !", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success("User Registered Successfully !");
         navigate("/");
       } else {
-        toast.error("Registration Failed. Please try again.", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error("Registration Failed. Please try again.");
       }
     } catch (error) {
       console.error("Error occurred:", error);

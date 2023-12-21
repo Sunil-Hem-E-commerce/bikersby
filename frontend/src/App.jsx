@@ -19,7 +19,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { useEffect } from "react";
 import { useUserContext } from "../src/context/user_context";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   const { user, setUser } = useUserContext();
@@ -59,16 +59,16 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer
-        position="top-center"
-        autoClose={3000}
+        position="top-right"
+        autoClose={2500}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
       />
       <Router>
         <GlobalStyle />
@@ -104,6 +104,7 @@ export const ProtectedRoute = ({ user, children }) => {
   if (user) {
     return children;
   } else {
+    toast.error("Log in to visit cart page!");
     return <Navigate to="/login" />;
   }
 };
