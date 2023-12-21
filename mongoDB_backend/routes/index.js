@@ -23,42 +23,17 @@ router.post("/api/login/", loginController.loginUser);
 router.get("/api/products/", productController.list);
 router.get("/api/products/:id", productController.listOne);
 
-router.post(
-  "/api/cart/inx/:id",
-  tokenExtractor,
-  userExtractor,
-  cartController.inxCart
-);
-router.post(
-  "/api/cart/dec/:id",
-  tokenExtractor,
-  userExtractor,
-  cartController.decCart
-);
-router.post(
-  "/api/cart/add/:id",
-  tokenExtractor,
-  userExtractor,
-  cartController.addToCart
-);
-
-router.put(
-  "/api/cart/remove",
-  tokenExtractor,
-  userExtractor,
-  cartController.delCart
-);
-
-router.put(
-  "/api/cart/remove/:id",
-  tokenExtractor,
-  userExtractor,
-  cartController.updateCart
-);
-
 router.post("/admin/products/", adminController.addProduct);
 router.put("/admin/products/:id", adminController.updateProduct);
 router.delete("/admin/products/:id", adminController.deleteProduct);
+
+router.use(tokenExtractor, userExtractor);
+// below routes require authentication
+router.post("/api/cart/inx/:id", cartController.inxCart);
+router.post("/api/cart/dec/:id", cartController.decCart);
+router.post("/api/cart/add/:id", cartController.addToCart);
+router.put("/api/cart/remove", cartController.delCart);
+router.put("/api/cart/remove/:id", cartController.updateCart);
 
 if (process.env.NODE_ENV === "test") {
   router.get("/test/deleteProducts", testingController.deleteAllProduct);
