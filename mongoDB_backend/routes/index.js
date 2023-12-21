@@ -18,8 +18,6 @@ router.get("/users/:id", userController.listOne);
 router.delete("/users/:id", userController.deleteUser);
 // router.get("/users/login/:token", userController.userByToken);
 
-router.post("/api/login/", loginController.loginUser);
-
 router.post("/login/", loginController.loginUser);
 
 router.get("/products/", productController.list);
@@ -31,11 +29,11 @@ router.delete("/admin/products/:id", adminController.deleteProduct);
 
 router.use(tokenExtractor, userExtractor);
 // below routes require authentication
-router.post("/api/cart/inx/:id", cartController.inxCart);
-router.post("/api/cart/dec/:id", cartController.decCart);
-router.post("/api/cart/add/:id", cartController.addToCart);
-router.put("/api/cart/remove", cartController.delCart);
-router.put("/api/cart/remove/:id", cartController.updateCart);
+router.post("/cart/inx/:id", cartController.inxCart);
+router.post("/cart/dec/:id", cartController.decCart);
+router.post("/cart/add/:id", cartController.addToCart);
+router.put("/cart/remove", cartController.delCart);
+router.put("/cart/remove/:id", cartController.updateCart);
 
 if (process.env.NODE_ENV === "test") {
   router.get("/test/deleteProducts", testingController.deleteAllProduct);
