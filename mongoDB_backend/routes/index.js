@@ -12,16 +12,18 @@ router.get("/", (req, res, next) => {
   res.send("Hello 2-pangre users!!");
 });
 
-router.get("/api/users/", userController.list);
-router.post("/api/users/", userController.addUser);
-router.get("/api/users/:id", userController.listOne);
-router.delete("/api/users/:id", userController.deleteUser);
-// router.get("/api/users/login/:token", userController.userByToken);
+router.get("/users/", userController.list);
+router.post("/users/", userController.addUser);
+router.get("/users/:id", userController.listOne);
+router.delete("/users/:id", userController.deleteUser);
+// router.get("/users/login/:token", userController.userByToken);
 
 router.post("/api/login/", loginController.loginUser);
 
-router.get("/api/products/", productController.list);
-router.get("/api/products/:id", productController.listOne);
+router.post("/login/", loginController.loginUser);
+
+router.get("/products/", productController.list);
+router.get("/products/:id", productController.listOne);
 
 router.post("/admin/products/", adminController.addProduct);
 router.put("/admin/products/:id", adminController.updateProduct);

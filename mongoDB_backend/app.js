@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(file({ useTempFiles: true }));
 
-app.use("/", indexRouter);
+app.use("/", express.static("dist"));
+app.use("/api", indexRouter);
 app.use("/admin", express.static("public"));
 
 app.use(middleware.unknownEndpoint);

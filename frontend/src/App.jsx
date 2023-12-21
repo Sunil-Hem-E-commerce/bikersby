@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { useEffect } from "react";
 import { useUserContext } from "../src/context/user_context";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const { user, setUser } = useUserContext();
@@ -57,6 +58,18 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Router>
         <GlobalStyle />
         <Header />
