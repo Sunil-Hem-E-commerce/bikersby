@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducer/productReducer";
 import data from "../../products.json";
@@ -36,10 +35,7 @@ const AppProvider = ({ children }) => {
   const getSingleProduct = async (id) => {
     dispatch({ type: "SET_SINGLE_LOADING" });
     try {
-      console.log(id, "url");
       const singleProduct = await getOneProduct(id);
-      console.log(singleProduct);
-
       dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
     } catch (error) {
       dispatch({ type: "SET_SINGLE_ERROR" });

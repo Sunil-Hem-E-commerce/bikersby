@@ -62,7 +62,6 @@ const removeCartItem = async (id) => {
         JSON.parse(localStorage.getItem("loggedInUser")).accessToken,
     },
   });
-  console.log("response:::", response);
   return response;
 };
 

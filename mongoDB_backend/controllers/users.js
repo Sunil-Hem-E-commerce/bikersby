@@ -57,7 +57,6 @@ module.exports = {
   async userByToken(req, res, next) {
     try {
       const userToken = req.params.token;
-      console.log("userToken", userToken);
       const decodedToken = jwt.verify(userToken, process.env.SECRET);
       if (!decodedToken.id) {
         return res.status(401).json({ error: "token invalid" });

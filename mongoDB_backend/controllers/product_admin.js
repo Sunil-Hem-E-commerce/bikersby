@@ -35,15 +35,12 @@ module.exports = {
 
       const savedProduct = await product.save();
 
-      console.log("Saved Prouctd: ", savedProduct);
-
       const color = new Color({ hex: req.body.hex, product: savedProduct._id });
       await color.save();
 
       savedProduct.colors = savedProduct.colors.concat(color._id);
       await savedProduct.save();
 
-      console.log("saved Color", color);
       //sending image to cloudinary
       const sentFile = req.files.image;
       cloudinary.uploader.upload(sentFile.tempFilePath, async (err, result) => {

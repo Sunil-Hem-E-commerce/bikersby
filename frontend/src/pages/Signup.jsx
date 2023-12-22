@@ -74,7 +74,6 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const response = await addUser(register);
-      console.log(response);
 
       if (response && response.status === 201 && !response.error) {
         toast.success("User Registered Successfully !");
