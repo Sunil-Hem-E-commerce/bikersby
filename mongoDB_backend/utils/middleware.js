@@ -1,6 +1,7 @@
 const logger = require("./logger");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get("authorization");
@@ -31,7 +32,7 @@ const userExtractor = async (request, response, next) => {
 };
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: "unknown endpoint" });
+  response.sendFile(path.resolve(__dirname, "../dist/index.html")); // response.status(404).send({ error: "unknown endpoint" });
 };
 
 const errorHandler = (error, request, response, next) => {
