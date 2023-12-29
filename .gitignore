@@ -10,4 +10,4 @@ tmp/
 ## Files - Files to be ignored from commiting
 dev_*
 .env
-
+.vscode
