@@ -26,11 +26,10 @@ const Footer = () => {
         <footer>
           <div className="container grid grid-four-column">
             <div className="footer-about">
-              <h3>२Pangre Store</h3>
+              <h3>Healthy Living</h3>
               <p>
-                Rev up your ride with २Pangre! Discover top-quality bikes, gear,
-                and accessories online. Unleash your inner biker with our
-                unbeatable selection. Shop now and hit the open road!
+                Healthy Living Nepal brings a wide range of health and wellness
+                solutions to enhance the quality of people’s lives.
               </p>
             </div>
             <div className="footer-subscribe">
@@ -77,7 +76,8 @@ const Footer = () => {
             <hr />
             <div className="container grid grid-two-column ">
               <p>
-                @{new Date().getFullYear()} HemlalDulal. All Rights Reserved
+                @{new Date().getFullYear()} Healthy Living Nepal. All Rights
+                Reserved
               </p>
               <div>
                 <p>PRIVACY POLICY</p>

@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
+import { useUserContext } from "../context/user_context";
 
 const Contact = () => {
-  const { isAuthenticated, user } = useAuth0();
+  // const { isAuthenticated, user } = useAuth0();
+  const { user } = useUserContext();
+  const isAuthenticated = !!user;
 
   const Wrapper = styled.section`
     padding: 9rem 0 5rem 0;
@@ -41,7 +44,7 @@ const Contact = () => {
       <h2 className="common-heading">Contact page</h2>
 
       <iframe
-        title="Dulal"
+        title="Healthy Living Nepal"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.254905981462!2d85.3151532!3d27.6785154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19edf4545bd3%3A0xe5c043330fc58a7d!2sImpact%20Hub%20Kathmandu!5e0!3m2!1sen!2snp!4v1699202985853!5m2!1sen!2snp"
         width="90%"
         height="400"

@@ -71,17 +71,17 @@ const SingleProduct = () => {
 
               <div className="product-warranty-data">
                 <TbReplace className="warranty-icon" />
-                <p>30 Days Replacement</p>
+                <p>Satisfaction Guarantee</p>
               </div>
 
               <div className="product-warranty-data">
                 <TbTruckDelivery className="warranty-icon" />
-                <p>Dulal Delivered </p>
+                <p>Healthy Living Delivered </p>
               </div>
 
               <div className="product-warranty-data">
                 <MdSecurity className="warranty-icon" />
-                <p>2 Year Warranty </p>
+                <p>Quality Assurance </p>
               </div>
             </div>
 

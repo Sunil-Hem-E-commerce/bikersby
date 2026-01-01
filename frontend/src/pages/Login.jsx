@@ -22,12 +22,24 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await loginUser(signin);
-    if (response.status === 200) {
+    // const response = await loginUser(signin);
+    // Mock login response
+    const mockResponse = {
+      status: 200,
+      data: {
+        name: "Test User",
+        email: signin.email,
+        accessToken: "dummy-token",
+        role: "user",
+      },
+    };
+
+    if (mockResponse.status === 200) {
       navigate("/");
-      setUser(response.data);
-      localStorage.setItem("loggedInUser", JSON.stringify(response.data));
-      toast.success("User Logged In sucessfully !");
+      setUser(mockResponse.data);
+      localStorage.setItem("loggedInUser", JSON.stringify(mockResponse.data));
+      // toast.success("User Logged In sucessfully !");
+      alert("User Logged In sucessfully !"); // toast might need provider, using alert for safety or just rely on navigation
     }
   };
 

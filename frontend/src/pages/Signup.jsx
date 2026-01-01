@@ -73,11 +73,16 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await addUser(register);
+      // const response = await addUser(register);
+      // Mock registration
+      const mockResponse = {
+        status: 201,
+        error: false,
+      };
 
-      if (response && response.status === 201 && !response.error) {
+      if (mockResponse && mockResponse.status === 201 && !mockResponse.error) {
         toast.success("User Registered Successfully !");
-        navigate("/");
+        navigate("/login"); // Navigate to login instead of home
       } else {
         toast.error("Registration Failed. Please try again.");
       }

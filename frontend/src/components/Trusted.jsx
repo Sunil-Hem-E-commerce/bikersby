@@ -1,32 +1,41 @@
 import styled from "styled-components";
-import nepal from "../images/nepal.png";
-import any from "../images/any.jpeg";
-import it from "../images/it.jpeg";
+// import nepal from "../images/nepal.png";
+// import any from "../images/any.jpeg";
+// import it from "../images/it.jpeg";
 
 const Trusted = () => {
   return (
     <Wrapper className="brand-section">
       <div className="container">
-        <h3>Trusted By 100+ Companies</h3>
+        <h3>Trusted By 100+ Wellness Partners</h3>
         <div className="brand-section-slider">
           <div className="slide">
-            <img src={nepal} alt="trusted-brands" />
-          </div>
-          <div className="slide">
-            <img src={any} alt="trusted-brands" />
-          </div>
-          <div className="slide">
-            <img src={it} alt="trusted-brands" />
-          </div>
-          <div className="slide">
             <img
-              src="https://raw.githubusercontent.com/solodev/infinite-logo-carousel/master/images/image6.png"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
               alt="trusted-brands"
             />
           </div>
           <div className="slide">
             <img
-              src="https://raw.githubusercontent.com/solodev/infinite-logo-carousel/master/images/image8.png"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1200px-Tesla_Motors.svg.png"
+              alt="trusted-brands"
+            />
+          </div>
+          <div className="slide">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png"
+              alt="trusted-brands"
+            />
+          </div>
+          <div className="slide">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/1200px-IBM_logo.svg.png"
+              alt="trusted-brands"
+            />
+          </div>
+          <div className="slide">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1200px-Netflix_2015_logo.svg.png"
               alt="trusted-brands"
             />
           </div>

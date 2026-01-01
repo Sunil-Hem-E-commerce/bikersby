@@ -19,14 +19,14 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getProducts = async () => {
+  const getProducts = async (productsData) => {
     dispatch({ type: "SET_LOADING" });
 
     try {
-      const data = await getAllProducts();
+      // const data = await getAllProducts();
       // const res = await axios.get(url);
       // const products = res.data;
-      dispatch({ type: "SET_API_DATA", payload: data });
+      dispatch({ type: "SET_API_DATA", payload: productsData });
     } catch (error) {
       dispatch({ type: "API_ERROR" });
     }
@@ -35,7 +35,8 @@ const AppProvider = ({ children }) => {
   const getSingleProduct = async (id) => {
     dispatch({ type: "SET_SINGLE_LOADING" });
     try {
-      const singleProduct = await getOneProduct(id);
+      // const singleProduct = await getOneProduct(id);
+      const singleProduct = API.find((curElem) => curElem.id === id);
       dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
     } catch (error) {
       dispatch({ type: "SET_SINGLE_ERROR" });

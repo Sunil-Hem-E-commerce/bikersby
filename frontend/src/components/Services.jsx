@@ -20,7 +20,7 @@ const Services = () => {
             <div className="services-colum-2">
               <div>
                 <MdSecurity className="icon" />
-                <h3>0% interest EMI service</h3>
+                <h3>Genuine Wellness Products</h3>
               </div>
             </div>
             <div className="services-colum-2">

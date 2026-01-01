@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
-import duke from "../images/duke.png";
+// import duke from "../images/duke.png";
 
 const HeroSection = ({ myData }) => {
-  const { name } = myData;
+  const { name, description } = myData;
 
   return (
     <Wrapper>
@@ -13,18 +13,18 @@ const HeroSection = ({ myData }) => {
           <div className="hero-section-data">
             <p className="intro-data">Welcome to </p>
             <h2> {name} </h2>
-            <p>
-              २Pangre is Your ultimate online bike store for quality bicycles,
-              accessories, and gear. Explore our wide selection and gear up for
-              your next cycling adventure today!
-            </p>
-            <NavLink>
+            <p>{description}</p>
+            <NavLink to="/products">
               <Button>show now</Button>
             </NavLink>
           </div>
           <div className="hero-section-image">
             <figure>
-              <img src={duke} alt="hero-section" className="img-style" />
+              <img
+                src="https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="hero-section"
+                className="img-style"
+              />
             </figure>
           </div>
         </div>

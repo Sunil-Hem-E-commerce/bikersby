@@ -19,7 +19,7 @@ const Hearder = () => {
               padding: "0.5rem",
             }}
           >
-            २Pangre
+            Healthy Living
           </h2>
         </NavLink>
         <Nav />

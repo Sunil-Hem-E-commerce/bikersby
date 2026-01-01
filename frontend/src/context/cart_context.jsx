@@ -24,7 +24,7 @@ const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToCart = async (id, qty, color, product) => {
-    await cartService.addToCart(id, qty);
+    // await cartService.addToCart(id, qty);
     dispatch({
       type: "ADD_TO_CART",
       payload: { id, qty, color, product },
@@ -33,23 +33,23 @@ const CartProvider = ({ children }) => {
 
   //! Increment or Decrement the product
   const setDecrease = async (id) => {
-    await cartService.decCart(id);
+    // await cartService.decCart(id);
     dispatch({ type: "SET_DECREMENT", payload: id });
   };
 
   const setIncrement = async (id) => {
-    await cartService.incCart(id);
+    // await cartService.incCart(id);
     dispatch({ type: "SET_INCREMENT", payload: id });
   };
 
   const removeItem = async (id) => {
-    await cartService.removeCartItem(id);
+    // await cartService.removeCartItem(id);
     dispatch({ type: "REMOVE_ITEM", payload: id });
   };
 
   //! To clear the Cart
   const clearCart = async () => {
-    await cartService.delCart();
+    // await cartService.delCart();
     dispatch({ type: "CLEAR_CART" });
   };
 
