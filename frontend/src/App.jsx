@@ -15,6 +15,7 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ChatbotWidget from "./components/ChatbotWidget";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Checkout from "./pages/Checkout";
@@ -73,21 +74,20 @@ const App = () => {
 
   const darkTheme = {
     colors: {
-      heading: "#ffffff",
-      text: "#e0e0e0",
-      white: "#212529",
-      black: "#ffffff",
-      helper: "#8490ff",
-      bg: "#121212",
+      heading: "#f2f2f2",
+      text: "#cfd3d7",
+      white: "#1a1d21",
+      black: "#0d0f12",
+      helper: "#8ab4f8",
+      bg: "#0e1114",
       footer_bg: "#0a1435",
       btn: "rgb(98 84 243)",
-      border: "rgba(255, 255, 255, 0.2)",
-      hr: "#333333",
+      border: "rgba(255, 255, 255, 0.12)",
+      hr: "#2a2e33",
       gradient:
-        "linear-gradient(0deg, rgb(132 144 255) 0%, rgb(98 189 252) 100%)",
-      shadow:
-        "rgba(255, 255, 255, 0.1) 0px 1px 3px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px;",
-      shadowSupport: " rgba(255, 255, 255, 0.16) 0px 1px 4px",
+        "linear-gradient(0deg, rgb(57 67 180) 0%, rgb(98 189 252) 100%)",
+      shadow: "rgba(0, 0, 0, 0.6) 0px 8px 24px, rgba(0, 0, 0, 0.4) 0px 2px 8px",
+      shadowSupport: "rgba(0, 0, 0, 0.4) 0px 4px 16px",
     },
     media: {
       mobile: "768px",
@@ -148,6 +148,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        <ChatbotWidget />
         <Footer />
       </Router>
     </ThemeProvider>

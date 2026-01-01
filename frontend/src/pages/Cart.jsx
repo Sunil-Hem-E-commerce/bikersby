@@ -181,7 +181,7 @@ const Wrapper = styled.section`
 
     button {
       border: none;
-      background-color: #fff;
+      background-color: ${({ theme }) => theme.colors.white};
       cursor: pointer;
     }
 
@@ -220,7 +220,7 @@ const Wrapper = styled.section`
     }
 
     div:last-child {
-      background-color: #fafafa;
+      background-color: ${({ theme }) => theme.colors.white};
     }
 
     div p:last-child {

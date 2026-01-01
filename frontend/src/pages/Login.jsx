@@ -127,7 +127,7 @@ const Label = styled.label`
 const Input = styled.input`
   padding: 1rem;
   font-size: 1.6rem;
-  border: 1px solid #ddd;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   width: 100%;
   transition: border-color 0.2s, box-shadow 0.2s;

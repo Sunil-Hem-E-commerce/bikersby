@@ -102,7 +102,7 @@ const Wrapper = styled.section`
 
     button {
       border: none;
-      background-color: #fff;
+      background-color: ${({ theme }) => theme.colors.white};
       cursor: pointer;
     }
 

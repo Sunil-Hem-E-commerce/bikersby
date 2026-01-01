@@ -21,6 +21,9 @@ body {
   overflow-x: hidden;
     scrollbar-color: rgb(98 84 243);
     scrollbar-width: thin;
+    background-color: ${({ theme }) => theme.colors.bg};
+    color: ${({ theme }) => theme.colors.text};
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body::-webkit-scrollbar {
@@ -74,6 +77,8 @@ p, button {
 
 a {
   text-decoration: none;
+  color: ${({ theme }) => theme.colors.helper};
+  transition: color 0.2s ease;
 }
 
 li {
@@ -137,11 +142,13 @@ grid-template-columns: 1fr 1.2fr .5fr .8fr ;
 
 input, textarea{
     max-width: 50rem;
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.text};
     padding: 1.6rem 2.4rem;
     border: 1px solid ${({ theme }) => theme.colors.border};
     text-transform: "";
     box-shadow: ${({ theme }) => theme.colors.shadowSupport};
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: 0.8rem;
 }
     input[type="submit"]{
     max-width: 16rem;
