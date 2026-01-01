@@ -3,26 +3,17 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
 
-const Hearder = () => {
+const Header = ({ themeMode, toggleTheme }) => {
   return (
     <>
       <MainHeader>
         <NavLink to="/">
-          <h2
-            style={{
-              color: "white",
-              fontWeight: "2rem",
-              backgroundColor: "purple",
-              fontSize: "3rem",
-              border: "2px solid black",
-              borderRadius: "5px",
-              padding: "0.5rem",
-            }}
-          >
-            Healthy Living
-          </h2>
+          <img
+            src="/assets/healthy-leaving-nepal.png"
+            alt="Healthy Living Logo"
+          />
         </NavLink>
-        <Nav />
+        <Nav themeMode={themeMode} toggleTheme={toggleTheme} />
       </MainHeader>
     </>
   );
@@ -30,12 +21,23 @@ const Hearder = () => {
 
 const MainHeader = styled.header`
   padding: 0 4.8rem;
-  height: 8rem;
+  height: 10rem;
   background-color: ${({ theme }) => theme.colors.bg};
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+
+  img {
+    height: 7rem;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 `;
 
-export default Hearder;
+export default Header;

@@ -17,12 +17,23 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import { useEffect } from "react";
+import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailure from "./pages/PaymentFailure";
+import Transactions from "./pages/Transactions";
+import { useEffect, useState } from "react";
 import { useUserContext } from "../src/context/user_context";
 import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   const { user, setUser } = useUserContext();
+  const [themeMode, setThemeMode] = useState("light");
+
+  const toggleTheme = () => {
+    const newTheme = themeMode === "light" ? "dark" : "light";
+    setThemeMode(newTheme);
+    localStorage.setItem("themeMode", newTheme);
+  };
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("loggedInUser");
@@ -30,9 +41,13 @@ const App = () => {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
     }
+    const savedTheme = localStorage.getItem("themeMode");
+    if (savedTheme) {
+      setThemeMode(savedTheme);
+    }
   }, []);
 
-  const theme = {
+  const lightTheme = {
     colors: {
       heading: "rgb(24 24 29)",
       text: "rgba(29,29,29,0.8)",
@@ -40,7 +55,7 @@ const App = () => {
       black: "#212529",
       helper: "#8490ff",
       bg: "#F6F8FA",
-      footer_bg: "0a1435",
+      footer_bg: "#0a1435",
       btn: "rgb(98 84 243)",
       border: "rgba(98, 84, 243, 0.5)",
       hr: "#ffffff",
@@ -56,8 +71,32 @@ const App = () => {
     },
   };
 
+  const darkTheme = {
+    colors: {
+      heading: "#ffffff",
+      text: "#e0e0e0",
+      white: "#212529",
+      black: "#ffffff",
+      helper: "#8490ff",
+      bg: "#121212",
+      footer_bg: "#0a1435",
+      btn: "rgb(98 84 243)",
+      border: "rgba(255, 255, 255, 0.2)",
+      hr: "#333333",
+      gradient:
+        "linear-gradient(0deg, rgb(132 144 255) 0%, rgb(98 189 252) 100%)",
+      shadow:
+        "rgba(255, 255, 255, 0.1) 0px 1px 3px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px;",
+      shadowSupport: " rgba(255, 255, 255, 0.16) 0px 1px 4px",
+    },
+    media: {
+      mobile: "768px",
+      tab: "998px",
+    },
+  };
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <ToastContainer
         position="top-right"
         autoClose={2500}
@@ -72,7 +111,7 @@ const App = () => {
       />
       <Router>
         <GlobalStyle />
-        <Header />
+        <Header themeMode={themeMode} toggleTheme={toggleTheme} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -84,6 +123,24 @@ const App = () => {
             element={
               <ProtectedRoute user={user}>
                 <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute user={user}>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-failure" element={<PaymentFailure />} />
+          <Route
+            path="/transactions"
+            element={
+              <ProtectedRoute user={user}>
+                <Transactions />
               </ProtectedRoute>
             }
           />

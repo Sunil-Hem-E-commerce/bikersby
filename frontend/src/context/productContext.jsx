@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducer/productReducer";
 import data from "../../products.json";
-import { getAllProducts, getOneProduct } from "../services/product";
 
 const AppContext = createContext();
 

@@ -3,11 +3,12 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
+import { FaSun, FaMoon } from "react-icons/fa";
 import { useCartContext } from "../context/cart_context";
 import { Button } from "../styles/Button";
 import { useUserContext } from "../context/user_context";
 
-const Nav = () => {
+const Nav = ({ themeMode, toggleTheme }) => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
   const { user, setUser } = useUserContext();
@@ -24,20 +25,36 @@ const Nav = () => {
       align-items: center;
 
       .navbar-link {
+        position: relative;
         &:link,
         &:visited {
           display: inline-block;
           text-decoration: none;
           font-size: 1.8rem;
-          font-weight: 500;
+          font-weight: 600;
           text-transform: uppercase;
           color: ${({ theme }) => theme.colors.black};
-          transition: color 0.3s linear;
+          transition: all 0.3s linear;
         }
 
         &:hover,
         &:active {
           color: ${({ theme }) => theme.colors.helper};
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -4px;
+          left: 0;
+          background-color: ${({ theme }) => theme.colors.helper};
+          transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+          width: 100%;
         }
       }
     }
@@ -219,16 +236,27 @@ const Nav = () => {
           </li>
 
           {user ? (
-            <li>
-              <NavLink to="/">
-                <Button
-                  style={{ backgroundColor: "red" }}
-                  onClick={handleLogout}
+            <>
+              <li>
+                <NavLink
+                  to="/transactions"
+                  className="navbar-link"
+                  onClick={() => setMenuIcon(false)}
                 >
-                  Logout
-                </Button>
-              </NavLink>
-            </li>
+                  Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/">
+                  <Button
+                    style={{ backgroundColor: "red" }}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
+                </NavLink>
+              </li>
+            </>
           ) : (
             <li>
               <NavLink to="/login">
@@ -242,6 +270,19 @@ const Nav = () => {
               <FiShoppingCart className="cart-trolley" />
               <span className="cart-total--item">{total_item}</span>
             </NavLink>
+          </li>
+          <li>
+            <Button
+              onClick={toggleTheme}
+              style={{
+                padding: "0.8rem 1.2rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {themeMode === "light" ? <FaMoon /> : <FaSun />}
+            </Button>
           </li>
         </ul>
 

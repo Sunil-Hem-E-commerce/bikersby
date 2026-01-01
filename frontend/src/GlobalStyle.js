@@ -120,7 +120,7 @@ grid-template-columns: 1fr 1.2fr .5fr .8fr ;
     .intro-data {
       margin-bottom: 0;
       text-transform: uppercase;
-      color: #5138ee;
+      color: ${({ theme }) => theme.colors.helper};
     }
 
     .caption {

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useCartContext } from "../context/cart_context";
-import { useUserContext } from "../context/user_context";
 import FormatPrice from "../Helpers/FormatPrice";
 import { Button } from "../styles/Button";
 import KhaltiCheckout from "khalti-checkout-web";
@@ -9,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const { cart, total_price, shipping_fee } = useCartContext();
-  const { user } = useUserContext();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("esewa");
 
@@ -54,7 +52,12 @@ const Checkout = () => {
 
   const checkout = new KhaltiCheckout(config);
 
+  const saveTempCart = () => {
+    localStorage.setItem("tempCart", JSON.stringify(cart));
+  };
+
   const handleKhaltiPayment = () => {
+    saveTempCart();
     // minimum transaction amount must be 10, i.e 1000 in paisa.
     // However, for testing we can use the total amount.
     // Khalti takes amount in paisa (Rs * 100)
@@ -62,6 +65,7 @@ const Checkout = () => {
   };
 
   const handleConnectIPS = () => {
+    saveTempCart();
     // Simulate ConnectIPS
     // In real scenario, this would post to ConnectIPS gateway
     setTimeout(() => {
@@ -124,6 +128,13 @@ const Checkout = () => {
                   paymentMethod === "esewa" ? "active" : ""
                 }`}
                 onClick={() => setPaymentMethod("esewa")}
+                role="button"
+                tabIndex="0"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setPaymentMethod("esewa");
+                  }
+                }}
               >
                 <img
                   src="https://esewa.com.np/common/images/esewa_logo.png"
@@ -136,9 +147,16 @@ const Checkout = () => {
                   paymentMethod === "khalti" ? "active" : ""
                 }`}
                 onClick={() => setPaymentMethod("khalti")}
+                role="button"
+                tabIndex="0"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setPaymentMethod("khalti");
+                  }
+                }}
               >
                 <img
-                  src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-original-577x577/s3/092023/khalti-logo-vector-01.png?itok=ICM6q0n_"
+                  src="https://khalti.com.np/common/images/khalti_logo.png"
                   alt="Khalti"
                 />
                 <span>Khalti Digital Wallet</span>
@@ -148,6 +166,13 @@ const Checkout = () => {
                   paymentMethod === "connectips" ? "active" : ""
                 }`}
                 onClick={() => setPaymentMethod("connectips")}
+                role="button"
+                tabIndex="0"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setPaymentMethod("connectips");
+                  }
+                }}
               >
                 <img
                   src="https://www.connectips.com/images/connectips_logo.png"
@@ -261,7 +286,9 @@ const Checkout = () => {
                   <input value={pid} name="pid" type="hidden" />
                   <input value={successUrl} type="hidden" name="su" />
                   <input value={failureUrl} type="hidden" name="fu" />
-                  <Button type="submit">Pay with eSewa</Button>
+                  <Button type="submit" onClick={saveTempCart}>
+                    Pay with eSewa
+                  </Button>
                 </form>
               )}
 
