@@ -33,7 +33,7 @@ const Nav = ({ themeMode, toggleTheme }) => {
           font-size: 1.8rem;
           font-weight: 600;
           text-transform: uppercase;
-          color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.colors.text};
           transition: all 0.3s linear;
         }
 
@@ -87,7 +87,7 @@ const Nav = ({ themeMode, toggleTheme }) => {
         height: 2.4rem;
         position: absolute;
         background-color: #000;
-        color: #000;
+        color: ${({ theme }) => theme.colors.white};
         border-radius: 50%;
         display: grid;
         place-items: center;
@@ -115,7 +115,7 @@ const Nav = ({ themeMode, toggleTheme }) => {
 
         .mobile-nav-icon {
           font-size: 4.2rem;
-          color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.colors.text};
         }
       }
 
@@ -125,7 +125,7 @@ const Nav = ({ themeMode, toggleTheme }) => {
         position: absolute;
         top: 30%;
         right: 10%;
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.text};
         z-index: 9999;
       }
 
@@ -139,7 +139,7 @@ const Nav = ({ themeMode, toggleTheme }) => {
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #fff;
+        background-color: ${({ theme }) => theme.colors.white};
 
         display: flex;
         justify-content: center;
@@ -226,6 +226,15 @@ const Nav = ({ themeMode, toggleTheme }) => {
               onClick={() => setMenuIcon(false)}
             >
               Contact
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/admin"
+              className="navbar-link "
+              onClick={() => setMenuIcon(false)}
+            >
+              Admin
             </NavLink>
           </li>
 

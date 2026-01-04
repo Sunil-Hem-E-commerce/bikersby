@@ -242,7 +242,7 @@ const Wrapper = styled.section`
 
   .filter-clear .btn {
     background-color: #ec7063;
-    color: #000;
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 

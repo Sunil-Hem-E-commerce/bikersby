@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import ChatbotWidget from "./components/ChatbotWidget";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import AdminDashboard from "./pages/AdminDashboard";
 import Checkout from "./pages/Checkout";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
@@ -74,8 +75,8 @@ const App = () => {
 
   const darkTheme = {
     colors: {
-      heading: "#f2f2f2",
-      text: "#cfd3d7",
+      heading: "#ffffff",
+      text: "#ffffff",
       white: "#1a1d21",
       black: "#0d0f12",
       helper: "#8ab4f8",
@@ -146,6 +147,7 @@ const App = () => {
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <ChatbotWidget />

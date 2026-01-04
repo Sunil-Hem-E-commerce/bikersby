@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
+import { FaRocket } from "react-icons/fa";
 // import duke from "../images/duke.png";
 
 const HeroSection = ({ myData }) => {
@@ -17,6 +18,9 @@ const HeroSection = ({ myData }) => {
             <NavLink to="/products">
               <Button>show now</Button>
             </NavLink>
+            <div className="rocket">
+              <FaRocket />
+            </div>
           </div>
           <div className="hero-section-image">
             <figure>
@@ -53,6 +57,17 @@ const Wrapper = styled.section`
 
     .intro-data {
       margin-bottom: 0;
+    }
+    .rocket {
+      margin-top: 1.6rem;
+      font-size: 2.4rem;
+      color: ${({ theme }) => theme.colors.helper};
+      animation: fly 3s ease-in-out infinite;
+    }
+    @keyframes fly {
+      0% { transform: translateY(0) rotate(-10deg); }
+      50% { transform: translateY(-10px) rotate(0deg); }
+      100% { transform: translateY(0) rotate(-10deg); }
     }
   }
 
