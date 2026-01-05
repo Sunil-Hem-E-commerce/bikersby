@@ -26,6 +26,11 @@ const productSchema = new mongoose.Schema({
   ],
 });
 
+productSchema.index({ category: 1 });
+productSchema.index({ company: 1 });
+productSchema.index({ featured: 1 });
+productSchema.index({ price: 1 });
+
 productSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();

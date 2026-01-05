@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   async list(req, res, next) {
     try {
-      const users = await User.find({});
+      const users = await User.find({}, null, { lean: true });
+      res.set("Cache-Control", "private, max-age=30");
       res.json(users);
     } catch (error) {
       next(error);

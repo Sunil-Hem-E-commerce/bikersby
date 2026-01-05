@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const config = require("../utils/config");
 
 module.exports = {
   async loginUser(req, res, next) {
@@ -26,7 +27,7 @@ module.exports = {
       };
 
       const token = jwt.sign(userForToken, process.env.SECRET, {
-        expiresIn: 60 * 5,
+        expiresIn: config.JWT_EXPIRES_IN,
       });
 
       // res.cookie("token", token, {

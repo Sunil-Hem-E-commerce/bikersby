@@ -3,7 +3,7 @@ const Product = require("../models/product");
 module.exports = {
   async list(req, res, next) {
     try {
-      const products = await Product.find({})
+      const products = await Product.find({}, null, { lean: true })
         .populate({
           path: "images",
           options: { limit: 1 },
@@ -43,6 +43,7 @@ module.exports = {
           colors: colors.map((color) => color.hex),
         };
       });
+      res.set("Cache-Control", "public, max-age=60");
       res.json(flattenedProducts);
     } catch (error) {
       next(error);
@@ -51,9 +52,10 @@ module.exports = {
 
   async listOne(req, res, next) {
     try {
-      const product = await Product.findById(req.params.id)
+      const product = await Product.findById(req.params.id, null, { lean: true })
         .populate("colors", {})
         .populate("images", {});
+      res.set("Cache-Control", "public, max-age=60");
       res.json(product);
     } catch (error) {
       next(error);
