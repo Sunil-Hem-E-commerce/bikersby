@@ -4,8 +4,13 @@ import { useProductContext } from "../context/productContext";
 import FormatPrice from "../Helpers/FormatPrice";
 
 const AdminDashboard = () => {
-  const { products, addProduct, updateProduct, deleteProduct } =
-    useProductContext();
+  const {
+    products,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+    addProductsBulk,
+  } = useProductContext();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [users, setUsers] = useState(() => {
     try {
@@ -33,6 +38,9 @@ const AdminDashboard = () => {
     featured: false,
   });
   const [editingProductId, setEditingProductId] = useState(null);
+  const [bulkJson, setBulkJson] = useState("");
+  const [bulkDiscount, setBulkDiscount] = useState("");
+  const [adminMsg, setAdminMsg] = useState({ type: "", text: "" });
   const [userForm, setUserForm] = useState({
     id: "",
     name: "",
@@ -132,9 +140,36 @@ const AdminDashboard = () => {
       featured: !!productForm.featured,
     };
     if (editingProductId) {
-      updateProduct(editingProductId, parsed);
+      updateProduct(editingProductId, parsed)
+        .then(() =>
+          setAdminMsg({
+            type: "success",
+            text: "Product updated successfully.",
+          })
+        )
+        .catch((e) =>
+          setAdminMsg({
+            type: "error",
+            text:
+              e?.response?.data?.error ||
+              e?.response?.data?.message ||
+              "Failed to update product.",
+          })
+        );
     } else {
-      addProduct(parsed);
+      addProduct(parsed)
+        .then(() =>
+          setAdminMsg({ type: "success", text: "Product added successfully." })
+        )
+        .catch((e) =>
+          setAdminMsg({
+            type: "error",
+            text:
+              e?.response?.data?.error ||
+              e?.response?.data?.message ||
+              "Failed to add product.",
+          })
+        );
     }
     setProductForm({
       id: "",
@@ -196,6 +231,7 @@ const AdminDashboard = () => {
 
   const deleteUser = (id) => {
     saveUsers(users.filter((u) => u.id !== id));
+    setAdminMsg({ type: "success", text: "User deleted." });
   };
 
   const submitTransaction = () => {
@@ -473,6 +509,74 @@ const AdminDashboard = () => {
                 <div className="actions">
                   <button className="btn" onClick={submitProduct}>
                     {editingProductId ? "Update Product" : "Add Product"}
+                  </button>
+                </div>
+                {adminMsg.text ? (
+                  <AlertBox data-type={adminMsg.type}>{adminMsg.text}</AlertBox>
+                ) : null}
+                <h4 style={{ marginTop: "2rem" }}>Bulk Import</h4>
+                <div className="form-grid">
+                  <div
+                    className="form-item"
+                    style={{ gridColumn: "1 / span 2" }}
+                  >
+                    <label htmlFor="bulk-json">Products JSON</label>
+                    <textarea
+                      id="bulk-json"
+                      rows="6"
+                      value={bulkJson}
+                      onChange={(e) => setBulkJson(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-item">
+                    <label htmlFor="bulk-discount">Default Discount %</label>
+                    <input
+                      id="bulk-discount"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value={bulkDiscount}
+                      onChange={(e) => setBulkDiscount(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="actions">
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      try {
+                        const parsed = JSON.parse(bulkJson || "[]");
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                          addProductsBulk(parsed, Number(bulkDiscount) || 0)
+                            .then(() => {
+                              setBulkJson("");
+                              setBulkDiscount("");
+                              setAdminMsg({
+                                type: "success",
+                                text: "Bulk import completed.",
+                              });
+                            })
+                            .catch((e) =>
+                              setAdminMsg({
+                                type: "error",
+                                text:
+                                  e?.response?.data?.error ||
+                                  e?.response?.data?.message ||
+                                  "Bulk import failed.",
+                              })
+                            );
+                        }
+                      } catch (e) {
+                        setBulkJson(bulkJson);
+                        setAdminMsg({
+                          type: "error",
+                          text: "Invalid JSON. Please paste a valid products array.",
+                        });
+                      }
+                    }}
+                  >
+                    Import Products
                   </button>
                 </div>
               </section>
@@ -828,6 +932,9 @@ export default AdminDashboard;
 
 const Wrapper = styled.section`
   padding: 9rem 0;
+  .alert {
+    margin: 1rem 0;
+  }
 
   .layout {
     display: grid;
@@ -978,4 +1085,16 @@ const Wrapper = styled.section`
     display: grid;
     gap: 0.4rem;
   }
+`;
+
+const AlertBox = styled.div`
+  margin: 0 0 1.2rem 0;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  background: ${(p) =>
+    p["data-type"] === "success" ? "#e8f8f2" : "#fdecea"};
+  color: ${(p) => (p["data-type"] === "success" ? "#0f5132" : "#842029")};
+  border: 1px solid
+    ${(p) => (p["data-type"] === "success" ? "#b7e4d7" : "#f5c2c7")};
 `;

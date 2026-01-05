@@ -14,10 +14,7 @@ const CORS_ORIGINS = (process.env.CORS_ORIGINS || "")
   .filter(Boolean);
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "5m";
 
-const mongoUrl =
-  process.env.NODE_ENV === "production" && CLOUD_DB_URI
-    ? CLOUD_DB_URI
-    : MONGODB_URI;
+const mongoUrl = CLOUD_DB_URI || MONGODB_URI;
 
 module.exports = {
   mongoUrl,

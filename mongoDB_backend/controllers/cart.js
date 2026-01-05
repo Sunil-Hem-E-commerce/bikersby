@@ -5,7 +5,7 @@ module.exports = {
     try {
       const { qtyToAdd } = req.body;
       const productId = req.params.id;
-      const user = await User.findById(req.user);
+      const user = await User.findById(req.user.id);
       const product = user.orders.find((item) => item.product == productId);
       if (product) {
         product.quantity = qtyToAdd;
@@ -28,7 +28,7 @@ module.exports = {
   async inxCart(req, res, next) {
     try {
       var productId = req.params.id;
-      const user = await User.findById(req.user);
+      const user = await User.findById(req.user.id);
       const product = user.orders.find((item) => item.product == productId);
       if (product) {
         product.quantity += 1;
@@ -47,7 +47,7 @@ module.exports = {
   async decCart(req, res, next) {
     try {
       var productId = req.params.id;
-      const user = await User.findById(req.user);
+      const user = await User.findById(req.user.id);
       const product = user.orders.find((item) => item.product == productId);
       if (product) {
         product.quantity -= 1;
@@ -64,7 +64,7 @@ module.exports = {
   async updateCart(req, res, next) {
     try {
       var productId = req.params.id;
-      const user = await User.findById(req.user);
+      const user = await User.findById(req.user.id);
       user.orders = user.orders.filter((item) => item.product !== productId);
       await user.save();
       res.status(200).send("Product removed from cart");
@@ -75,7 +75,7 @@ module.exports = {
 
   async delCart(req, res, next) {
     try {
-      const user = await User.findById(req.user);
+      const user = await User.findById(req.user.id);
       user.orders = [];
       await user.save();
       res.status(200).send("Cart has been emptied");

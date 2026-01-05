@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { addUser } from "../services/user";
 
 const RegistrationFormContainer = styled.div`
   max-width: 420px;
@@ -99,6 +100,7 @@ const SignUp = () => {
     password: "",
     role_id: "",
   });
+  const [uiMsg, setUiMsg] = useState({ type: "", text: "" });
 
   const handleChange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
@@ -107,24 +109,30 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const response = await addUser(register);
-      // Mock registration
-      const mockResponse = {
-        status: 201,
-        error: false,
-      };
-
-      if (mockResponse && mockResponse.status === 201 && !mockResponse.error) {
+      const response = await addUser({
+        username: register.username,
+        email: register.email,
+        password: register.password,
+      });
+      if (response && response.status === 201) {
         toast.success("User Registered Successfully !");
-        navigate("/login"); // Navigate to login instead of home
+        setUiMsg({
+          type: "success",
+          text: "Registration successful. Please log in to continue.",
+        });
+        navigate("/login");
       } else {
-        toast.error("Registration Failed. Please try again.");
+        const msg = "Registration failed. Please try again.";
+        toast.error(msg);
+        setUiMsg({ type: "error", text: msg });
       }
     } catch (error) {
-      console.error("Error occurred:", error);
-      toast.error("Error occurred. Please try again.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      const msg =
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        "Error occurred. Please try again.";
+      toast.error(msg);
+      setUiMsg({ type: "error", text: msg });
     }
   };
 
@@ -132,6 +140,9 @@ const SignUp = () => {
     <>
       <RegistrationFormContainer>
         <Title>Create an Account</Title>
+        {uiMsg.text ? (
+          <AlertBox data-type={uiMsg.type}>{uiMsg.text}</AlertBox>
+        ) : null}
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label>Full Name:</Label>
@@ -219,3 +230,14 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+const AlertBox = styled.div`
+  margin: 0 0 1.2rem 0;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  background: ${(p) => (p["data-type"] === "success" ? "#e8f8f2" : "#fdecea")};
+  color: ${(p) => (p["data-type"] === "success" ? "#0f5132" : "#842029")};
+  border: 1px solid
+    ${(p) => (p["data-type"] === "success" ? "#b7e4d7" : "#f5c2c7")};
+`;

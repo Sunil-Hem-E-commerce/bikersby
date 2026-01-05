@@ -35,6 +35,13 @@ const unknownEndpoint = (request, response) => {
   response.sendFile(path.resolve(__dirname, "../dist/index.html")); // response.status(404).send({ error: "unknown endpoint" });
 };
 
+const requireAuth = (request, response, next) => {
+  if (!request.user) {
+    return response.status(401).json({ error: "authentication required" });
+  }
+  return next();
+};
+
 const errorHandler = (error, request, response, next) => {
   logger.info("---------");
   logger.error(error.message);
@@ -57,4 +64,5 @@ module.exports = {
   errorHandler,
   tokenExtractor,
   userExtractor,
+  requireAuth,
 };

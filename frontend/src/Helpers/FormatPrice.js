@@ -3,7 +3,7 @@ const FormatPrice = ({ price }) => {
     style: "currency",
     currency: "NPR",
     minimumFractionDigits: 2,
-  }).format(price);
+  }).format(price / 100);
 };
 
 export default FormatPrice;

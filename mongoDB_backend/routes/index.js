@@ -5,11 +5,15 @@ const productController = require("../controllers/products");
 const adminController = require("../controllers/product_admin");
 const testingController = require("../controllers/testing");
 const cartController = require("../controllers/cart");
-const { userExtractor, tokenExtractor } = require("../utils/middleware");
+const {
+  userExtractor,
+  tokenExtractor,
+  requireAuth,
+} = require("../utils/middleware");
 const user = require("../models/user");
 
 router.get("/", (req, res, next) => {
-  res.send("Hello 2-pangre users!!");
+  res.send("Hello Healthy-Living users!!");
 });
 
 router.get("/users/", userController.list);
@@ -23,9 +27,34 @@ router.post("/login/", loginController.loginUser);
 router.get("/products/", productController.list);
 router.get("/products/:id", productController.listOne);
 
-router.post("/admin/products/", adminController.addProduct);
-router.put("/admin/products/:id", adminController.updateProduct);
-router.delete("/admin/products/:id", adminController.deleteProduct);
+router.post(
+  "/admin/products/",
+  tokenExtractor,
+  userExtractor,
+  requireAuth,
+  adminController.addProduct
+);
+router.put(
+  "/admin/products/:id",
+  tokenExtractor,
+  userExtractor,
+  requireAuth,
+  adminController.updateProduct
+);
+router.post(
+  "/admin/products/bulk",
+  tokenExtractor,
+  userExtractor,
+  requireAuth,
+  adminController.addBulkProducts
+);
+router.delete(
+  "/admin/products/:id",
+  tokenExtractor,
+  userExtractor,
+  requireAuth,
+  adminController.deleteProduct
+);
 
 router.use(tokenExtractor, userExtractor);
 // below routes require authentication

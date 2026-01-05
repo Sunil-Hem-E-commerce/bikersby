@@ -5,6 +5,7 @@ import { useUserContext } from "../context/user_context";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { loginUser } from "../services/login";
 
 const LoginForm = () => {
   const { setUser } = useUserContext();
@@ -15,6 +16,7 @@ const LoginForm = () => {
     password: "",
     role_id: "",
   });
+  const [uiMsg, setUiMsg] = useState({ type: "", text: "" });
 
   const handleChange = (e) => {
     setSignin({ ...signin, [e.target.name]: e.target.value });
@@ -22,27 +24,39 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const mockResponse = {
-      status: 200,
-      data: {
-        name: "Test User",
+    try {
+      const response = await loginUser({
         email: signin.email,
-        accessToken: "dummy-token",
-        role: "user",
-      },
-    };
-
-    if (mockResponse.status === 200) {
-      navigate("/");
-      setUser(mockResponse.data);
-      localStorage.setItem("loggedInUser", JSON.stringify(mockResponse.data));
-      toast.success("User Logged In sucessfully !");
+        password: signin.password,
+      });
+      if (response.status === 200) {
+        const payload = {
+          email: response.data.email,
+          accessToken: response.data.accessToken,
+          id: response.data.user?.id,
+        };
+        setUser(payload);
+        localStorage.setItem("loggedInUser", JSON.stringify(payload));
+        toast.success("User Logged In successfully!");
+        setUiMsg({ type: "success", text: "Welcome back! You're logged in." });
+        navigate("/");
+      }
+    } catch (err) {
+      const msg =
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        "Login failed. Please check your email and password.";
+      toast.error(msg);
+      setUiMsg({ type: "error", text: msg });
     }
   };
 
   return (
     <Container>
       <Title>Login to Your Account</Title>
+      {uiMsg.text ? (
+        <AlertBox data-type={uiMsg.type}>{uiMsg.text}</AlertBox>
+      ) : null}
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Email</Label>
@@ -176,4 +190,15 @@ const AuthHint = styled.p`
   a {
     color: ${({ theme }) => theme.colors.helper};
   }
+`;
+
+const AlertBox = styled.div`
+  margin: 0 0 1.2rem 0;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  background: ${(p) => (p["data-type"] === "success" ? "#e8f8f2" : "#fdecea")};
+  color: ${(p) => (p["data-type"] === "success" ? "#0f5132" : "#842029")};
+  border: 1px solid
+    ${(p) => (p["data-type"] === "success" ? "#b7e4d7" : "#f5c2c7")};
 `;
