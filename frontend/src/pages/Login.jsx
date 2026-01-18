@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginUser } from "../services/login";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import axios from "axios";
 
 const LoginForm = () => {
   const { setUser } = useUserContext();
@@ -20,6 +22,112 @@ const LoginForm = () => {
 
   const handleChange = (e) => {
     setSignin({ ...signin, [e.target.name]: e.target.value });
+  };
+
+  const loadScript = (src) =>
+    new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) return resolve();
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      s.defer = true;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.body.appendChild(s);
+    });
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+      if (!clientId) {
+        toast.error("Google Client ID not configured");
+        return;
+      }
+      await loadScript("https://accounts.google.com/gsi/client");
+      // Use Google Identity Services to get ID Token
+      window.google.accounts.id.initialize({
+        client_id: clientId,
+        callback: async (response) => {
+          const idToken = response.credential;
+          if (!idToken) {
+            toast.error("Google sign-in failed");
+            return;
+          }
+          try {
+            const res = await axios.post("/api/login/google", { idToken });
+            const payload = {
+              email: res.data.email,
+              accessToken: res.data.accessToken,
+              id: res.data.user?.id,
+            };
+            setUser(payload);
+            localStorage.setItem("loggedInUser", JSON.stringify(payload));
+            toast.success("Logged in with Google!");
+            navigate("/");
+          } catch (err) {
+            const msg =
+              err?.response?.data?.error ||
+              err?.response?.data?.message ||
+              "Google login failed.";
+            toast.error(msg);
+          }
+        },
+      });
+      window.google.accounts.id.prompt();
+    } catch (e) {
+      toast.error("Unable to load Google SDK");
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      const appId = import.meta.env.VITE_FACEBOOK_APP_ID;
+      if (!appId) {
+        toast.error("Facebook App ID not configured");
+        return;
+      }
+      await loadScript("https://connect.facebook.net/en_US/sdk.js");
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId,
+          cookie: true,
+          xfbml: false,
+          version: "v16.0",
+        });
+        window.FB.login(
+          async (response) => {
+            if (response.authResponse) {
+              try {
+                const accessToken = response.authResponse.accessToken;
+                const res = await axios.post("/api/login/facebook", {
+                  accessToken,
+                });
+                const payload = {
+                  email: res.data.email,
+                  accessToken: res.data.accessToken,
+                  id: res.data.user?.id,
+                };
+                setUser(payload);
+                localStorage.setItem("loggedInUser", JSON.stringify(payload));
+                toast.success("Logged in with Facebook!");
+                navigate("/");
+              } catch (err) {
+                const msg =
+                  err?.response?.data?.error ||
+                  err?.response?.data?.message ||
+                  "Facebook login failed.";
+                toast.error(msg);
+              }
+            } else {
+              toast.error("Facebook login cancelled");
+            }
+          },
+          { scope: "email" }
+        );
+      };
+    } catch (e) {
+      toast.error("Unable to load Facebook SDK");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -98,6 +206,19 @@ const LoginForm = () => {
           New here? <NavLink to="/signup">Create an account</NavLink>
         </AuthHint>
       </Form>
+      <SocialContainer>
+        <OrDivider>
+          <span>OR</span>
+        </OrDivider>
+        <ButtonRow>
+          <SocialButton className="google" onClick={handleGoogleSignIn}>
+            <FaGoogle /> Sign in with Google
+          </SocialButton>
+          <SocialButton className="facebook" onClick={handleFacebookSignIn}>
+            <FaFacebook /> Sign in with Facebook
+          </SocialButton>
+        </ButtonRow>
+      </SocialContainer>
     </Container>
   );
 };
@@ -201,4 +322,57 @@ const AlertBox = styled.div`
   color: ${(p) => (p["data-type"] === "success" ? "#0f5132" : "#842029")};
   border: 1px solid
     ${(p) => (p["data-type"] === "success" ? "#b7e4d7" : "#f5c2c7")};
+`;
+
+const SocialContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+const OrDivider = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.2rem;
+  span {
+    padding: 0 0.8rem;
+  }
+  &:before,
+  &:after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  }
+`;
+
+const ButtonRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+`;
+
+const SocialButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  color: #fff;
+  &.google {
+    background: #db4437;
+  }
+  &.facebook {
+    background: #1877f2;
+  }
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
+    filter: brightness(1.05);
+  }
 `;

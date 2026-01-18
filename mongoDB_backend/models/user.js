@@ -4,8 +4,12 @@ const uniqueValidator = require("mongoose-unique-validator");
 const userSchema = new mongoose.Schema({
   username: { type: String, minLength: 4 },
   email: { type: String, unique: true, required: true },
+  phone: { type: String, unique: true, required: true },
+  otp: { type: String },
   passwordHash: { type: String, required: true },
   address: { type: String },
+  isEmailVerified: { type: Boolean, default: false },
+  emailVerificationToken: { type: String },
   orders: [
     {
       product: {

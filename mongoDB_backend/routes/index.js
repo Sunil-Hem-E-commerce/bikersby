@@ -18,11 +18,15 @@ router.get("/", (req, res, next) => {
 
 router.get("/users/", userController.list);
 router.post("/users/", userController.addUser);
+router.post("/users/verify-otp", userController.verifyOtp);
+router.get("/users/verify-email", userController.verifyEmail);
 router.get("/users/:id", userController.listOne);
 router.delete("/users/:id", userController.deleteUser);
 // router.get("/users/login/:token", userController.userByToken);
 
 router.post("/login/", loginController.loginUser);
+router.post("/login/google", loginController.googleLogin);
+router.post("/login/facebook", loginController.facebookLogin);
 
 router.get("/products/", productController.list);
 router.get("/products/:id", productController.listOne);

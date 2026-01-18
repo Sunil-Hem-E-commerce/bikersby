@@ -1,6 +1,9 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { sendOtp } = require("../utils/otp");
+const { sendVerificationEmail } = require("../utils/email");
+const crypto = require("crypto");
 
 module.exports = {
   async list(req, res, next) {
@@ -15,23 +18,66 @@ module.exports = {
 
   async addUser(req, res, next) {
     try {
-      const { username, email, password } = req.body;
+      const { username, email, password, phone } = req.body;
       if (password.length < 4) {
         return res
           .status(400)
           .send("Password cannot be less then 4 characters");
       }
       const passwordHash = await bcrypt.hash(password, 10);
+      const otp = await sendOtp(phone);
+      const emailVerificationToken = crypto.randomBytes(20).toString("hex");
 
       const user = new User({
         username,
         email,
         passwordHash,
+        phone,
+        otp,
+        emailVerificationToken,
       });
 
       const savedUser = await user.save();
+      await sendVerificationEmail(email, emailVerificationToken);
 
       res.status(201).json(savedUser);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async verifyOtp(req, res, next) {
+    try {
+      const { phone, otp } = req.body;
+      const user = await User.findOne({ phone, otp });
+
+      if (!user) {
+        return res.status(400).json({ error: "Invalid OTP" });
+      }
+
+      user.otp = null;
+      await user.save();
+
+      res.status(200).json({ message: "OTP verified successfully" });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async verifyEmail(req, res, next) {
+    try {
+      const { token } = req.query;
+      const user = await User.findOne({ emailVerificationToken: token });
+
+      if (!user) {
+        return res.status(400).json({ error: "Invalid verification token" });
+      }
+
+      user.isEmailVerified = true;
+      user.emailVerificationToken = null;
+      await user.save();
+
+      res.status(200).json({ message: "Email verified successfully" });
     } catch (error) {
       next(error);
     }

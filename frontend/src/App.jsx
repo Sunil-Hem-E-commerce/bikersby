@@ -18,11 +18,13 @@ import Footer from "./components/Footer";
 import ChatbotWidget from "./components/ChatbotWidget";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import OtpVerification from "./pages/OtpVerification";
 import AdminDashboard from "./pages/AdminDashboard";
 import Checkout from "./pages/Checkout";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
 import Transactions from "./pages/Transactions";
+import EmailVerification from "./pages/EmailVerification";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../src/context/user_context";
 import { ToastContainer, toast } from "react-toastify";
@@ -147,6 +149,8 @@ const App = () => {
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/otp-verification" element={<OtpVerification />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

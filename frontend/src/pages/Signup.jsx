@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { addUser } from "../services/user";
 
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 const RegistrationFormContainer = styled.div`
   max-width: 420px;
   margin: 4rem auto;
@@ -14,6 +17,20 @@ const RegistrationFormContainer = styled.div`
   border-radius: 12px;
   background: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.colors.shadow};
+
+  .PhoneInputInput {
+    padding: 1rem;
+    font-size: 1.6rem;
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    border-radius: 8px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    &:focus {
+      outline: none;
+      border-color: ${({ theme }) => theme.colors.btn};
+      box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.border};
+    }
+  }
 `;
 
 const Form = styled.form`
@@ -94,6 +111,7 @@ const AuthHint = styled.p`
 const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [phone, setPhone] = useState();
   const [register, setRegister] = useState({
     email: "",
     username: "",
@@ -113,14 +131,15 @@ const SignUp = () => {
         username: register.username,
         email: register.email,
         password: register.password,
+        phone: phone,
       });
       if (response && response.status === 201) {
         toast.success("User Registered Successfully !");
         setUiMsg({
           type: "success",
-          text: "Registration successful. Please log in to continue.",
+          text: "Registration successful. Please verify your phone number to continue.",
         });
-        navigate("/login");
+        navigate("/otp-verification", { state: { phone: phone } });
       } else {
         const msg = "Registration failed. Please try again.";
         toast.error(msg);
@@ -161,6 +180,15 @@ const SignUp = () => {
               value={register.email}
               name="email"
               onChange={handleChange}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Phone Number:</Label>
+            <PhoneInput
+              placeholder="Enter phone number"
+              value={phone}
+              onChange={setPhone}
               required
             />
           </FormGroup>
