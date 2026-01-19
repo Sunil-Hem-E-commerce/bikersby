@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useCartContext } from "../context/cart_context";
 import CartItem from "../components/CartItem";
 import { NavLink } from "react-router-dom";
@@ -10,59 +9,59 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <EmptyDiv>
-        <h3>No Item in Cart</h3>
-      </EmptyDiv>
+      <div className="grid place-items-center h-[50vh]">
+        <h3 className="text-[4.2rem] capitalize font-light">No Item in Cart</h3>
+      </div>
     );
   }
   return (
-    <Wrapper>
-      <div className="container">
-        <div className="cart_heading grid grid-five-column">
+    <section className="py-[9rem]">
+      <div className="max-w-[120rem] mx-auto px-[3.2rem]">
+        <div className="grid grid-cols-[repeat(4,1fr)_0.3fr] text-center items-center uppercase max-md:grid-cols-[1.5fr_1fr_0.5fr]">
           <p>Item</p>
-          <p className="cart-hide">Price</p>
+          <p className="max-md:hidden">Price</p>
           <p>Quantity</p>
-          <p className="cart-hide">SubTotal</p>
+          <p className="max-md:hidden">SubTotal</p>
           <p>Remove</p>
         </div>
-        <hr />
-        <div className="cart-item">
+        <hr className="mt-[1rem]" />
+        <div className="py-[3.2rem] flex flex-col gap-[3.2rem]">
           {cart.map((curElem) => {
             return <CartItem key={curElem.id} {...curElem} />;
           })}
         </div>
         <hr />
-        <div className="cart-two-button">
+        <div className="mt-[2rem] flex justify-between max-md:gap-[2.2rem]">
           <NavLink to="/products">
             <Button>Continue Shopping</Button>
           </NavLink>
-          <Button className="btn btn-clear" onClick={clearCart}>
+          <Button className="bg-[#e74c3c]" onClick={clearCart}>
             Clear Cart
           </Button>
         </div>
 
         {/* Order total amount */}
-        <div className="order-total--amount">
-          <div className="order-total--subdata">
-            <div>
+        <div className="w-full my-[4.8rem] capitalize flex flex-col justify-end items-end max-md:justify-start max-md:items-start">
+          <div className="border border-[#f0f0f0] flex flex-col gap-[1.8rem] p-[3.2rem] max-md:w-full">
+            <div className="flex gap-[3.2rem] justify-between">
               <p>subtotal:</p>
-              <p>
+              <p className="font-bold text-[#1d1d1d]">
                 <FormatPrice price={total_price} />
               </p>
             </div>
-          </div>
-          <div>
-            <p>Shipping fee:</p>
-            <p>
-              <FormatPrice price={shipping_fee} />
-            </p>
-          </div>
-          <hr />
-          <div>
-            <p>order total:</p>
-            <p>
-              <FormatPrice price={total_price + shipping_fee} />
-            </p>
+            <div className="flex gap-[3.2rem] justify-between">
+              <p>Shipping fee:</p>
+              <p className="font-bold text-[#1d1d1d]">
+                <FormatPrice price={shipping_fee} />
+              </p>
+            </div>
+            <hr />
+            <div className="flex gap-[3.2rem] justify-between">
+              <p>order total:</p>
+              <p className="font-bold text-[#1d1d1d]">
+                <FormatPrice price={total_price + shipping_fee} />
+              </p>
+            </div>
           </div>
           <div style={{ marginTop: "2rem" }}>
             <NavLink to="/checkout">
@@ -71,195 +70,8 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const EmptyDiv = styled.div`
-  display: grid;
-  place-items: center;
-  height: 50vh;
-
-  h3 {
-    font-size: 4.2rem;
-    text-transform: capitalize;
-    font-weight: 300;
-  }
-`;
-
-const Wrapper = styled.section`
-  padding: 9rem 0;
-
-  .grid-four-column {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .grid-five-column {
-    grid-template-columns: repeat(4, 1fr) 0.3fr;
-    text-align: center;
-    align-items: center;
-  }
-  .cart-heading {
-    text-align: center;
-    text-transform: uppercase;
-  }
-  hr {
-    margin-top: 1rem;
-  }
-  .cart-item {
-    padding: 3.2rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3.2rem;
-  }
-
-  .cart-user--profile {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1.2rem;
-    margin-bottom: 5.4rem;
-
-    img {
-      width: 8rem;
-      height: 8rem;
-      border-radius: 50%;
-    }
-    h2 {
-      font-size: 2.4rem;
-    }
-  }
-  .cart-user--name {
-    text-transform: capitalize;
-  }
-  .cart-image--name {
-    /* background-color: red; */
-    align-items: center;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 0.4fr 1fr;
-    text-transform: capitalize;
-    text-align: left;
-    img {
-      max-width: 5rem;
-      height: 5rem;
-      object-fit: contain;
-      color: transparent;
-    }
-
-    .color-div {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 1rem;
-
-      .color-style {
-        width: 1.4rem;
-        height: 1.4rem;
-
-        border-radius: 50%;
-      }
-    }
-  }
-
-  .cart-two-button {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-
-    .btn-clear {
-      background-color: #e74c3c;
-    }
-  }
-
-  .amount-toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2.4rem;
-    font-size: 1.4rem;
-
-    button {
-      border: none;
-      background-color: ${({ theme }) => theme.colors.white};
-      cursor: pointer;
-    }
-
-    .amount-style {
-      font-size: 2.4rem;
-      color: ${({ theme }) => theme.colors.btn};
-    }
-  }
-
-  .remove_icon {
-    font-size: 1.6rem;
-    color: #e74c3c;
-    cursor: pointer;
-  }
-
-  .order-total--amount {
-    width: 100%;
-    margin: 4.8rem 0;
-    text-transform: capitalize;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-
-    .order-total--subdata {
-      border: 0.1rem solid #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-      padding: 3.2rem;
-    }
-    div {
-      display: flex;
-      gap: 3.2rem;
-      justify-content: space-between;
-    }
-
-    div:last-child {
-      background-color: ${({ theme }) => theme.colors.white};
-    }
-
-    div p:last-child {
-      font-weight: bold;
-      color: ${({ theme }) => theme.colors.heading};
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    .grid-five-column {
-      grid-template-columns: 1.5fr 1fr 0.5fr;
-    }
-    .cart-hide {
-      display: none;
-    }
-
-    .cart-two-button {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 2.2rem;
-    }
-
-    .order-total--amount {
-      width: 100%;
-      text-transform: capitalize;
-      justify-content: flex-start;
-      align-items: flex-start;
-
-      .order-total--subdata {
-        width: 100%;
-        border: 0.1rem solid #f0f0f0;
-        display: flex;
-        flex-direction: column;
-        gap: 1.8rem;
-        padding: 3.2rem;
-      }
-    }
-  }
-`;
 
 export default Cart;

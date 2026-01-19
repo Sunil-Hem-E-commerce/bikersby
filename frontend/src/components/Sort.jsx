@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 
 import { useFilterContext } from "../context/filter_context";
@@ -8,20 +7,28 @@ const Sort = () => {
   const { filter_products, grid_view, setGridView, setListView, sorting } =
     useFilterContext();
   return (
-    <Wrapper className="sort-section">
-      <div className="sorting-list--grid">
+    <section className="flex justify-between mt-[5rem] max-md:flex-col max-md:gap-[2rem] max-md:items-center">
+      <div className="flex gap-[2rem]">
         <button
-          className={grid_view ? "active sort-btn" : "sort-btn"}
+          className={
+            grid_view
+              ? "py-[0.8rem] px-[1rem] border-none flex justify-center items-center cursor-pointer bg-black text-white"
+              : "py-[0.8rem] px-[1rem] border-none flex justify-center items-center cursor-pointer bg-[#F6F8FA]"
+          }
           onClick={setGridView}
         >
-          <BsFillGridFill className="icon" />
+          <BsFillGridFill className="text-[1.6rem]" />
         </button>
 
         <button
-          className={!grid_view ? "active sort-btn" : " sort-btn"}
+          className={
+            !grid_view
+              ? "py-[0.8rem] px-[1rem] border-none flex justify-center items-center cursor-pointer bg-black text-white"
+              : "py-[0.8rem] px-[1rem] border-none flex justify-center items-center cursor-pointer bg-[#F6F8FA]"
+          }
           onClick={setListView}
         >
-          <BsList className="icon" />
+          <BsList className="text-[1.6rem]" />
         </button>
       </div>
       <div className="product-data">
@@ -33,7 +40,7 @@ const Sort = () => {
           <select
             name="sort"
             id="sort"
-            className="sort-selection--style"
+            className="p-[0.5rem] cursor-pointer border border-gray-200 rounded-[0.5rem] outline-none"
             onClick={sorting}
           >
             <option value="lowest">Price(Lowest)</option>
@@ -46,48 +53,8 @@ const Sort = () => {
           </select>
         </form>
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5rem;
-
-  .sorting-list--grid {
-    display: flex;
-    gap: 2rem;
-
-    .sort-btn {
-      padding: 0.8rem 1rem;
-      border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .icon {
-      font-size: 1.6rem;
-    }
-    .active {
-      background-color: ${({ theme }) => theme.colors.black};
-      color: #fff;
-    }
-  }
-
-  .sort-selection .sort-selection--style {
-    padding: 0.5rem;
-    cursor: pointer;
-
-    .sort-select--option {
-      padding: 0.5rem 0;
-      cursor: pointer;
-      height: 2rem;
-      padding: 10px;
-    }
-  }
-`;
 
 export default Sort;

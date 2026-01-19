@@ -1,47 +1,12 @@
-import styled from "styled-components";
-// import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from "../context/user_context";
 
 const Contact = () => {
-  // const { isAuthenticated, user } = useAuth0();
   const { user } = useUserContext();
   const isAuthenticated = !!user;
 
-  const Wrapper = styled.section`
-    padding: 9rem 0 5rem 0;
-    text-align: center;
-
-    .container {
-      margin-top: 6rem;
-
-      .contact-form {
-        max-width: 50rem;
-        margin: auto;
-
-        .contact-inputs {
-          display: flex;
-          flex-direction: column;
-          gap: 3rem;
-
-          input[type="submit"] {
-            cursor: pointer;
-            transition: all 0.2s;
-
-            &:hover {
-              background-color: ${({ theme }) => theme.colors.white};
-              border: 1px solid ${({ theme }) => theme.colors.btn};
-              color: ${({ theme }) => theme.colors.btn};
-              transform: scale(0.9);
-            }
-          }
-        }
-      }
-    }
-  `;
-
   return (
-    <Wrapper>
-      <h2 className="common-heading">Contact page</h2>
+    <section className="pt-[9rem] pb-[5rem] text-center">
+      <h2 className="text-[3.8rem] font-semibold mb-[6rem] capitalize text-[#1d1d1d] dark:text-white">Contact page</h2>
 
       <iframe
         title="Healthy Living Nepal"
@@ -54,12 +19,12 @@ const Contact = () => {
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
 
-      <div className="container">
-        <div className="contact-form">
+      <div className="mt-[6rem] max-w-[50rem] mx-auto px-4">
+        <div className="max-w-[50rem] mx-auto">
           <form
             action="https://formspree.io/f/maygkdqq"
             method="POST"
-            className="contact-inputs"
+            className="flex flex-col gap-[3rem]"
           >
             <input
               type="text"
@@ -68,6 +33,7 @@ const Contact = () => {
               value={isAuthenticated ? user.name : ""}
               required
               autoComplete="off"
+              className="px-[2.4rem] py-[1.6rem] border border-gray-300 rounded-[0.8rem] shadow-sm text-[1.6rem] outline-none focus:border-[#8490ff]"
             />
 
             <input
@@ -77,6 +43,7 @@ const Contact = () => {
               placeholder="Email"
               autoComplete="off"
               required
+              className="px-[2.4rem] py-[1.6rem] border border-gray-300 rounded-[0.8rem] shadow-sm text-[1.6rem] outline-none focus:border-[#8490ff]"
             />
 
             <textarea
@@ -86,13 +53,18 @@ const Contact = () => {
               required
               autoComplete="off"
               placeholder="Enter you message"
+              className="px-[2.4rem] py-[1.6rem] border border-gray-300 rounded-[0.8rem] shadow-sm text-[1.6rem] outline-none focus:border-[#8490ff] resize-y"
             ></textarea>
 
-            <input type="submit" value="send" />
+            <input 
+              type="submit" 
+              value="send" 
+              className="bg-[rgb(98,84,243)] text-white px-[3.2rem] py-[1.4rem] uppercase text-[1.8rem] cursor-pointer transition-all duration-200 border border-[rgb(98,84,243)] hover:bg-white hover:text-[rgb(98,84,243)] hover:scale-90 rounded-[0.8rem]"
+            />
           </form>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
 

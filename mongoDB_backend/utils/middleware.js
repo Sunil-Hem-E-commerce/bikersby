@@ -1,5 +1,7 @@
 const logger = require("./logger");
-const User = require("../models/user");
+const { initDb } = require("./postgres");
+const { users } = require("../drizzle/schema");
+const { eq } = require("drizzle-orm");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
@@ -21,7 +23,12 @@ const userExtractor = async (request, response, next) => {
         return res.status(401).json({ error: "token invalid" });
       }
 
-      request.user = await User.findById(decodedToken.id);
+      const db = await initDb();
+      const rows = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, decodedToken.id));
+      request.user = rows[0] || null;
       return next();
     }
     request.user = null;

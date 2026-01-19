@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useSearchParams, NavLink } from "react-router-dom";
 import { useCartContext } from "../context/cart_context";
 import { Button } from "../styles/Button";
@@ -72,63 +71,63 @@ const PaymentSuccess = () => {
 
   if (!order) {
     return (
-      <Wrapper>
-        <div className="container">
-          <h2>Processing Payment...</h2>
+      <section className="py-[9rem] bg-[#F6F8FA]">
+        <div className="max-w-[600px] bg-white p-[4rem] rounded-[1rem] shadow-lg text-center mx-auto">
+          <h2 className="text-[3rem] font-bold">Processing Payment...</h2>
         </div>
-      </Wrapper>
+      </section>
     );
   }
 
   return (
-    <Wrapper>
-      <div className="container receipt-container">
-        <div className="success-icon">
+    <section className="py-[9rem] bg-[#F6F8FA] print:p-0 print:bg-white">
+      <div className="max-w-[600px] bg-white p-[4rem] rounded-[1rem] shadow-lg text-center mx-auto print:shadow-none print:w-full print:max-w-none print:absolute print:top-0 print:left-0">
+        <div className="text-[5rem] text-[#2ecc71] mb-[2rem] flex justify-center">
           <FaCheckCircle />
         </div>
-        <h2>Payment Successful!</h2>
-        <p className="thank-you">Thank you for your purchase.</p>
+        <h2 className="mb-[1rem] text-[#2ecc71] text-[3rem] font-bold">Payment Successful!</h2>
+        <p className="mb-[3rem] text-[1.8rem]">Thank you for your purchase.</p>
 
-        <div className="receipt-details">
-          <div className="row">
+        <div className="mb-[3rem] text-left bg-[#f9f9f9] p-[2rem] rounded-[0.5rem]">
+          <div className="flex justify-between mb-[1rem] text-[1.6rem]">
             <span>Transaction ID:</span>
             <span>{order.id}</span>
           </div>
-          <div className="row">
+          <div className="flex justify-between mb-[1rem] text-[1.6rem]">
             <span>Date:</span>
             <span>{order.date}</span>
           </div>
-          <div className="row">
+          <div className="flex justify-between mb-[1rem] text-[1.6rem]">
             <span>Payment Method:</span>
-            <span className="method">{order.method}</span>
+            <span className="uppercase font-medium">{order.method}</span>
           </div>
-          <div className="row">
+          <div className="flex justify-between mb-[1rem] text-[1.6rem]">
             <span>Reference ID:</span>
             <span>{order.refId}</span>
           </div>
-          <div className="row total-row">
+          <div className="flex justify-between mb-[1rem] text-[1.8rem] font-bold border-t border-dashed border-[#ccc] pt-[1rem] mt-[1rem]">
             <span>Total Amount:</span>
             <span><FormatPrice price={order.amount} /></span>
           </div>
         </div>
 
         {order.items.length > 0 && (
-          <div className="order-items">
-            <h3>Order Details</h3>
-            <table>
+          <div className="text-left mb-[3rem]">
+            <h3 className="text-[1.8rem] mb-[1rem] font-bold">Order Details</h3>
+            <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>Qty</th>
-                  <th>Price</th>
+                  <th className="p-[1rem] border-b border-[#eee] text-left text-[1.4rem] font-semibold bg-[#f0f0f0]">Item</th>
+                  <th className="p-[1rem] border-b border-[#eee] text-left text-[1.4rem] font-semibold bg-[#f0f0f0]">Qty</th>
+                  <th className="p-[1rem] border-b border-[#eee] text-left text-[1.4rem] font-semibold bg-[#f0f0f0]">Price</th>
                 </tr>
               </thead>
               <tbody>
                 {order.items.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td>{item.qty}</td>
-                    <td><FormatPrice price={item.price} /></td>
+                    <td className="p-[1rem] border-b border-[#eee] text-left text-[1.4rem]">{item.name}</td>
+                    <td className="p-[1rem] border-b border-[#eee] text-left text-[1.4rem]">{item.qty}</td>
+                    <td className="p-[1rem] border-b border-[#eee] text-left text-[1.4rem]"><FormatPrice price={item.price} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -136,143 +135,20 @@ const PaymentSuccess = () => {
           </div>
         )}
 
-        <div className="actions">
+        <div className="flex justify-center gap-[2rem] flex-wrap print:hidden">
           <Button onClick={() => window.print()}>
             <FaPrint /> Print Receipt
           </Button>
           <NavLink to="/">
-            <Button className="btn-secondary">Go to Home</Button>
+            <Button className="bg-white text-[#6254F3] border border-[#6254F3] hover:bg-[#6254F3] hover:text-white">Go to Home</Button>
           </NavLink>
           <NavLink to="/transactions">
-            <Button className="btn-secondary">Transaction History</Button>
+            <Button className="bg-white text-[#6254F3] border border-[#6254F3] hover:bg-[#6254F3] hover:text-white">Transaction History</Button>
           </NavLink>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  padding: 9rem 0;
-  background-color: ${({ theme }) => theme.colors.bg};
-
-  .receipt-container {
-    max-width: 600px;
-    background: #fff;
-    padding: 4rem;
-    border-radius: 1rem;
-    box-shadow: ${({ theme }) => theme.colors.shadow};
-    text-align: center;
-    margin: 0 auto;
-  }
-
-  .success-icon {
-    font-size: 5rem;
-    color: #2ecc71;
-    margin-bottom: 2rem;
-  }
-
-  h2 {
-    margin-bottom: 1rem;
-    color: #2ecc71;
-  }
-
-  .thank-you {
-    margin-bottom: 3rem;
-    font-size: 1.8rem;
-  }
-
-  .receipt-details {
-    margin-bottom: 3rem;
-    text-align: left;
-    background: #f9f9f9;
-    padding: 2rem;
-    border-radius: 0.5rem;
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      font-size: 1.6rem;
-
-      &.total-row {
-        font-weight: bold;
-        border-top: 1px dashed #ccc;
-        padding-top: 1rem;
-        margin-top: 1rem;
-        font-size: 1.8rem;
-      }
-
-      .method {
-        text-transform: uppercase;
-        font-weight: 500;
-      }
-    }
-  }
-
-  .order-items {
-    text-align: left;
-    margin-bottom: 3rem;
-
-    h3 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-
-      th, td {
-        padding: 1rem;
-        border-bottom: 1px solid #eee;
-        text-align: left;
-        font-size: 1.4rem;
-      }
-
-      th {
-        font-weight: 600;
-        background: #f0f0f0;
-      }
-    }
-  }
-
-  .actions {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-
-    .btn-secondary {
-      background-color: #fff;
-      color: ${({ theme }) => theme.colors.btn};
-      border: 1px solid ${({ theme }) => theme.colors.btn};
-
-      &:hover {
-        background-color: ${({ theme }) => theme.colors.btn};
-        color: #fff;
-      }
-    }
-  }
-
-  @media print {
-    body * {
-      visibility: hidden;
-    }
-    .receipt-container, .receipt-container * {
-      visibility: visible;
-    }
-    .receipt-container {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      box-shadow: none;
-    }
-    .actions {
-      display: none;
-    }
-  }
-`;
 
 export default PaymentSuccess;

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import styled from "styled-components";
 import { useProductContext } from "../context/productContext";
 import FormatPrice from "../Helpers/FormatPrice";
 
@@ -266,79 +265,79 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <div className="container">
-        <div className="layout">
-          <aside className="sidebar">
-            <h2 className="brand">Admin</h2>
-            <nav className="nav">
+    <section className="py-[9rem] bg-white dark:bg-gray-900">
+      <div className="max-w-[120rem] mx-auto px-[3.2rem]">
+        <div className="grid grid-cols-[24rem_1fr] gap-[2rem] max-md:grid-cols-1">
+          <aside className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem] h-fit">
+            <h2 className="mb-[1rem] text-[2rem] font-bold text-[#1d1d1d] dark:text-white">Admin</h2>
+            <nav className="grid gap-[0.8rem]">
               <button
-                className={activeTab === "dashboard" ? "active" : ""}
+                className={`border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer text-left transition-colors ${activeTab === "dashboard" ? "!bg-[#6254F3] !text-white !border-[#6254F3]" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
                 onClick={() => setActiveTab("dashboard")}
               >
                 Dashboard
               </button>
               <button
-                className={activeTab === "products" ? "active" : ""}
+                className={`border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer text-left transition-colors ${activeTab === "products" ? "!bg-[#6254F3] !text-white !border-[#6254F3]" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
                 onClick={() => setActiveTab("products")}
               >
                 Products
               </button>
               <button
-                className={activeTab === "users" ? "active" : ""}
+                className={`border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer text-left transition-colors ${activeTab === "users" ? "!bg-[#6254F3] !text-white !border-[#6254F3]" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
                 onClick={() => setActiveTab("users")}
               >
                 Users
               </button>
               <button
-                className={activeTab === "inventory" ? "active" : ""}
+                className={`border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer text-left transition-colors ${activeTab === "inventory" ? "!bg-[#6254F3] !text-white !border-[#6254F3]" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
                 onClick={() => setActiveTab("inventory")}
               >
                 Inventory
               </button>
               <button
-                className={activeTab === "billing" ? "active" : ""}
+                className={`border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer text-left transition-colors ${activeTab === "billing" ? "!bg-[#6254F3] !text-white !border-[#6254F3]" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
                 onClick={() => setActiveTab("billing")}
               >
                 Billing
               </button>
               <button
-                className={activeTab === "analytics" ? "active" : ""}
+                className={`border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer text-left transition-colors ${activeTab === "analytics" ? "!bg-[#6254F3] !text-white !border-[#6254F3]" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
                 onClick={() => setActiveTab("analytics")}
               >
                 Analytics
               </button>
             </nav>
           </aside>
-          <main className="content">
+          <main className="min-h-[40rem]">
             {activeTab === "dashboard" && (
               <section>
-                <h2>Admin Dashboard</h2>
-                <p className="subtitle">
+                <h2 className="text-[2.4rem] font-bold text-[#1d1d1d] dark:text-white mb-[1rem]">Admin Dashboard</h2>
+                <p className="mb-[2rem] text-[#1d1d1d] dark:text-gray-300 text-[1.6rem]">
                   Central control of products, users, inventory, and billing.
                 </p>
-                <div className="kpis">
-                  <div className="kpi">
-                    <div className="kpi-title">Total Products</div>
-                    <div className="kpi-value">{metrics.totalProducts}</div>
+                <div className="grid grid-cols-3 gap-[1.6rem] mt-[2rem] max-md:grid-cols-1">
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[0.8rem] p-[1.6rem] shadow-sm">
+                    <div className="text-[1.4rem] opacity-80 mb-[0.6rem] text-[#1d1d1d] dark:text-white">Total Products</div>
+                    <div className="text-[2rem] font-semibold text-[#1d1d1d] dark:text-white">{metrics.totalProducts}</div>
                   </div>
-                  <div className="kpi">
-                    <div className="kpi-title">Total Users</div>
-                    <div className="kpi-value">{metrics.totalUsers}</div>
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[0.8rem] p-[1.6rem] shadow-sm">
+                    <div className="text-[1.4rem] opacity-80 mb-[0.6rem] text-[#1d1d1d] dark:text-white">Total Users</div>
+                    <div className="text-[2rem] font-semibold text-[#1d1d1d] dark:text-white">{metrics.totalUsers}</div>
                   </div>
-                  <div className="kpi">
-                    <div className="kpi-title">Total Stock</div>
-                    <div className="kpi-value">{metrics.totalStock}</div>
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[0.8rem] p-[1.6rem] shadow-sm">
+                    <div className="text-[1.4rem] opacity-80 mb-[0.6rem] text-[#1d1d1d] dark:text-white">Total Stock</div>
+                    <div className="text-[2rem] font-semibold text-[#1d1d1d] dark:text-white">{metrics.totalStock}</div>
                   </div>
-                  <div className="kpi">
-                    <div className="kpi-title">Inventory Value</div>
-                    <div className="kpi-value">
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[0.8rem] p-[1.6rem] shadow-sm">
+                    <div className="text-[1.4rem] opacity-80 mb-[0.6rem] text-[#1d1d1d] dark:text-white">Inventory Value</div>
+                    <div className="text-[2rem] font-semibold text-[#1d1d1d] dark:text-white">
                       <FormatPrice price={metrics.inventoryValue} />
                     </div>
                   </div>
-                  <div className="kpi">
-                    <div className="kpi-title">Total Revenue</div>
-                    <div className="kpi-value">
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[0.8rem] p-[1.6rem] shadow-sm">
+                    <div className="text-[1.4rem] opacity-80 mb-[0.6rem] text-[#1d1d1d] dark:text-white">Total Revenue</div>
+                    <div className="text-[2rem] font-semibold text-[#1d1d1d] dark:text-white">
                       <FormatPrice price={metrics.totalRevenue} />
                     </div>
                   </div>
@@ -347,42 +346,42 @@ const AdminDashboard = () => {
             )}
 
             {activeTab === "products" && (
-              <section className="panel">
-                <h3>Products</h3>
-                <div className="table-responsive">
-                  <table>
+              <section className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem]">
+                <h3 className="text-[2rem] font-bold mb-[2rem] text-[#1d1d1d] dark:text-white">Products</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse rounded-[0.8rem] overflow-hidden">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Company</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Featured</th>
-                        <th>Actions</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Name</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Category</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Company</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Price</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Stock</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Featured</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {products.map((p) => (
-                        <tr key={p.id}>
-                          <td>{p.name}</td>
-                          <td>{p.category}</td>
-                          <td>{p.company}</td>
-                          <td>
+                        <tr key={p.id} className="text-[#1d1d1d] dark:text-white">
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.name}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.category}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.company}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">
                             <FormatPrice price={p.price} />
                           </td>
-                          <td>{p.stock ?? 0}</td>
-                          <td>{p.featured ? "Yes" : "No"}</td>
-                          <td>
-                            <div className="row-actions">
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.stock ?? 0}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.featured ? "Yes" : "No"}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">
+                            <div className="inline-flex gap-[0.6rem] items-center">
                               <button
-                                className="btn"
+                                className="border-none bg-[#6254F3] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#5244e3] transition-colors"
                                 onClick={() => beginEditProduct(p)}
                               >
                                 Edit
                               </button>
                               <button
-                                className="btn danger"
+                                className="border-none bg-[#e74c3c] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#c0392b] transition-colors"
                                 onClick={() => deleteProduct(p.id)}
                               >
                                 Delete
@@ -394,21 +393,23 @@ const AdminDashboard = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="form-grid">
-                  <div className="form-item">
-                    <label htmlFor="product-name">Name</label>
+                <div className="grid grid-cols-3 gap-[1rem] mt-[1rem] max-md:grid-cols-1">
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-name" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Name</label>
                     <input
                       id="product-name"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.name}
                       onChange={(e) =>
                         setProductForm({ ...productForm, name: e.target.value })
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-category">Category</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-category" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Category</label>
                     <input
                       id="product-category"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.category}
                       onChange={(e) =>
                         setProductForm({
@@ -418,10 +419,11 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-company">Company</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-company" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Company</label>
                     <input
                       id="product-company"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.company}
                       onChange={(e) =>
                         setProductForm({
@@ -431,13 +433,14 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-price">Price</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-price" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Price</label>
                     <input
                       id="product-price"
                       type="number"
                       min="0"
                       step="1"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.price}
                       onChange={(e) =>
                         setProductForm({
@@ -447,13 +450,14 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-stock">Stock</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-stock" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Stock</label>
                     <input
                       id="product-stock"
                       type="number"
                       min="0"
                       step="1"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.stock}
                       onChange={(e) =>
                         setProductForm({
@@ -463,10 +467,11 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-colors">Colors (comma)</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-colors" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Colors (comma)</label>
                     <input
                       id="product-colors"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.colors}
                       onChange={(e) =>
                         setProductForm({
@@ -476,10 +481,11 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-image">Image URL</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-image" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Image URL</label>
                     <input
                       id="product-image"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.image}
                       onChange={(e) =>
                         setProductForm({
@@ -489,10 +495,11 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="product-featured">Featured</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="product-featured" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Featured</label>
                     <select
                       id="product-featured"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={productForm.featured ? "yes" : "no"}
                       onChange={(e) =>
                         setProductForm({
@@ -506,44 +513,45 @@ const AdminDashboard = () => {
                     </select>
                   </div>
                 </div>
-                <div className="actions">
-                  <button className="btn" onClick={submitProduct}>
+                <div className="mt-[1rem] flex justify-end">
+                  <button className="border-none bg-[#6254F3] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#5244e3] transition-colors" onClick={submitProduct}>
                     {editingProductId ? "Update Product" : "Add Product"}
                   </button>
                 </div>
                 {adminMsg.text ? (
-                  <AlertBox data-type={adminMsg.type}>{adminMsg.text}</AlertBox>
+                  <div className={`mt-[1.2rem] mb-[1.2rem] p-[1rem] px-[1.2rem] rounded-[8px] text-[1.4rem] border ${adminMsg.type === "success" ? "bg-[#e8f8f2] text-[#0f5132] border-[#b7e4d7]" : "bg-[#fdecea] text-[#842029] border-[#f5c2c7]"}`}>{adminMsg.text}</div>
                 ) : null}
-                <h4 style={{ marginTop: "2rem" }}>Bulk Import</h4>
-                <div className="form-grid">
+                <h4 className="mt-[2rem] text-[#1d1d1d] dark:text-white font-bold text-[1.6rem]">Bulk Import</h4>
+                <div className="grid grid-cols-3 gap-[1rem] mt-[1rem] max-md:grid-cols-1">
                   <div
-                    className="form-item"
-                    style={{ gridColumn: "1 / span 2" }}
+                    className="grid gap-[0.4rem] col-span-2 max-md:col-span-1"
                   >
-                    <label htmlFor="bulk-json">Products JSON</label>
+                    <label htmlFor="bulk-json" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Products JSON</label>
                     <textarea
                       id="bulk-json"
                       rows="6"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white w-full"
                       value={bulkJson}
                       onChange={(e) => setBulkJson(e.target.value)}
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="bulk-discount">Default Discount %</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="bulk-discount" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Default Discount %</label>
                     <input
                       id="bulk-discount"
                       type="number"
                       min="0"
                       max="100"
                       step="1"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={bulkDiscount}
                       onChange={(e) => setBulkDiscount(e.target.value)}
                     />
                   </div>
                 </div>
-                <div className="actions">
+                <div className="mt-[1rem] flex justify-end">
                   <button
-                    className="btn"
+                    className="border-none bg-[#6254F3] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#5244e3] transition-colors"
                     onClick={() => {
                       try {
                         const parsed = JSON.parse(bulkJson || "[]");
@@ -583,36 +591,36 @@ const AdminDashboard = () => {
             )}
 
             {activeTab === "users" && (
-              <section className="panel">
-                <h3>Users</h3>
-                <div className="table-responsive">
-                  <table>
+              <section className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem]">
+                <h3 className="text-[2rem] font-bold mb-[2rem] text-[#1d1d1d] dark:text-white">Users</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse rounded-[0.8rem] overflow-hidden">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Name</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Email</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Role</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Status</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {users.map((u) => (
-                        <tr key={u.id}>
-                          <td>{u.name}</td>
-                          <td>{u.email}</td>
-                          <td>{u.role}</td>
-                          <td>{u.status}</td>
-                          <td>
-                            <div className="row-actions">
+                        <tr key={u.id} className="text-[#1d1d1d] dark:text-white">
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{u.name}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{u.email}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{u.role}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{u.status}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">
+                            <div className="inline-flex gap-[0.6rem] items-center">
                               <button
-                                className="btn"
+                                className="border-none bg-[#6254F3] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#5244e3] transition-colors"
                                 onClick={() => beginEditUser(u)}
                               >
                                 Edit
                               </button>
                               <button
-                                className="btn danger"
+                                className="border-none bg-[#e74c3c] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#c0392b] transition-colors"
                                 onClick={() => deleteUser(u.id)}
                               >
                                 Delete
@@ -624,31 +632,34 @@ const AdminDashboard = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="form-grid">
-                  <div className="form-item">
-                    <label htmlFor="user-name">Name</label>
+                <div className="grid grid-cols-3 gap-[1rem] mt-[1rem] max-md:grid-cols-1">
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="user-name" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Name</label>
                     <input
                       id="user-name"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={userForm.name}
                       onChange={(e) =>
                         setUserForm({ ...userForm, name: e.target.value })
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="user-email">Email</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="user-email" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Email</label>
                     <input
                       id="user-email"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={userForm.email}
                       onChange={(e) =>
                         setUserForm({ ...userForm, email: e.target.value })
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="user-role">Role</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="user-role" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Role</label>
                     <select
                       id="user-role"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={userForm.role}
                       onChange={(e) =>
                         setUserForm({ ...userForm, role: e.target.value })
@@ -656,25 +667,25 @@ const AdminDashboard = () => {
                     >
                       <option value="customer">Customer</option>
                       <option value="admin">Admin</option>
-                      <option value="staff">Staff</option>
                     </select>
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="user-status">Status</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="user-status" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Status</label>
                     <select
                       id="user-status"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={userForm.status}
                       onChange={(e) =>
                         setUserForm({ ...userForm, status: e.target.value })
                       }
                     >
                       <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
+                      <option value="banned">Banned</option>
                     </select>
                   </div>
                 </div>
-                <div className="actions">
-                  <button className="btn" onClick={submitUser}>
+                <div className="mt-[1rem] flex justify-end">
+                  <button className="border-none bg-[#6254F3] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#5244e3] transition-colors" onClick={submitUser}>
                     {editingUserId ? "Update User" : "Add User"}
                   </button>
                 </div>
@@ -682,44 +693,30 @@ const AdminDashboard = () => {
             )}
 
             {activeTab === "inventory" && (
-              <section className="panel">
-                <h3>Inventory</h3>
-                <div className="table-responsive">
-                  <table>
+              <section className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem]">
+                <h3 className="text-[2rem] font-bold mb-[2rem] text-[#1d1d1d] dark:text-white">Inventory Management</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse rounded-[0.8rem] overflow-hidden">
                     <thead>
                       <tr>
-                        <th>Product</th>
-                        <th>Stock</th>
-                        <th>Adjust</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Product</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Stock</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Adjust</th>
                       </tr>
                     </thead>
                     <tbody>
                       {products.map((p) => (
-                        <tr key={p.id}>
-                          <td>{p.name}</td>
-                          <td>{p.stock ?? 0}</td>
-                          <td>
-                            <div className="row-actions">
+                        <tr key={p.id} className="text-[#1d1d1d] dark:text-white">
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.name}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{p.stock ?? 0}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">
+                            <div className="inline-flex gap-[0.6rem] items-center">
                               <input
                                 type="number"
-                                min="0"
-                                defaultValue={p.stock ?? 0}
-                                style={{ width: "8rem" }}
-                                onBlur={(e) =>
-                                  adjustStock(p.id, e.target.value)
-                                }
+                                className="w-[12rem] p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
+                                defaultValue={p.stock}
+                                onBlur={(e) => adjustStock(p.id, e.target.value)}
                               />
-                              <button
-                                className="btn"
-                                onClick={(e) =>
-                                  adjustStock(
-                                    p.id,
-                                    e.currentTarget.previousSibling.value
-                                  )
-                                }
-                              >
-                                Save
-                              </button>
                             </div>
                           </td>
                         </tr>
@@ -731,43 +728,42 @@ const AdminDashboard = () => {
             )}
 
             {activeTab === "billing" && (
-              <section className="panel">
-                <h3>Billing</h3>
-                <div className="table-responsive">
-                  <table>
+              <section className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem]">
+                <h3 className="text-[2rem] font-bold mb-[2rem] text-[#1d1d1d] dark:text-white">Billing & Transactions</h3>
+                <div className="overflow-x-auto mb-[2rem]">
+                  <table className="w-full border-collapse rounded-[0.8rem] overflow-hidden">
                     <thead>
                       <tr>
-                        <th>Date</th>
-                        <th>User</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Note</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Date</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">User ID</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Total</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Status</th>
+                        <th className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem] bg-[#0a1435] text-white text-left">Note</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {transactions.map((t) => {
-                        const u = users.find((x) => x.id === t.userId);
-                        return (
-                          <tr key={t.id}>
-                            <td>{t.date}</td>
-                            <td>{u ? u.name : t.userId}</td>
-                            <td>
-                              <FormatPrice price={t.total} />
-                            </td>
-                            <td>{t.status}</td>
-                            <td>{t.note}</td>
-                          </tr>
-                        );
-                      })}
+                      {transactions.map((t) => (
+                        <tr key={t.id} className="text-[#1d1d1d] dark:text-white">
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{t.date}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{t.userId}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">
+                            <FormatPrice price={t.total} />
+                          </td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{t.status}</td>
+                          <td className="p-[1rem] border-b border-gray-200 dark:border-gray-700 text-[1.4rem]">{t.note}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
-                <div className="form-grid">
-                  <div className="form-item">
-                    <label htmlFor="billing-date">Date</label>
+                <h4 className="text-[#1d1d1d] dark:text-white font-bold text-[1.6rem] mb-[1rem]">New Transaction</h4>
+                <div className="grid grid-cols-3 gap-[1rem] mt-[1rem] max-md:grid-cols-1">
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="billing-date" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Date</label>
                     <input
                       id="billing-date"
                       type="date"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={transactionForm.date}
                       onChange={(e) =>
                         setTransactionForm({
@@ -777,10 +773,11 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="billing-user">User</label>
-                    <select
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="billing-user" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">User ID</label>
+                    <input
                       id="billing-user"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={transactionForm.userId}
                       onChange={(e) =>
                         setTransactionForm({
@@ -788,22 +785,16 @@ const AdminDashboard = () => {
                           userId: e.target.value,
                         })
                       }
-                    >
-                      <option value="">Select user</option>
-                      {users.map((u) => (
-                        <option key={u.id} value={u.id}>
-                          {u.name}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="billing-total">Total</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="billing-total" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Total</label>
                     <input
                       id="billing-total"
                       type="number"
                       min="0"
-                      step="1"
+                      step="0.01"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={transactionForm.total}
                       onChange={(e) =>
                         setTransactionForm({
@@ -813,10 +804,11 @@ const AdminDashboard = () => {
                       }
                     />
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="billing-status">Status</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="billing-status" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Status</label>
                     <select
                       id="billing-status"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={transactionForm.status}
                       onChange={(e) =>
                         setTransactionForm({
@@ -830,10 +822,11 @@ const AdminDashboard = () => {
                       <option value="failed">Failed</option>
                     </select>
                   </div>
-                  <div className="form-item">
-                    <label htmlFor="billing-note">Note</label>
+                  <div className="grid gap-[0.4rem]">
+                    <label htmlFor="billing-note" className="text-[#1d1d1d] dark:text-white text-[1.4rem]">Note</label>
                     <input
                       id="billing-note"
+                      className="p-[0.6rem] border border-gray-200 dark:border-gray-700 rounded-[0.6rem] bg-white dark:bg-gray-800 text-[#1d1d1d] dark:text-white"
                       value={transactionForm.note}
                       onChange={(e) =>
                         setTransactionForm({
@@ -844,257 +837,99 @@ const AdminDashboard = () => {
                     />
                   </div>
                 </div>
-                <div className="actions">
-                  <button className="btn" onClick={submitTransaction}>
-                    Add Transaction
+                <div className="mt-[1rem] flex justify-end">
+                  <button className="border-none bg-[#6254F3] text-white py-[0.8rem] px-[1.2rem] rounded-[0.6rem] cursor-pointer hover:bg-[#5244e3] transition-colors" onClick={submitTransaction}>
+                    Record Transaction
                   </button>
                 </div>
               </section>
             )}
 
             {activeTab === "analytics" && (
-              <section className="panel">
-                <h3>Analytics</h3>
-                <div className="charts">
-                  <div className="chart">
-                    <h4>Products by Category</h4>
-                    <svg width="100%" height="160">
-                      {barData.map(([label, count], i) => {
-                        const w = 280;
-                        const x = 20;
-                        const y = 20 + i * 30;
-                        const barWidth = (count / maxBar) * w;
+              <section className="grid gap-[2rem]">
+                <h3 className="text-[2rem] font-bold text-[#1d1d1d] dark:text-white">Analytics</h3>
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem]">
+                  <h4 className="text-[#1d1d1d] dark:text-white font-bold text-[1.6rem] mb-[0.6rem]">Products per Category</h4>
+                  <svg width="100%" height="200" className="overflow-visible">
+                    {barData.map(([label, count], i) => {
+                      const barHeight = (count / maxBar) * 150;
+                      const barWidth = 40;
+                      const x = i * (barWidth + 20) + 10;
+                      const y = 200 - barHeight;
+                      return (
+                        <g key={label}>
+                          <rect
+                            x={x}
+                            y={y}
+                            width={barWidth}
+                            height={barHeight}
+                            fill="#6254F3"
+                            rx="4"
+                          />
+                          <text
+                            x={x + barWidth / 2}
+                            y={y - 5}
+                            textAnchor="middle"
+                            fill="#1d1d1d"
+                            fontSize="12"
+                            className="dark:fill-white"
+                          >
+                            {count}
+                          </text>
+                          <text
+                            x={x + barWidth + 8}
+                            y={y + 15}
+                            fill="#666"
+                            fontSize="12"
+                            className="dark:fill-gray-400"
+                            transform={`rotate(45, ${x + barWidth + 8}, ${y + 15})`}
+                          >
+                            {label}
+                          </text>
+                        </g>
+                      );
+                    })}
+                  </svg>
+                </div>
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[1rem] shadow-md p-[2rem]">
+                  <h4 className="text-[#1d1d1d] dark:text-white font-bold text-[1.6rem] mb-[0.6rem]">Price Trend</h4>
+                  <svg width="100%" height="160">
+                    {prices.length > 1 &&
+                      (() => {
+                        const w = 340;
+                        const h = 120;
+                        const pad = 20;
+                        const minP = prices[0];
+                        const maxP = prices[prices.length - 1];
+                        const scaleX = (i) =>
+                          pad + (i / (prices.length - 1)) * (w - pad * 2);
+                        const scaleY = (p) =>
+                          h -
+                          pad -
+                          ((p - minP) / (maxP - minP || 1)) * (h - pad * 2);
+                        const points = prices
+                          .map((p, i) => `${scaleX(i)},${scaleY(p)}`)
+                          .join(" ");
                         return (
-                          <g key={label}>
-                            <rect
-                              x={x}
-                              y={y}
-                              width={barWidth}
-                              height="20"
-                              fill="#8490ff"
+                          <g>
+                            <polyline
+                              fill="none"
+                              stroke="#25d366"
+                              strokeWidth="2"
+                              points={points}
                             />
-                            <text
-                              x={x + barWidth + 8}
-                              y={y + 15}
-                              fill="#666"
-                              fontSize="12"
-                            >
-                              {label} ({count})
-                            </text>
                           </g>
                         );
-                      })}
-                    </svg>
-                  </div>
-                  <div className="chart">
-                    <h4>Price Trend</h4>
-                    <svg width="100%" height="160">
-                      {prices.length > 1 &&
-                        (() => {
-                          const w = 340;
-                          const h = 120;
-                          const pad = 20;
-                          const minP = prices[0];
-                          const maxP = prices[prices.length - 1];
-                          const scaleX = (i) =>
-                            pad + (i / (prices.length - 1)) * (w - pad * 2);
-                          const scaleY = (p) =>
-                            h -
-                            pad -
-                            ((p - minP) / (maxP - minP || 1)) * (h - pad * 2);
-                          const points = prices
-                            .map((p, i) => `${scaleX(i)},${scaleY(p)}`)
-                            .join(" ");
-                          return (
-                            <g>
-                              <polyline
-                                fill="none"
-                                stroke="#25d366"
-                                strokeWidth="2"
-                                points={points}
-                              />
-                            </g>
-                          );
-                        })()}
-                    </svg>
-                  </div>
+                      })()}
+                  </svg>
                 </div>
               </section>
             )}
           </main>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
 
 export default AdminDashboard;
-
-const Wrapper = styled.section`
-  padding: 9rem 0;
-  .alert {
-    margin: 1rem 0;
-  }
-
-  .layout {
-    display: grid;
-    grid-template-columns: 24rem 1fr;
-    gap: 2rem;
-  }
-
-  .sidebar {
-    background: ${({ theme }) => theme.colors.white};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 1rem;
-    box-shadow: ${({ theme }) => theme.colors.shadow};
-    padding: 2rem;
-    height: fit-content;
-  }
-  .brand {
-    margin-bottom: 1rem;
-  }
-  .nav {
-    display: grid;
-    gap: 0.8rem;
-  }
-  .nav button {
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.text};
-    padding: 0.8rem 1.2rem;
-    border-radius: 0.6rem;
-    cursor: pointer;
-    text-align: left;
-  }
-  .nav button.active {
-    background: ${({ theme }) => theme.colors.btn};
-    color: #fff;
-    border-color: ${({ theme }) => theme.colors.btn};
-  }
-  .content {
-    min-height: 40rem;
-  }
-
-  .subtitle {
-    margin-bottom: 2rem;
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  .panel {
-    background: ${({ theme }) => theme.colors.white};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 1rem;
-    box-shadow: ${({ theme }) => theme.colors.shadow};
-    padding: 2rem;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.6rem;
-    margin-top: 2rem;
-  }
-  .kpi {
-    background: ${({ theme }) => theme.colors.white};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 0.8rem;
-    padding: 1.6rem;
-    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
-  }
-  .kpi-title {
-    font-size: 1.4rem;
-    opacity: 0.8;
-    margin-bottom: 0.6rem;
-  }
-  .kpi-value {
-    font-size: 2rem;
-    font-weight: 600;
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 0.8rem;
-    overflow: hidden;
-  }
-  th,
-  td {
-    padding: 1rem;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-    font-size: 1.4rem;
-  }
-  th {
-    background-color: ${({ theme }) => theme.colors.footer_bg};
-    color: #fff;
-    text-align: left;
-  }
-  .row-actions {
-    display: inline-flex;
-    gap: 0.6rem;
-    align-items: center;
-  }
-  input[type="number"] {
-    width: 12rem;
-    padding: 0.6rem;
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 0.6rem;
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.text};
-  }
-  input,
-  select {
-    padding: 0.6rem;
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 0.6rem;
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.text};
-  }
-  .actions {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .btn {
-    border: none;
-    background: ${({ theme }) => theme.colors.btn};
-    color: #fff;
-    padding: 0.8rem 1.2rem;
-    border-radius: 0.6rem;
-    cursor: pointer;
-  }
-  .btn.danger {
-    background: #e74c3c;
-  }
-  .charts {
-    display: grid;
-    gap: 2rem;
-  }
-  .chart h4 {
-    margin-bottom: 0.6rem;
-  }
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .form-item {
-    display: grid;
-    gap: 0.4rem;
-  }
-`;
-
-const AlertBox = styled.div`
-  margin: 0 0 1.2rem 0;
-  padding: 1rem 1.2rem;
-  border-radius: 8px;
-  font-size: 1.4rem;
-  background: ${(p) =>
-    p["data-type"] === "success" ? "#e8f8f2" : "#fdecea"};
-  color: ${(p) => (p["data-type"] === "success" ? "#0f5132" : "#842029")};
-  border: 1px solid
-    ${(p) => (p["data-type"] === "success" ? "#b7e4d7" : "#f5c2c7")};
-`;

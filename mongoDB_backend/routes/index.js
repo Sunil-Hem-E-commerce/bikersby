@@ -10,7 +10,6 @@ const {
   tokenExtractor,
   requireAuth,
 } = require("../utils/middleware");
-const user = require("../models/user");
 
 router.get("/", (req, res, next) => {
   res.send("Hello Healthy-Living users!!");
@@ -18,7 +17,6 @@ router.get("/", (req, res, next) => {
 
 router.get("/users/", userController.list);
 router.post("/users/", userController.addUser);
-router.post("/users/verify-otp", userController.verifyOtp);
 router.get("/users/verify-email", userController.verifyEmail);
 router.get("/users/:id", userController.listOne);
 router.delete("/users/:id", userController.deleteUser);
@@ -36,28 +34,28 @@ router.post(
   tokenExtractor,
   userExtractor,
   requireAuth,
-  adminController.addProduct
+  adminController.addProduct,
 );
 router.put(
   "/admin/products/:id",
   tokenExtractor,
   userExtractor,
   requireAuth,
-  adminController.updateProduct
+  adminController.updateProduct,
 );
 router.post(
   "/admin/products/bulk",
   tokenExtractor,
   userExtractor,
   requireAuth,
-  adminController.addBulkProducts
+  adminController.addBulkProducts,
 );
 router.delete(
   "/admin/products/:id",
   tokenExtractor,
   userExtractor,
   requireAuth,
-  adminController.deleteProduct
+  adminController.deleteProduct,
 );
 
 router.use(tokenExtractor, userExtractor);

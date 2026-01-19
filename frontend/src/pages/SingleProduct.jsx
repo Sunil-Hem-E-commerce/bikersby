@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useProductContext } from "../context/productContext";
 import PageNavigation from "../components/PageNavigation";
 import MyImage from "../components/MyImage";
-import { Container } from "../styles/Container";
 import FormatPrice from "../Helpers/FormatPrice";
 import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
@@ -33,161 +31,76 @@ const SingleProduct = () => {
   }, [id]);
 
   if (isSingleLoading) {
-    return <div className="page_loading">Loading.....</div>;
+    return <div className="text-[3.2rem] flex justify-center items-center h-screen">Loading.....</div>;
   }
 
   return (
-    <Wrapper>
+    <section className="overflow-hidden">
       <PageNavigation title={name} />
-      <Container className="container">
-        <div className="grid grid-two-column">
+      <div className="max-w-[120rem] mx-auto px-[3.2rem] py-[9rem] max-md:px-[2.4rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[5rem]">
           {/* product Images  */}
-          <div className="product_images">
+          <div className="flex items-center justify-center">
             <MyImage imgs={images} />
           </div>
 
           {/* product dAta  */}
-          <div className="product-data">
-            <h2>{name}</h2>
+          <div className="flex flex-col items-start justify-center gap-[2rem]">
+            <h2 className="text-[3rem] font-bold capitalize">{name}</h2>
             <Star stars={stars} reviews={reviews} />
-            <p>{stars}</p>
-            <p>{reviews} reviews</p>
-            <p className="product-data-price">
+            
+            <p className="font-bold text-[1.6rem]">
               NPR:{" "}
               <del>
                 <FormatPrice price={price + 2500} />
               </del>
             </p>
-            <p className="product-data-price product-data-real-price">
+            <p className="font-bold text-[1.6rem] text-[#6254F3]">
               Deal of the Day: <FormatPrice price={price} />
             </p>
-            <p>{description}</p>
-            <div className="product-data-warranty">
-              <div className="product-warranty-data">
-                <TbTruckDelivery className="warranty-icon" />
-                <p>Free Delivery</p>
+            <p className="text-[1.6rem] leading-[2.6rem]">{description}</p>
+            
+            <div className="w-full flex justify-between items-center border-b border-[#ccc] mb-[1rem] pb-[2rem]">
+              <div className="text-center flex flex-col items-center">
+                <TbTruckDelivery className="bg-[rgba(220,220,220,0.5)] rounded-full w-[4rem] h-[4rem] p-[0.6rem] mb-[0.5rem]" />
+                <p className="text-[1.4rem]">Free Delivery</p>
               </div>
 
-              <div className="product-warranty-data">
-                <TbReplace className="warranty-icon" />
-                <p>Satisfaction Guarantee</p>
+              <div className="text-center flex flex-col items-center">
+                <TbReplace className="bg-[rgba(220,220,220,0.5)] rounded-full w-[4rem] h-[4rem] p-[0.6rem] mb-[0.5rem]" />
+                <p className="text-[1.4rem]">Satisfaction Guarantee</p>
               </div>
 
-              <div className="product-warranty-data">
-                <TbTruckDelivery className="warranty-icon" />
-                <p>Healthy Living Delivered </p>
+              <div className="text-center flex flex-col items-center">
+                <TbTruckDelivery className="bg-[rgba(220,220,220,0.5)] rounded-full w-[4rem] h-[4rem] p-[0.6rem] mb-[0.5rem]" />
+                <p className="text-[1.4rem]">Healthy Living Delivered </p>
               </div>
 
-              <div className="product-warranty-data">
-                <MdSecurity className="warranty-icon" />
-                <p>Quality Assurance </p>
+              <div className="text-center flex flex-col items-center">
+                <MdSecurity className="bg-[rgba(220,220,220,0.5)] rounded-full w-[4rem] h-[4rem] p-[0.6rem] mb-[0.5rem]" />
+                <p className="text-[1.4rem]">Quality Assurance </p>
               </div>
             </div>
 
-            <div className="product-data-info">
+            <div className="flex flex-col gap-[1rem] text-[1.8rem]">
               <p>
                 Available:
-                <span> {stock > 0 ? "In Stock" : "Not Available"}</span>
+                <span className="font-bold"> {stock > 0 ? "In Stock" : "Not Available"}</span>
               </p>
               <p>
-                ID : <span> {id} </span>
+                ID : <span className="font-bold"> {id} </span>
               </p>
               <p>
-                Brand :<span> {company} </span>
+                Brand :<span className="font-bold"> {company} </span>
               </p>
             </div>
-            <hr />
+            <hr className="max-w-full w-[90%] border-[0.1rem] border-[#000] text-red-500" />
             {stock > 0 && <AddToCart product={singleProduct} />}
           </div>
         </div>
-      </Container>
-    </Wrapper>
+      </div>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  .container {
-    padding: 9rem 0;
-  }
-
-  .product_images {
-    display: flex;
-    align-items: center;
-  }
-
-  .product-data {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 2rem;
-
-    .product-data-warranty {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 1rem;
-
-      .product-warranty-data {
-        text-align: center;
-
-        .warranty-icon {
-          background-color: rgba(220, 220, 220, 0.5);
-          border-radius: 50%;
-          width: 4rem;
-          height: 4rem;
-          padding: 0.6rem;
-        }
-        p {
-          font-size: 1.4rem;
-          padding-top: 0.4rem;
-        }
-      }
-    }
-
-    .product-data-price {
-      font-weight: bold;
-    }
-    .product-data-real-price {
-      color: ${({ theme }) => theme.colors.btn};
-    }
-    .product-data-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      font-size: 1.8rem;
-
-      span {
-        font-weight: bold;
-      }
-    }
-
-    hr {
-      max-width: 100%;
-      width: 90%;
-      /* height: 0.2rem; */
-      border: 0.1rem solid #000;
-      color: red;
-    }
-  }
-
-  .product-images {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .page_loading {
-    font-size: 3.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    padding: 0 2.4rem;
-  }
-`;
 
 export default SingleProduct;

@@ -10,7 +10,6 @@ const file = require("express-fileupload");
 const indexRouter = require("./routes");
 
 require("./script");
-require("./models/");
 
 const allowed = new Set([...(config.CORS_ORIGINS || []), config.FRONTEND_ORIGIN].filter(Boolean));
 app.use(

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
 import { GiReceiveMoney } from "react-icons/gi";
@@ -6,102 +5,41 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 
 const Services = () => {
   return (
-    <Wrapper>
-      <div className="container">
-        <div className="grid grid-three-column">
-          <div className="services-1">
-            <div>
-              <TbTruckDelivery className="icon" />
-              <h3>Super Fast and Free Delivery</h3>
+    <section className="py-[9rem] bg-white dark:bg-gray-900">
+      <div className="max-w-[120rem] mx-auto px-[3.2rem]">
+        <div className="grid grid-cols-3 gap-[4.8rem] max-md:grid-cols-1">
+          <div className="w-auto h-[30rem] flex flex-col justify-center items-center bg-[#F6F8FA] dark:bg-gray-800 text-center rounded-[2rem] shadow-sm transition-all hover:scale-105 duration-300">
+            <div className="flex flex-col items-center">
+              <TbTruckDelivery className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
+              <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Super Fast and Free Delivery</h3>
             </div>
           </div>
 
-          <div className="services-2">
-            <div className="services-colum-2">
-              <div>
-                <MdSecurity className="icon" />
-                <h3>Genuine Wellness Products</h3>
+          <div className="w-auto h-[30rem] flex flex-col justify-center items-center gap-[4rem] bg-transparent shadow-none">
+            <div className="bg-[#F6F8FA] dark:bg-gray-800 flex flex-row flex-1 justify-center items-center rounded-[2rem] shadow-sm w-full transition-all hover:scale-105 duration-300">
+              <div className="flex flex-row justify-center items-center gap-[1rem]">
+                <MdSecurity className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
+                <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Genuine Wellness Products</h3>
               </div>
             </div>
-            <div className="services-colum-2">
-              <div>
-                <GiReceiveMoney className="icon" />
-                <h3>Money-back Guaranteed</h3>
+            <div className="bg-[#F6F8FA] dark:bg-gray-800 flex flex-row flex-1 justify-center items-center rounded-[2rem] shadow-sm w-full transition-all hover:scale-105 duration-300">
+              <div className="flex flex-row justify-center items-center gap-[1rem]">
+                <GiReceiveMoney className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
+                <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Money-back Guaranteed</h3>
               </div>
             </div>
           </div>
 
-          <div className="services-3">
-            <div>
-              <RiSecurePaymentLine className="icon" />
-              <h3>Super Secure Payment System</h3>
+          <div className="w-auto h-[30rem] flex flex-col justify-center items-center bg-[#F6F8FA] dark:bg-gray-800 text-center rounded-[2rem] shadow-sm transition-all hover:scale-105 duration-300">
+            <div className="flex flex-col items-center">
+              <RiSecurePaymentLine className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
+              <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Super Secure Payment System</h3>
             </div>
           </div>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
 
-const Wrapper = styled.section`
-  padding: 9rem 0;
-
-  .grid {
-    gap: 4.8rem;
-  }
-
-  .services-1,
-  .services-2,
-  .services-3 {
-    width: auto;
-    height: 30rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    background: ${({ theme }) => theme.colors.bg};
-    text-align: center;
-    border-radius: 2rem;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-  }
-
-  .services-2 {
-    gap: 4rem;
-    background-color: transparent;
-    box-shadow: none;
-
-    .services-colum-2 {
-      background: ${({ theme }) => theme.colors.bg};
-      display: flex;
-      flex-direction: row;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-      border-radius: 2rem;
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-
-      div {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-      }
-    }
-  }
-
-  h3 {
-    margin-top: 1.4rem;
-    font-size: 2rem;
-  }
-
-  .icon {
-    width: 8rem;
-    height: 8rem;
-    padding: 2rem;
-    border-radius: 50%;
-    background-color: #fff;
-    color: #5138ee;
-  }
-`;
 export default Services;

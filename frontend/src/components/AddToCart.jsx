@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { FaCheck } from "react-icons/fa";
 import CartAmountToggle from "./CartAmountToggle";
 import { NavLink } from "react-router-dom";
@@ -27,19 +26,23 @@ const AddToCart = ({ product }) => {
   };
 
   return (
-    <Wrapper>
-      <div className="colors">
-        <p>
+    <section>
+      <div className="flex justify-start items-center">
+        <p className="flex items-center">
           Color:
           {colors.map((curColor, index) => {
             return (
               <button
                 key={index}
                 style={{ backgroundColor: curColor }}
-                className={color === curColor ? "btnStyle active" : "btnStyle"}
+                className={`w-[2rem] h-[2rem] rounded-full ml-[1rem] border-none outline-none cursor-pointer hover:opacity-100 ${
+                  color === curColor ? "opacity-100" : "opacity-50"
+                }`}
                 onClick={() => setColor(curColor)}
               >
-                {color === curColor ? <FaCheck className="checkStyle" /> : null}
+                {color === curColor ? (
+                  <FaCheck className="text-[1rem] text-white mx-auto" />
+                ) : null}
               </button>
             );
           })}
@@ -56,60 +59,8 @@ const AddToCart = ({ product }) => {
       <NavLink to="/cart" onClick={handleAddToCart}>
         <Button className="btn">Add To Cart</Button>
       </NavLink>
-    </Wrapper>
+    </section>
   );
 };
 
-const Wrapper = styled.section`
-  .colors p {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  .btnStyle {
-    width: 2rem;
-    height: 2rem;
-    background-color: #000;
-    border-radius: 50%;
-    margin-left: 1rem;
-    border: none;
-    outline: none;
-    opacity: 0.5;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .active {
-    opacity: 1;
-  }
-
-  .checkStyle {
-    font-size: 1rem;
-    color: #fff;
-  }
-
-  /* we can use it as a global one too  */
-  .amount-toggle {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 1.4rem;
-
-    button {
-      border: none;
-      background-color: ${({ theme }) => theme.colors.white};
-      cursor: pointer;
-    }
-
-    .amount-style {
-      font-size: 2.4rem;
-      color: ${({ theme }) => theme.colors.btn};
-    }
-  }
-`;
 export default AddToCart;

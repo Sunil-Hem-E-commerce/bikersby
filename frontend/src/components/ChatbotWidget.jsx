@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import styled from "styled-components";
 import { FaComments, FaPaperPlane, FaTimes, FaWhatsapp } from "react-icons/fa";
 
 const ChatbotWidget = () => {
@@ -7,7 +6,9 @@ const ChatbotWidget = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState(() => {
     const saved = localStorage.getItem("chatbot_history");
-    return saved ? JSON.parse(saved) : [{ sender: "bot", text: "Hi! How can I help you today?" }];
+    return saved
+      ? JSON.parse(saved)
+      : [{ sender: "bot", text: "Hi! How can I help you today?" }];
   });
 
   const quickReplies = useMemo(
@@ -18,7 +19,7 @@ const ChatbotWidget = () => {
       "Returns & refund",
       "Talk to human",
     ],
-    []
+    [],
   );
 
   useEffect(() => {
@@ -38,8 +39,10 @@ const ChatbotWidget = () => {
 
   const getBotReply = (text) => {
     const t = text.toLowerCase();
-    if (t.includes("order")) return "Please share your order number to check its status.";
-    if (t.includes("status")) return "I can look up your order status. Do you have the order number?";
+    if (t.includes("order"))
+      return "Please share your order number to check its status.";
+    if (t.includes("status"))
+      return "I can look up your order status. Do you have the order number?";
     if (t.includes("product"))
       return "Tell me which product you're interested in and what you want to know.";
     if (t.includes("ship") || t.includes("delivery"))
@@ -61,195 +64,84 @@ const ChatbotWidget = () => {
   return (
     <>
       {!open && (
-        <Fab onClick={() => setOpen(true)} aria-label="Open support chat">
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Open support chat"
+          className="fixed right-[2rem] bottom-[8rem] w-[5.2rem] h-[5.2rem] border-none rounded-full flex items-center justify-center text-[2rem] cursor-pointer bg-[#6254F3] text-white shadow-lg transition-transform duration-200 z-[1000] hover:-translate-y-[2px]"
+        >
           <FaComments />
-        </Fab>
+        </button>
       )}
       {open && (
-        <Panel>
-          <Header>
+        <div className="fixed right-[2rem] bottom-[2rem] w-[32rem] max-w-[85vw] bg-white border border-gray-200 rounded-[1rem] shadow-lg flex flex-col overflow-hidden z-[1000]">
+          <div className="flex justify-between items-center px-[1.2rem] py-[1rem] border-b border-gray-200 text-[#1d1d1d] text-[1.6rem]">
             <span>Support Chat</span>
-            <Close onClick={() => setOpen(false)} aria-label="Close chat">
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close chat"
+              className="border-none bg-transparent text-gray-500 cursor-pointer text-[1.6rem]"
+            >
               <FaTimes />
-            </Close>
-          </Header>
-          <Body>
+            </button>
+          </div>
+          <div className="p-[1rem] flex flex-col gap-[0.8rem] max-h-[28rem] overflow-y-auto">
             {messages.map((m, idx) => (
-              <Message key={idx} $sender={m.sender}>
+              <div
+                key={idx}
+                className={`max-w-[80%] text-[1.4rem] px-[1rem] py-[0.8rem] rounded-[0.8rem] border border-gray-200 ${
+                  m.sender === "user"
+                    ? "self-end bg-[#6254F3] text-white"
+                    : "self-start bg-[#F6F8FA] text-inherit"
+                }`}
+              >
                 {m.text}
-              </Message>
+              </div>
             ))}
-          </Body>
-          <QuickBar>
+          </div>
+          <div className="flex gap-[0.6rem] px-[0.8rem] py-[0.6rem] border-t border-gray-200 flex-wrap">
             {quickReplies.map((q) => (
-              <Quick key={q} onClick={() => sendMessage(q)}>
+              <button
+                key={q}
+                onClick={() => sendMessage(q)}
+                className="bg-[#F6F8FA] border border-gray-200 rounded-[1rem] px-[0.8rem] py-[0.4rem] text-[1.2rem] cursor-pointer hover:bg-gray-200"
+              >
                 {q}
-              </Quick>
+              </button>
             ))}
-          </QuickBar>
-          <InputBar
+          </div>
+          <form
+            className="flex items-center p-[0.8rem] border-t border-gray-200"
             onSubmit={(e) => {
               e.preventDefault();
               sendMessage(input);
             }}
           >
-            <TextInput
+            <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
+              className="flex-1 border border-gray-300 rounded-[0.4rem] px-[0.8rem] py-[0.6rem] text-[1.4rem] outline-none"
             />
-            <Send type="submit" aria-label="Send message">
+            <button
+              type="submit"
+              aria-label="Send message"
+              className="ml-[0.8rem] text-[#6254F3] text-[1.6rem] cursor-pointer bg-transparent border-none"
+            >
               <FaPaperPlane />
-            </Send>
-          </InputBar>
-          <WhatsApp onClick={openWhatsApp} aria-label="Chat on WhatsApp">
+            </button>
+          </form>
+          <button
+            onClick={openWhatsApp}
+            aria-label="Chat on WhatsApp"
+            className="bg-[#25D366] text-white flex items-center justify-center gap-[0.8rem] p-[1rem] text-[1.4rem] font-medium cursor-pointer"
+          >
             <FaWhatsapp />
             <span>WhatsApp</span>
-          </WhatsApp>
-        </Panel>
+          </button>
+        </div>
       )}
     </>
   );
 };
 
 export default ChatbotWidget;
-
-const Fab = styled.button`
-  position: fixed;
-  right: 2rem;
-  bottom: 8rem;
-  width: 5.2rem;
-  height: 5.2rem;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  cursor: pointer;
-  background: ${({ theme }) => theme.colors.btn};
-  color: #fff;
-  box-shadow: ${({ theme }) => theme.colors.shadowSupport};
-  transition: transform 0.2s ease;
-  z-index: 1000;
-  &:hover {
-    transform: translateY(-2px);
-  }
-`;
-
-const Panel = styled.div`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 32rem;
-  max-width: 85vw;
-  background: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 1rem;
-  box-shadow: ${({ theme }) => theme.colors.shadow};
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 1000;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.2rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  color: ${({ theme }) => theme.colors.heading};
-  font-size: 1.6rem;
-`;
-
-const Close = styled.button`
-  border: none;
-  background: transparent;
-  color: ${({ theme }) => theme.colors.text};
-  cursor: pointer;
-  font-size: 1.6rem;
-`;
-
-const Body = styled.div`
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  max-height: 28rem;
-  overflow-y: auto;
-`;
-
-const Message = styled.div`
-  align-self: ${({ $sender }) => ($sender === "user" ? "flex-end" : "flex-start")};
-  background: ${({ theme, $sender }) =>
-    $sender === "user" ? theme.colors.btn : theme.colors.bg};
-  color: ${({ $sender }) => ($sender === "user" ? "#fff" : "inherit")};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  padding: 0.8rem 1rem;
-  border-radius: 0.8rem;
-  max-width: 80%;
-  font-size: 1.4rem;
-`;
-
-const QuickBar = styled.div`
-  display: flex;
-  gap: 0.6rem;
-  padding: 0.6rem 0.8rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-  flex-wrap: wrap;
-`;
-
-const Quick = styled.button`
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.text};
-  border-radius: 1.2rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-`;
-
-const InputBar = styled.form`
-  display: flex;
-  gap: 0.6rem;
-  padding: 0.8rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const TextInput = styled.input`
-  flex: 1;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 0.6rem;
-  padding: 0.6rem 0.8rem;
-  font-size: 1.4rem;
-  background: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const Send = styled.button`
-  border: none;
-  background: ${({ theme }) => theme.colors.btn};
-  color: #fff;
-  border-radius: 0.6rem;
-  width: 3.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.4rem;
-`;
-
-const WhatsApp = styled.button`
-  margin: 0.8rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  border: none;
-  background: #25d366;
-  color: #fff;
-  border-radius: 0.6rem;
-  padding: 0.6rem 0.8rem;
-  cursor: pointer;
-  font-size: 1.4rem;
-`;

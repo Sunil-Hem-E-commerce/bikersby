@@ -1,13 +1,16 @@
 const config = require("../utils/config");
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const transporter =
+  process.env.EMAIL_USER && process.env.EMAIL_PASS
+    ? nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      })
+    : null;
 
 const sendVerificationEmail = async (to, token) => {
   const origin =
@@ -16,6 +19,14 @@ const sendVerificationEmail = async (to, token) => {
       ? "https://your-domain.com"
       : "http://localhost:5173");
   const verificationLink = `${origin}/verify-email?token=${token}`;
+  if (!transporter) {
+    console.log(
+      "[email] Skipping sending verification email (EMAIL_USER/EMAIL_PASS not configured).",
+    );
+    console.log("[email] Verification link:", verificationLink);
+    return;
+  }
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to,

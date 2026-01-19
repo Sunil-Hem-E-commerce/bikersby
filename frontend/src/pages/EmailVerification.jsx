@@ -1,30 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
 import { toast } from "react-toastify";
-
-const VerificationContainer = styled.div`
-  max-width: 600px;
-  margin: 4rem auto;
-  padding: 2.4rem;
-  text-align: center;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 12px;
-  background: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.colors.shadow};
-`;
-
-const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.btn};
-  font-size: 3rem;
-  margin-bottom: 1.6rem;
-`;
-
-const Message = styled.p`
-  font-size: 1.8rem;
-  color: ${({ theme }) => theme.colors.text};
-`;
 
 const EmailVerification = () => {
   const [message, setMessage] = useState("Verifying your email...");
@@ -38,7 +15,7 @@ const EmailVerification = () => {
       if (token) {
         try {
           const response = await axios.get(
-            `/api/users/verify-email?token=${token}`
+            `/api/users/verify-email?token=${token}`,
           );
           setMessage(response.data.message);
           toast.success(response.data.message);
@@ -58,10 +35,12 @@ const EmailVerification = () => {
   }, [location]);
 
   return (
-    <VerificationContainer>
-      <Title>Email Verification</Title>
-      <Message>{message}</Message>
-    </VerificationContainer>
+    <div className="max-w-[600px] mx-auto my-[4rem] p-[2.4rem] text-center border border-gray-200 rounded-[12px] bg-white shadow-lg">
+      <h2 className="text-[#6254F3] text-[3rem] mb-[1.6rem]">
+        Email Verification
+      </h2>
+      <p className="text-[1.8rem] text-gray-700">{message}</p>
+    </div>
   );
 };
 

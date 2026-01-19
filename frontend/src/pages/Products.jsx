@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import FilterSection from "../components/FilterSection";
 import ProductList from "../components/ProductList";
 import Sort from "../components/Sort";
@@ -7,8 +6,8 @@ import Sort from "../components/Sort";
 
 const Product = () => {
   return (
-    <Wrapper>
-      <div className="container grid grid-filter-column">
+    <section>
+      <div className="max-w-[120rem] mx-auto px-[3.2rem] grid grid-cols-[0.2fr_1fr] gap-[2rem] max-md:grid-cols-1">
         <div>
           <FilterSection />
         </div>
@@ -22,20 +21,8 @@ const Product = () => {
           </div>
         </section>
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  .grid-filter-column {
-    grid-template-columns: 0.2fr 1fr;
-  }
-
-  @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    .grid-filter-column {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
 
 export default Product;

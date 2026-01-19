@@ -1,103 +1,59 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const OtpVerificationContainer = styled.div`
-  max-width: 420px;
-  margin: 4rem auto;
-  padding: 2.4rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 12px;
-  background: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.colors.shadow};
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.btn};
-  font-size: 3rem;
-  margin-bottom: 1.6rem;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  font-size: 14px;
-  margin-bottom: 8px;
-`;
-
-const Input = styled.input`
-  padding: 1rem;
-  font-size: 1.6rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
-  width: 100%;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.btn};
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.border};
-  }
-`;
-
-const SubmitButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.btn};
-  color: #fff;
-  padding: 1.2rem;
-  font-size: 1.6rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
-  }
-`;
-
 const OtpVerification = () => {
-  const [otp, setOtp] = useState("");
+  const [code, setCode] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-  const { phone } = location.state || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/users/verify-otp", { phone, otp });
-      toast.success("OTP Verified Successfully!");
+      const response = await axios.get(
+        `/api/users/verify-email?token=${encodeURIComponent(code)}`,
+      );
+      toast.success(response.data?.message || "Email verified successfully!");
       navigate("/login");
     } catch (error) {
-      toast.error(error.response?.data?.error || "Invalid OTP");
+      toast.error(
+        error.response?.data?.error || "Invalid or expired verification code",
+      );
     }
   };
 
   return (
-    <OtpVerificationContainer>
-      <Title>Verify Phone Number</Title>
-      <p>An OTP has been sent to {phone}</p>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label>Enter OTP:</Label>
-          <Input
+    <div className="max-w-[420px] mx-auto my-[4rem] p-[2.4rem] border border-gray-200 rounded-[12px] bg-white shadow-lg">
+      <h2 className="text-center text-[#6254F3] text-[3rem] mb-[1.6rem]">
+        Verify Email
+      </h2>
+      <p className="text-[1.6rem] mb-[2rem] text-center">
+        Enter the verification code sent to your email.
+      </p>
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <div className="mb-[20px]">
+          <label
+            htmlFor="verificationCode"
+            className="text-[14px] mb-[8px] block"
+          >
+            Verification Code
+          </label>
+          <input
             type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
             required
+            className="p-[1rem] text-[1.6rem] border border-gray-200 rounded-[8px] w-full transition-all focus:outline-none focus:border-[#6254F3] focus:ring-2 focus:ring-[#6254F3]"
           />
-        </FormGroup>
-        <SubmitButton type="submit">Verify OTP</SubmitButton>
-      </Form>
-    </OtpVerificationContainer>
+        </div>
+        <button
+          type="submit"
+          className="bg-[#6254F3] text-white p-[1.2rem] text-[1.6rem] border-none rounded-[8px] cursor-pointer hover:-translate-y-[1px] hover:shadow-lg transition-all"
+        >
+          Verify Email
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -1,20 +1,23 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
 const config = require("../utils/config");
 const https = require("https");
+const { initDb } = require("../utils/postgres");
+const { users, cartItems } = require("../drizzle/schema");
+const { eq } = require("drizzle-orm");
 
 module.exports = {
   async loginUser(req, res, next) {
     try {
       const { email, password } = req.body;
 
-      const user = await User.findOne({ email });
+      const db = await initDb();
+      const rows = await db.select().from(users).where(eq(users.email, email));
+      const user = rows[0];
 
-      const passwordCorrect =
-        user === null
-          ? false
-          : await bcrypt.compare(password, user.passwordHash);
+      const passwordCorrect = !user
+        ? false
+        : await bcrypt.compare(password, user.passwordHash);
 
       if (!(user && passwordCorrect)) {
         return res.status(401).json({
@@ -24,25 +27,24 @@ module.exports = {
 
       const userForToken = {
         email: user.email,
-        id: user._id,
+        id: user.id,
       };
 
       const token = jwt.sign(userForToken, process.env.SECRET, {
         expiresIn: config.JWT_EXPIRES_IN,
       });
 
-      // res.cookie("token", token, {
-      //   expires: new Date(Date.now() + 300000),
-      //   httpOnly: true,
-      //   // secure:true
-      // });
+      const cartRows = await db
+        .select()
+        .from(cartItems)
+        .where(eq(cartItems.userId, user.id));
 
       res.status(200).send({
         accessToken: token,
-        fullName: user.fullName,
+        fullName: user.username,
         email: user.email,
-        user: { id: user._id },
-        orders: user.orders,
+        user: { id: user.id },
+        orders: cartRows,
       });
     } catch (error) {
       next(error);
@@ -59,7 +61,7 @@ module.exports = {
         https
           .get(
             `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(
-              idToken
+              idToken,
             )}`,
             (resp) => {
               let data = "";
@@ -71,7 +73,7 @@ module.exports = {
                   reject(e);
                 }
               });
-            }
+            },
           )
           .on("error", reject);
       });
@@ -91,28 +93,49 @@ module.exports = {
           .status(400)
           .json({ error: "Email not available from Google" });
       }
-      let user = await User.findOne({ email });
-      if (!user) {
-        const randomSecret = jwt.sign({ ts: Date.now() }, "social_secret");
-        const passwordHash = await bcrypt.hash(randomSecret, 10);
-        user = new User({
-          username: name,
+
+      const randomSecret = jwt.sign({ ts: Date.now() }, "social_secret");
+      const passwordHash = await bcrypt.hash(randomSecret, 10);
+      const isEmailVerified = tokenInfo.email_verified === "true" || true;
+
+      const db = await initDb();
+
+      const [user] = await db
+        .insert(users)
+        .values({
           email,
+          username: name,
           passwordHash,
-          phone: `+0000000000`,
-          isEmailVerified: tokenInfo.email_verified === "true" || true,
-        });
-        await user.save();
-      }
-      const userForToken = { email: user.email, id: user._id };
+          isEmailVerified,
+          provider: "google",
+          providerId: tokenInfo.sub || null,
+        })
+        .onConflictDoUpdate({
+          target: users.email,
+          set: {
+            username: name,
+            isEmailVerified,
+            provider: "google",
+            providerId: tokenInfo.sub || null,
+          },
+        })
+        .returning();
+
+      const userForToken = { email: user.email, id: user.id };
       const token = jwt.sign(userForToken, process.env.SECRET, {
         expiresIn: config.JWT_EXPIRES_IN,
       });
+
+      const cartRows = await db
+        .select()
+        .from(cartItems)
+        .where(eq(cartItems.userId, user.id));
+
       res.status(200).send({
         accessToken: token,
         email: user.email,
-        user: { id: user._id },
-        orders: user.orders,
+        user: { id: user.id },
+        orders: cartRows,
       });
     } catch (error) {
       next(error);
@@ -129,7 +152,7 @@ module.exports = {
         https
           .get(
             `https://graph.facebook.com/me?fields=id,name,email&access_token=${encodeURIComponent(
-              accessToken
+              accessToken,
             )}`,
             (resp) => {
               let data = "";
@@ -141,7 +164,7 @@ module.exports = {
                   reject(e);
                 }
               });
-            }
+            },
           )
           .on("error", reject);
       });
@@ -157,28 +180,48 @@ module.exports = {
           .status(400)
           .json({ error: "Email permission required from Facebook" });
       }
-      let user = await User.findOne({ email });
-      if (!user) {
-        const randomSecret = jwt.sign({ ts: Date.now() }, "social_secret");
-        const passwordHash = await bcrypt.hash(randomSecret, 10);
-        user = new User({
-          username: name,
+
+      const randomSecret = jwt.sign({ ts: Date.now() }, "social_secret");
+      const passwordHash = await bcrypt.hash(randomSecret, 10);
+
+      const db = await initDb();
+
+      const [user] = await db
+        .insert(users)
+        .values({
           email,
+          username: name,
           passwordHash,
-          phone: `+0000000000`,
           isEmailVerified: true,
-        });
-        await user.save();
-      }
-      const userForToken = { email: user.email, id: user._id };
+          provider: "facebook",
+          providerId: profile.id,
+        })
+        .onConflictDoUpdate({
+          target: users.email,
+          set: {
+            username: name,
+            isEmailVerified: true,
+            provider: "facebook",
+            providerId: profile.id,
+          },
+        })
+        .returning();
+
+      const userForToken = { email: user.email, id: user.id };
       const token = jwt.sign(userForToken, process.env.SECRET, {
         expiresIn: config.JWT_EXPIRES_IN,
       });
+
+      const cartRows = await db
+        .select()
+        .from(cartItems)
+        .where(eq(cartItems.userId, user.id));
+
       res.status(200).send({
         accessToken: token,
         email: user.email,
-        user: { id: user._id },
-        orders: user.orders,
+        user: { id: user.id },
+        orders: cartRows,
       });
     } catch (error) {
       next(error);

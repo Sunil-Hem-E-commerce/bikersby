@@ -1,8 +1,8 @@
 const { tokenExtractor, userExtractor } = require("../utils/middleware");
-const Product = require("../models/product");
-const Color = require("../models/color");
-const Image = require("../models/image");
 const cloudinary = require("../script");
+const { initDb } = require("../utils/postgres");
+const { products, colors, images } = require("../drizzle/schema");
+const { eq } = require("drizzle-orm");
 
 module.exports = {
   async addProduct(req, res, next) {
@@ -23,30 +23,32 @@ module.exports = {
         imageUrl,
       } = req.body;
 
-      const product = new Product({
-        name,
-        company,
-        price,
-        discountedPrice,
-        description,
-        category,
-        featured,
-        stock,
-        reviews,
-        stars,
-      });
+      const db = await initDb();
 
-      const savedProduct = await product.save();
+      const normalizedStars =
+        typeof stars === "number" ? Math.round(stars) : undefined;
+
+      const [savedProduct] = await db
+        .insert(products)
+        .values({
+          name,
+          company,
+          price,
+          discountedPrice,
+          description,
+          category,
+          featured,
+          stock,
+          reviews,
+          stars: normalizedStars,
+        })
+        .returning();
 
       if (hex) {
-        const color = new Color({ hex, product: savedProduct._id });
-        await color.save();
-        savedProduct.colors = savedProduct.colors.concat(color._id);
+        await db.insert(colors).values({ hex, productId: savedProduct.id });
       } else if (Array.isArray(colors)) {
         for (const c of colors) {
-          const color = new Color({ hex: c, product: savedProduct._id });
-          await color.save();
-          savedProduct.colors = savedProduct.colors.concat(color._id);
+          await db.insert(colors).values({ hex: c, productId: savedProduct.id });
         }
       }
 
@@ -58,10 +60,7 @@ module.exports = {
           } else {
             try {
               const img = result.url;
-              const image = new Image({ url: img, product: savedProduct.id });
-              await image.save();
-              savedProduct.images = savedProduct.images.concat(image._id);
-              await savedProduct.save();
+              await db.insert(images).values({ url: img, productId: savedProduct.id });
               res.status(201).send("Product created with image sucessufully");
             } catch (error) {
               next(error);
@@ -69,13 +68,9 @@ module.exports = {
           }
         });
       } else if (imageUrl) {
-        const image = new Image({ url: imageUrl, product: savedProduct.id });
-        await image.save();
-        savedProduct.images = savedProduct.images.concat(image._id);
-        await savedProduct.save();
+        await db.insert(images).values({ url: imageUrl, productId: savedProduct.id });
         res.status(201).send("Product created successfully");
       } else {
-        await savedProduct.save();
         res.status(201).send("Product created successfully");
       }
     } catch (error) {
@@ -85,18 +80,23 @@ module.exports = {
 
   async updateProduct(req, res, next) {
     try {
-      const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
+      const db = await initDb();
+      const id = Number(req.params.id);
 
-      if (!product) {
+      const [updated] = await db
+        .update(products)
+        .set(req.body)
+        .where(eq(products.id, id))
+        .returning();
+
+      if (!updated) {
         res.status(404).json({ message: "Product not found" });
         return;
       }
 
       res
         .status(200)
-        .json({ message: "Product updated successfully", product });
+        .json({ message: "Product updated successfully", product: updated });
     } catch (error) {
       next(error);
     }
@@ -108,6 +108,7 @@ module.exports = {
       if (!Array.isArray(products) || products.length === 0) {
         return res.status(400).json({ message: "products array is required" });
       }
+      const db = await initDb();
       const results = [];
       for (const p of products) {
         try {
@@ -134,34 +135,35 @@ module.exports = {
               ? discountedPrice
               : Math.round(normalizedPrice * (1 - (Number(defaultDiscountPercent) || 0) / 100));
  
-          const product = new Product({
-            name,
-            company,
-            price: normalizedPrice,
-            discountedPrice: hasDiscount ? computedDiscount : undefined,
-            description,
-            category,
-            featured,
-            stock,
-            reviews,
-            stars,
-          });
-          const savedProduct = await product.save();
- 
+          const normalizedStars =
+            typeof stars === "number" ? Math.round(stars) : undefined;
+
+          const [savedProduct] = await db
+            .insert(products)
+            .values({
+              name,
+              company,
+              price: normalizedPrice,
+              discountedPrice: hasDiscount ? computedDiscount : undefined,
+              description,
+              category,
+              featured,
+              stock,
+              reviews,
+              stars: normalizedStars,
+            })
+            .returning();
+
           if (Array.isArray(colors)) {
             for (const c of colors) {
-              const color = new Color({ hex: c, product: savedProduct._id });
-              await color.save();
-              savedProduct.colors = savedProduct.colors.concat(color._id);
+              await db.insert(colors).values({ hex: c, productId: savedProduct.id });
             }
           }
- 
+
           if (imageUrl) {
-            const image = new Image({ url: imageUrl, product: savedProduct.id });
-            await image.save();
-            savedProduct.images = savedProduct.images.concat(image._id);
+            await db.insert(images).values({ url: imageUrl, productId: savedProduct.id });
           }
-          await savedProduct.save();
+
           results.push({ ok: true, id: savedProduct.id, name: savedProduct.name });
         } catch (e) {
           results.push({ ok: false, error: e.message, name: p?.name });
@@ -175,16 +177,22 @@ module.exports = {
 
   async deleteProduct(req, res, next) {
     try {
-      const product = await Product.findByIdAndDelete(req.params.id);
+      const db = await initDb();
+      const id = Number(req.params.id);
 
-      if (!product) {
+      const [deleted] = await db
+        .delete(products)
+        .where(eq(products.id, id))
+        .returning();
+
+      if (!deleted) {
         res.status(404).json({ message: "Product not found" });
         return;
       }
 
       res
         .status(200)
-        .json({ message: "Product deleted successfully", product });
+        .json({ message: "Product deleted successfully", product: deleted });
     } catch (error) {
       next(error);
     }

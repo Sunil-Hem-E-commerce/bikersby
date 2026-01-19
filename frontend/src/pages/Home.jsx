@@ -2,7 +2,6 @@ import FeatureProduct from "../components/FeatureProduct";
 import HeroSection from "../components/HeroSection";
 import Services from "../components/Services";
 import Trusted from "../components/Trusted";
-import styled from "styled-components";
 import { FaWhatsapp } from "react-icons/fa";
 
 const Home = () => {
@@ -25,36 +24,15 @@ const Home = () => {
       <FeatureProduct />
       <Services />
       <Trusted />
-      <ChatButton onClick={openWhatsApp} aria-label="Chat on WhatsApp">
+      <button
+        onClick={openWhatsApp}
+        aria-label="Chat on WhatsApp"
+        className="fixed right-8 bottom-8 w-[5.2rem] h-[5.2rem] rounded-full border-none flex items-center justify-center text-[2.4rem] cursor-pointer bg-[#25d366] text-white shadow-md transition-all duration-200 ease-in-out z-[1000] hover:-translate-y-0.5 hover:shadow-lg"
+      >
         <FaWhatsapp />
-      </ChatButton>
+      </button>
     </>
   );
 };
 
 export default Home;
-
-const ChatButton = styled.button`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 5.2rem;
-  height: 5.2rem;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.4rem;
-  cursor: pointer;
-  background-color: #25d366;
-  color: #fff;
-  box-shadow: ${({ theme }) => theme.colors.shadowSupport};
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 1000;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: ${({ theme }) => theme.colors.shadow};
-  }
-`;

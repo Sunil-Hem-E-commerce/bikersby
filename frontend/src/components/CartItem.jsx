@@ -7,19 +7,19 @@ const CartItem = ({ id, name, image, price, color, qty }) => {
   const { removeItem, setIncrement, setDecrease } = useCartContext();
 
   return (
-    <div className="cart_heading grid grid-five-column">
-      <div className="cart-image--name">
+    <div className="grid grid-cols-[repeat(4,1fr)_0.3fr] text-center items-center">
+      <div className="flex justify-start items-center gap-[2.4rem]">
         <div>
           <figure>
-            <img src={image} alt={id} />
+            <img src={image} alt={id} className="w-[8rem] h-[5rem] object-cover" />
           </figure>
         </div>
         <div>
           <p>{name}</p>
-          <div className="color-div">
+          <div className="flex items-center gap-[1rem]">
             <p>color:</p>
             <div
-              className="color-style"
+              className="w-[1.4rem] h-[1.4rem] rounded-full"
               style={{ backgroundColor: color, color: color }}
             ></div>
           </div>
@@ -27,7 +27,7 @@ const CartItem = ({ id, name, image, price, color, qty }) => {
       </div>
 
       {/* Price */}
-      <div className="cart-hide">
+      <div className="hidden md:block">
         <p>
           <FormatPrice price={price} />
         </p>
@@ -41,7 +41,7 @@ const CartItem = ({ id, name, image, price, color, qty }) => {
       />
 
       {/* SubTotal */}
-      <div className="cart-hide">
+      <div className="hidden md:block">
         <p>
           <FormatPrice price={price * qty} />
         </p>
@@ -49,7 +49,7 @@ const CartItem = ({ id, name, image, price, color, qty }) => {
 
       {/* Delete */}
       <div>
-        <FaTrash className="remove_icon" onClick={() => removeItem(id)} />
+        <FaTrash className="text-[2rem] text-[#e74c3c] cursor-pointer hover:text-[#c0392b] transition-colors" onClick={() => removeItem(id)} />
       </div>
     </div>
   );

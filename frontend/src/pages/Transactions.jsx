@@ -8,7 +8,9 @@ const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    const storedTransactions = JSON.parse(localStorage.getItem("transactions") || "[]");
+    const storedTransactions = JSON.parse(
+      localStorage.getItem("transactions") || "[]",
+    );
     setTransactions(storedTransactions);
   }, []);
 
@@ -49,12 +51,16 @@ const Transactions = () => {
                   <td>{t.id}</td>
                   <td style={{ textTransform: "uppercase" }}>{t.method}</td>
                   <td>{t.items.length} Items</td>
-                  <td><FormatPrice price={t.amount} /></td>
+                  <td>
+                    <FormatPrice price={t.amount} />
+                  </td>
                   <td>
                     <span className="status-success">{t.status}</span>
                   </td>
                   <td>
-                    <NavLink to={`/payment-success?oid=${t.id}&amt=${t.amount}&refId=${t.refId}&method=${t.method}`}>
+                    <NavLink
+                      to={`/payment-success?oid=${t.id}&amt=${t.amount}&refId=${t.refId}&method=${t.method}`}
+                    >
                       <Button className="btn-small">View Receipt</Button>
                     </NavLink>
                   </td>
@@ -87,7 +93,8 @@ const Wrapper = styled.section`
     border-radius: 1rem;
     overflow: hidden;
 
-    th, td {
+    th,
+    td {
       padding: 1.5rem;
       text-align: left;
       font-size: 1.6rem;
@@ -99,8 +106,7 @@ const Wrapper = styled.section`
       color: #fff;
       font-weight: 500;
     }
-
-    tr:hover {
+    htmlFor="password" tr:hover {
       background-color: #f9f9f9;
     }
 

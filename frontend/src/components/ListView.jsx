@@ -1,123 +1,43 @@
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
 import FormatPrice from "../Helpers/FormatPrice";
 import { Button } from "../styles/Button";
 
 const ListView = ({ products }) => {
   return (
-    <Wrapper className="section">
-      <div className="container grid">
+    <section className="py-[9rem]">
+      <div className="max-w-[120rem] mx-auto grid gap-[3.2rem]">
         {products.map((curElem) => {
           const { id, name, image, price, description } = curElem;
           return (
-            <div className="card grid grid-two-column" key={curElem.id}>
-              <figure>
-                <img src={image} alt={name} />
+            <div className="border border-gray-300/40 grid grid-cols-2 gap-[3.2rem] items-center p-[2rem] max-md:grid-cols-1" key={curElem.id}>
+              <figure className="relative overflow-hidden w-auto flex justify-center items-center group transition-all duration-500">
+                <img 
+                  src={image} 
+                  alt={name} 
+                  className="max-w-[90%] mt-[1.5rem] h-[20rem] object-cover transition-all duration-200 group-hover:scale-120"
+                />
+                <div className="absolute top-0 left-0 w-0 h-full bg-black/50 transition-all duration-200 cursor-pointer group-hover:w-full"></div>
               </figure>
 
-              <div className="card-data">
-                <h3>{name}</h3>
+              <div className="p-[2rem]">
+                <h3 className="my-[2rem] font-light text-[2.4rem] capitalize">{name}</h3>
                 <p>
                   <FormatPrice price={price} />
                 </p>
                 <p>{description.slice(0, 90)}...</p>
 
                 <NavLink to={`/singleproduct/${id}`} className="btn-main">
-                  <Button className="btn">Read More</Button>
+                  <Button className="my-[2rem] bg-transparent border border-[#6254F3] text-[#6254F3] hover:bg-[#6254F3] hover:text-white">
+                    Read More
+                  </Button>
                 </NavLink>
               </div>
             </div>
           );
         })}
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  padding: 9rem 0;
-
-  .container {
-    max-width: 120rem;
-  }
-
-  .grid {
-    gap: 3.2rem;
-  }
-
-  figure {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s linear;
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      transition: all 0.2s linear;
-      cursor: pointer;
-    }
-    &:hover::after {
-      width: 100%;
-    }
-    &:hover img {
-      transform: scale(1.2);
-    }
-    img {
-      max-width: 90%;
-      margin-top: 1.5rem;
-      height: 20rem;
-      transition: all 0.2s linear;
-    }
-  }
-
-  .card {
-    border: 0.1rem solid rgb(170 170 170 / 40%);
-
-    .card-data {
-      padding: 0 2rem;
-    }
-
-    h3 {
-      margin: 2rem 0;
-      font-weight: 300;
-      font-size: 2.4rem;
-      text-transform: capitalize;
-    }
-
-    .btn {
-      margin: 2rem 0;
-      background-color: rgb(0 0 0 / 0%);
-      border: 0.1rem solid rgb(98 84 243);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: rgb(98 84 243);
-
-      &:hover {
-        background-color: rgb(98 84 243);
-      }
-
-      &:hover a {
-        color: #fff;
-      }
-      a {
-        color: rgb(98 84 243);
-        font-size: 1.4rem;
-      }
-    }
-
-    .btn-main .btn:hover {
-      color: #fff;
-    }
-  }
-`;
 
 export default ListView;

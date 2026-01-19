@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useCartContext } from "../context/cart_context";
 import FormatPrice from "../Helpers/FormatPrice";
 import { Button } from "../styles/Button";
@@ -29,7 +28,7 @@ const Checkout = () => {
         // hit merchant api for verification
         console.log(payload);
         navigate(
-          `/payment-success?q=su&oid=${pid}&amt=${totalAmount}&refId=${payload.idx}&method=khalti`
+          `/payment-success?q=su&oid=${pid}&amt=${totalAmount}&refId=${payload.idx}&method=khalti`,
         );
       },
       // onError handler is optional
@@ -70,49 +69,60 @@ const Checkout = () => {
     // In real scenario, this would post to ConnectIPS gateway
     setTimeout(() => {
       navigate(
-        `/payment-success?q=su&oid=${pid}&amt=${totalAmount}&refId=CIPS-${Date.now()}&method=connectips`
+        `/payment-success?q=su&oid=${pid}&amt=${totalAmount}&refId=CIPS-${Date.now()}&method=connectips`,
       );
     }, 2000);
   };
 
   if (cart.length === 0) {
     return (
-      <Wrapper>
-        <div className="container">
-          <h3>Your cart is empty. Cannot proceed to checkout.</h3>
+      <section className="py-[9rem]">
+        <div className="max-w-[120rem] mx-auto px-[3.2rem]">
+          <h3 className="text-[2.4rem] font-bold">
+            Your cart is empty. Cannot proceed to checkout.
+          </h3>
         </div>
-      </Wrapper>
+      </section>
     );
   }
 
   return (
-    <Wrapper>
-      <div className="container">
-        <div className="grid grid-two-column">
+    <section className="py-[9rem] bg-[#F6F8FA]">
+      <div className="max-w-[120rem] mx-auto px-[3.2rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[5rem]">
           {/* Order Summary */}
-          <div className="order-summary">
-            <h3>Order Summary</h3>
-            <div className="summary-details">
+          <div className="bg-white p-[3rem] rounded-[1rem] shadow-lg">
+            <h3 className="text-[2rem] font-bold mb-[2rem]">Order Summary</h3>
+            <div className="flex flex-col">
               {cart.map((item) => (
-                <div key={item.id} className="summary-item">
-                  <img src={item.image} alt={item.name} />
+                <div
+                  key={item.id}
+                  className="flex gap-[2rem] mb-[2rem] items-center"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-[6rem] h-[6rem] object-cover rounded-full"
+                  />
                   <div>
-                    <p className="name">{item.name}</p>
-                    <p>
+                    <p className="font-bold capitalize text-[1.6rem]">
+                      {item.name}
+                    </p>
+                    <p className="text-[1.4rem]">
                       {item.qty} x <FormatPrice price={item.price} />
                     </p>
                   </div>
                 </div>
               ))}
-              <hr />
-              <div className="totals">
-                <p>
+              <hr className="my-[2rem] border-gray-200" />
+              <div className="text-right mt-[2rem]">
+                <p className="mb-[0.5rem] text-[1.6rem]">
                   Subtotal: <FormatPrice price={total_price} />
                 </p>
-                <p>
+                <p className="mb-[0.5rem] text-[1.6rem]">
                   Shipping: <FormatPrice price={shipping_fee} />
                 </p>
-                <p className="total-amount">
+                <p className="text-[2.4rem] font-bold text-[#6254F3]">
                   Total: <FormatPrice price={totalAmount} />
                 </p>
               </div>
@@ -120,12 +130,16 @@ const Checkout = () => {
           </div>
 
           {/* Payment Method */}
-          <div className="payment-section">
-            <h3>Select Payment Method</h3>
-            <div className="payment-options">
+          <div className="bg-white p-[3rem] rounded-[1rem] shadow-lg">
+            <h3 className="text-[2rem] font-bold mb-[2rem]">
+              Select Payment Method
+            </h3>
+            <div className="flex flex-col gap-[2rem] mb-[3rem]">
               <div
-                className={`payment-option ${
-                  paymentMethod === "esewa" ? "active" : ""
+                className={`flex items-center gap-[2rem] p-[1.5rem] border border-[#ddd] rounded-[1rem] cursor-pointer transition-all duration-300 ${
+                  paymentMethod === "esewa"
+                    ? "border-[#6254F3] bg-[#f0f4f8]"
+                    : ""
                 }`}
                 onClick={() => setPaymentMethod("esewa")}
                 role="button"
@@ -139,12 +153,17 @@ const Checkout = () => {
                 <img
                   src="https://esewa.com.np/common/images/esewa_logo.png"
                   alt="eSewa"
+                  className="h-[4rem] object-contain"
                 />
-                <span>eSewa Mobile Wallet</span>
+                <span className="text-[1.8rem] font-medium">
+                  eSewa Mobile Wallet
+                </span>
               </div>
               <div
-                className={`payment-option ${
-                  paymentMethod === "khalti" ? "active" : ""
+                className={`flex items-center gap-[2rem] p-[1.5rem] border border-[#ddd] rounded-[1rem] cursor-pointer transition-all duration-300 ${
+                  paymentMethod === "khalti"
+                    ? "border-[#6254F3] bg-[#f0f4f8]"
+                    : ""
                 }`}
                 onClick={() => setPaymentMethod("khalti")}
                 role="button"
@@ -158,12 +177,17 @@ const Checkout = () => {
                 <img
                   src="https://khalti.com.np/common/images/khalti_logo.png"
                   alt="Khalti"
+                  className="h-[4rem] object-contain"
                 />
-                <span>Khalti Digital Wallet</span>
+                <span className="text-[1.8rem] font-medium">
+                  Khalti Digital Wallet
+                </span>
               </div>
               <div
-                className={`payment-option ${
-                  paymentMethod === "connectips" ? "active" : ""
+                className={`flex items-center gap-[2rem] p-[1.5rem] border border-[#ddd] rounded-[1rem] cursor-pointer transition-all duration-300 ${
+                  paymentMethod === "connectips"
+                    ? "border-[#6254F3] bg-[#f0f4f8]"
+                    : ""
                 }`}
                 onClick={() => setPaymentMethod("connectips")}
                 role="button"
@@ -177,12 +201,13 @@ const Checkout = () => {
                 <img
                   src="https://www.connectips.com/images/connectips_logo.png"
                   alt="ConnectIPS"
+                  className="h-[4rem] object-contain"
                 />
-                <span>ConnectIPS</span>
+                <span className="text-[1.8rem] font-medium">ConnectIPS</span>
               </div>
             </div>
 
-            <div className="payment-action">
+            <div className="mt-[2rem]">
               {paymentMethod === "esewa" && (
                 <form
                   action="https://rc-epay.esewa.com.np/api/epay/main/v2/form"
@@ -286,129 +311,33 @@ const Checkout = () => {
                   <input value={pid} name="pid" type="hidden" />
                   <input value={successUrl} type="hidden" name="su" />
                   <input value={failureUrl} type="hidden" name="fu" />
-                  <Button type="submit" onClick={saveTempCart}>
+                  <Button
+                    type="submit"
+                    onClick={saveTempCart}
+                    className="w-full"
+                  >
                     Pay with eSewa
                   </Button>
                 </form>
               )}
 
               {paymentMethod === "khalti" && (
-                <Button onClick={handleKhaltiPayment}>Pay with Khalti</Button>
+                <Button onClick={handleKhaltiPayment} className="w-full">
+                  Pay with Khalti
+                </Button>
               )}
 
               {paymentMethod === "connectips" && (
-                <Button onClick={handleConnectIPS}>Pay with ConnectIPS</Button>
+                <Button onClick={handleConnectIPS} className="w-full">
+                  Pay with ConnectIPS
+                </Button>
               )}
             </div>
           </div>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  padding: 9rem 0;
-
-  .grid-two-column {
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-  }
-
-  .order-summary {
-    background: #fff;
-    padding: 3rem;
-    border-radius: 1rem;
-    box-shadow: ${({ theme }) => theme.colors.shadow};
-
-    h3 {
-      margin-bottom: 2rem;
-    }
-
-    .summary-item {
-      display: flex;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      align-items: center;
-
-      img {
-        width: 6rem;
-        height: 6rem;
-        object-fit: cover;
-        border-radius: 50%;
-      }
-
-      .name {
-        font-weight: bold;
-        text-transform: capitalize;
-      }
-    }
-
-    .totals {
-      margin-top: 2rem;
-      text-align: right;
-
-      p {
-        margin-bottom: 0.5rem;
-      }
-
-      .total-amount {
-        font-size: 2.4rem;
-        font-weight: bold;
-        color: ${({ theme }) => theme.colors.btn};
-      }
-    }
-  }
-
-  .payment-section {
-    background: #fff;
-    padding: 3rem;
-    border-radius: 1rem;
-    box-shadow: ${({ theme }) => theme.colors.shadow};
-
-    h3 {
-      margin-bottom: 2rem;
-    }
-
-    .payment-options {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    .payment-option {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 1.5rem;
-      border: 1px solid #ddd;
-      border-radius: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      &.active {
-        border-color: ${({ theme }) => theme.colors.btn};
-        background-color: #f0f4f8;
-      }
-
-      img {
-        height: 4rem;
-        object-fit: contain;
-      }
-
-      span {
-        font-size: 1.8rem;
-        font-weight: 500;
-      }
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    .grid-two-column {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
 
 export default Checkout;

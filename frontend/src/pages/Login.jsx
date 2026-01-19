@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useUserContext } from "../context/user_context";
 import "react-toastify/dist/ReactToastify.css";
@@ -122,7 +121,7 @@ const LoginForm = () => {
               toast.error("Facebook login cancelled");
             }
           },
-          { scope: "email" }
+          { scope: "email" },
         );
       };
     } catch (e) {
@@ -160,219 +159,117 @@ const LoginForm = () => {
   };
 
   return (
-    <Container>
-      <Title>Login to Your Account</Title>
-      {uiMsg.text ? (
-        <AlertBox data-type={uiMsg.type}>{uiMsg.text}</AlertBox>
-      ) : null}
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label>Email</Label>
-          <Input
-            type="email"
-            name="email"
-            value={signin.email}
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Password</Label>
-          <PasswordWrapper>
-            <Input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={signin.password}
-              onChange={handleChange}
-              required
-            />
-            <ToggleIcon
-              onClick={() => setShowPassword(!showPassword)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setShowPassword(!showPassword);
-                }
-              }}
-              tabIndex={0}
-              role="button"
+    <div className="min-h-[80vh] flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl bg-white/80 dark:bg-slate-900/80 shadow-xl border border-slate-200 dark:border-slate-700 backdrop-blur">
+        <div className="px-8 pt-8 pb-6">
+          <h2 className="text-center text-3xl font-bold tracking-tight text-indigo-600 dark:text-indigo-400 mb-3">
+            Welcome back
+          </h2>
+          <p className="text-center text-sm text-slate-500 dark:text-slate-400 mb-4">
+            Sign in to continue your healthy lifestyle journey.
+          </p>
+          {uiMsg.text ? (
+            <div
+              className={`mb-4 rounded-lg px-3 py-2 text-sm border ${
+                uiMsg.type === "success"
+                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                  : "bg-rose-50 text-rose-700 border-rose-200"
+              }`}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </ToggleIcon>
-          </PasswordWrapper>
-        </FormGroup>
-        <SubmitButton type="submit">Login</SubmitButton>
-        <AuthHint>
-          New here? <NavLink to="/signup">Create an account</NavLink>
-        </AuthHint>
-      </Form>
-      <SocialContainer>
-        <OrDivider>
-          <span>OR</span>
-        </OrDivider>
-        <ButtonRow>
-          <SocialButton className="google" onClick={handleGoogleSignIn}>
-            <FaGoogle /> Sign in with Google
-          </SocialButton>
-          <SocialButton className="facebook" onClick={handleFacebookSignIn}>
-            <FaFacebook /> Sign in with Facebook
-          </SocialButton>
-        </ButtonRow>
-      </SocialContainer>
-    </Container>
+              {uiMsg.text}
+            </div>
+          ) : null}
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="space-y-1.5">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={signin.email}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/60"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+              >
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={signin.password}
+                  onChange={handleChange}
+                  required
+                  className="block w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 pr-10 text-sm text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/60"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="mt-1 inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-500/30 transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-900"
+            >
+              Login
+            </button>
+          </form>
+          <div className="mt-5">
+            <div className="flex items-center text-xs text-slate-400 uppercase tracking-wide">
+              <div className="flex-1 border-t border-slate-200 dark:border-slate-700" />
+              <span className="px-3">or continue with</span>
+              <div className="flex-1 border-t border-slate-200 dark:border-slate-700" />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-100 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                onClick={handleGoogleSignIn}
+              >
+                <span className="text-red-500">
+                  <FaGoogle />
+                </span>
+                <span>Google</span>
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-100 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                onClick={handleFacebookSignIn}
+              >
+                <span className="text-blue-600">
+                  <FaFacebook />
+                </span>
+                <span>Facebook</span>
+              </button>
+            </div>
+          </div>
+          <p className="mt-5 text-center text-sm text-slate-500 dark:text-slate-400">
+            New here?{" "}
+            <NavLink
+              to="/signup"
+              className="font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              Create an account
+            </NavLink>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default LoginForm;
-
-const Container = styled.div`
-  max-width: 420px;
-  margin: 4rem auto;
-  padding: 2.4rem;
-  border-radius: 12px;
-  background: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.colors.shadow};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.btn};
-  font-size: 3rem;
-  margin-bottom: 1.6rem;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-`;
-
-const Label = styled.label`
-  font-size: 1.4rem;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const Input = styled.input`
-  padding: 1rem;
-  font-size: 1.6rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
-  width: 100%;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.btn};
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.border};
-  }
-`;
-
-const PasswordWrapper = styled.div`
-  position: relative;
-`;
-
-const ToggleIcon = styled.span`
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #666;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-`;
-
-const SubmitButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.btn};
-  color: #fff;
-  padding: 1.2rem;
-  font-size: 1.6rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
-  }
-`;
-
-const AuthHint = styled.p`
-  text-align: center;
-  margin-top: 1rem;
-  a {
-    color: ${({ theme }) => theme.colors.helper};
-  }
-`;
-
-const AlertBox = styled.div`
-  margin: 0 0 1.2rem 0;
-  padding: 1rem 1.2rem;
-  border-radius: 8px;
-  font-size: 1.4rem;
-  background: ${(p) => (p["data-type"] === "success" ? "#e8f8f2" : "#fdecea")};
-  color: ${(p) => (p["data-type"] === "success" ? "#0f5132" : "#842029")};
-  border: 1px solid
-    ${(p) => (p["data-type"] === "success" ? "#b7e4d7" : "#f5c2c7")};
-`;
-
-const SocialContainer = styled.div`
-  margin-top: 2rem;
-`;
-
-const OrDivider = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0;
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1.2rem;
-  span {
-    padding: 0 0.8rem;
-  }
-  &:before,
-  &:after {
-    content: "";
-    flex: 1;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  }
-`;
-
-const ButtonRow = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-`;
-
-const SocialButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 1rem;
-  border-radius: 8px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  color: #fff;
-  &.google {
-    background: #db4437;
-  }
-  &.facebook {
-    background: #1877f2;
-  }
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
-    filter: brightness(1.05);
-  }
-`;

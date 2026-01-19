@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useFilterContext } from "../context/filter_context";
 import { FaCheck } from "react-icons/fa";
 import FormatPrice from "../Helpers/FormatPrice";
@@ -32,7 +31,7 @@ const FilterSection = () => {
   const colorsData = getUniqueData(all_products, "colors");
 
   return (
-    <Wrapper>
+    <section className="flex flex-col gap-[3rem] py-[5rem]">
       <div className="filter-search">
         <form onSubmit={(e) => e.preventDefault()}>
           <input
@@ -41,12 +40,13 @@ const FilterSection = () => {
             value={text}
             onChange={updateFilterValue}
             placeholder="SEARCH"
+            className="px-[1rem] py-[0.6rem] w-[80%]"
           />
         </form>
       </div>
       <div className="filter-category">
-        <h3>Category</h3>
-        <div>
+        <h3 className="py-[2rem] font-bold">Category</h3>
+        <div className="flex flex-col items-start gap-[1.4rem]">
           {categoryOnlyData.map((curElem, index) => {
             return (
               <button
@@ -54,7 +54,11 @@ const FilterSection = () => {
                 type="button"
                 name="category"
                 value={curElem}
-                className={curElem === category ? "active" : ""}
+                className={`border-none bg-white capitalize cursor-pointer hover:text-[#6254F3] ${
+                  curElem === category
+                    ? "border-b border-black text-[#6254F3]"
+                    : ""
+                }`}
                 onClick={updateFilterValue}
               >
                 {curElem}
@@ -64,12 +68,12 @@ const FilterSection = () => {
         </div>
       </div>
       <div className="filter-company">
-        <h3>Company</h3>
+        <h3 className="py-[2rem] font-bold">Company</h3>
         <form action="#">
           <select
             name="company"
             id="company"
-            className="filter-company--select"
+            className="px-[1.2rem] py-[0.3rem] text-[1.6rem] text-[rgba(29,29,29,0.8)] capitalize"
             value={category}
             onChange={updateFilterValue}
           >
@@ -82,8 +86,8 @@ const FilterSection = () => {
         </form>
       </div>
       <div className="filter-colors colors">
-        <h3>Colors</h3>
-        <div className="filter-color-style">
+        <h3 className="py-[2rem] font-bold">Colors</h3>
+        <div className="flex justify-center">
           {colorsData.map((curColor, index) => {
             if (curColor === "all") {
               return (
@@ -92,7 +96,7 @@ const FilterSection = () => {
                   type="button"
                   value={curColor}
                   name="color"
-                  className="color-all--style"
+                  className="bg-transparent capitalize border-none cursor-pointer"
                   onClick={updateFilterValue}
                 >
                   all
@@ -106,17 +110,21 @@ const FilterSection = () => {
                 value={curColor}
                 name="color"
                 style={{ backgroundColor: curColor }}
-                className={color === curColor ? "btnStyle active" : "btnStyle"}
+                className={`w-[2rem] h-[2rem] rounded-full ml-[1rem] border-none outline-none cursor-pointer hover:opacity-100 ${
+                  color === curColor ? "opacity-100" : "opacity-50"
+                }`}
                 onClick={updateFilterValue}
               >
-                {color === curColor ? <FaCheck className="checkStyle" /> : null}
+                {color === curColor ? (
+                  <FaCheck className="text-[1rem] text-white mx-auto" />
+                ) : null}
               </button>
             );
           })}
         </div>
       </div>
       <div className="filter_price">
-        <h3>Price</h3>
+        <h3 className="py-[2rem] font-bold">Price</h3>
         <p>
           <FormatPrice price={price} />
         </p>
@@ -127,123 +135,17 @@ const FilterSection = () => {
           name="price"
           value={price}
           onChange={updateFilterValue}
+          className="my-[0.5rem] p-0 shadow-none cursor-pointer"
         />
       </div>
 
       <div className="filter-clear">
-        <Button className="btn" onClick={clearFilters}>
+        <Button className="btn bg-[#ec7063] text-white" onClick={clearFilters}>
           Clear Filters
         </Button>
       </div>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section`
-  padding: 5rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-
-  h3 {
-    padding: 2rem 0;
-    font-size: bold;
-  }
-
-  .filter-search {
-    input {
-      padding: 0.6rem 1rem;
-      width: 80%;
-    }
-  }
-
-  .filter-category {
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.4rem;
-
-      button {
-        border: none;
-        background-color: ${({ theme }) => theme.colors.white};
-        text-transform: capitalize;
-        cursor: pointer;
-
-        &:hover {
-          color: ${({ theme }) => theme.colors.btn};
-        }
-      }
-
-      .active {
-        border-bottom: 1px solid #000;
-        color: ${({ theme }) => theme.colors.btn};
-      }
-    }
-  }
-
-  .filter-company--select {
-    padding: 0.3rem 1.2rem;
-    font-size: 1.6rem;
-    color: ${({ theme }) => theme.colors.text};
-    text-transform: capitalize;
-  }
-
-  .filter-color-style {
-    display: flex;
-    justify-content: center;
-  }
-
-  .color-all--style {
-    background-color: transparent;
-    text-transform: capitalize;
-    border: none;
-    cursor: pointer;
-  }
-  .btnStyle {
-    width: 2rem;
-    height: 2rem;
-    background-color: #000;
-    border-radius: 50%;
-    margin-left: 1rem;
-    border: none;
-    outline: none;
-    opacity: 0.5;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .active {
-    opacity: 1;
-  }
-
-  .checkStyle {
-    font-size: 1rem;
-    color: #fff;
-  }
-
-  .filter_price {
-    input {
-      margin: 0.5rem 0 1rem 0;
-      padding: 0;
-      box-shadow: none;
-      cursor: pointer;
-    }
-  }
-
-  .filter-shipping {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .filter-clear .btn {
-    background-color: #ec7063;
-    color: ${({ theme }) => theme.colors.white};
-  }
-`;
 
 export default FilterSection;
