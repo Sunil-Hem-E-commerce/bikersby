@@ -1,72 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, NavLink } from "react-router-dom";
+import { useSearchParams, NavLink, useNavigate } from "react-router-dom";
 import { useCartContext } from "../context/cart_context";
 import { Button } from "../styles/Button";
 import FormatPrice from "../Helpers/FormatPrice";
 import { FaCheckCircle, FaPrint } from "react-icons/fa";
+import orderService from "../services/order";
+import { toast } from "react-toastify";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const { clearCart } = useCartContext();
   const [order, setOrder] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const oid = searchParams.get("oid");
-    const amt = searchParams.get("amt");
-    const refId = searchParams.get("refId");
-    const method = searchParams.get("method") || "esewa"; // Default to esewa if not specified (eSewa callback might not have method param)
+    
+    // Clear frontend cart as order is already created
+    clearCart();
 
-    const tempCart = JSON.parse(localStorage.getItem("tempCart") || "[]");
+    const fetchOrder = async () => {
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (loggedInUser && loggedInUser.accessToken) {
+            orderService.setToken(loggedInUser.accessToken);
+            try {
+                if (oid) {
+                    const data = await orderService.getOrderDetails(oid);
+                    setOrder({
+                        id: data.id,
+                        date: new Date(data.createdAt).toLocaleString(),
+                        amount: data.amount,
+                        method: data.paymentMethod,
+                        refId: data.transactionId || searchParams.get("refId"), // Fallback to param if not yet updated in DB (though it should be)
+                        items: data.items.map(i => ({
+                            id: i.productId,
+                            name: i.name,
+                            qty: i.quantity,
+                            price: i.price
+                        })),
+                        status: "Success"
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to fetch order", error);
+                toast.error("Failed to retrieve order details");
+            }
+        }
+    };
 
-    if (oid && tempCart.length > 0) {
-      const newOrder = {
-        id: oid,
-        date: new Date().toLocaleString(),
-        amount: amt,
-        method: method,
-        refId: refId,
-        items: tempCart,
-        status: "Success",
-      };
-
-      // Save to transactions history
-      const transactions = JSON.parse(localStorage.getItem("transactions") || "[]");
-      // Check if transaction already exists (deduplication for refreshes)
-      const exists = transactions.find((t) => t.id === oid);
-      if (!exists) {
-        transactions.unshift(newOrder);
-        localStorage.setItem("transactions", JSON.stringify(transactions));
-      } else {
-          setOrder(exists); // If exists, show existing
-          localStorage.removeItem("tempCart");
-          clearCart();
-          return;
-      }
-
-      setOrder(newOrder);
-      
-      // Clear carts
-      localStorage.removeItem("tempCart");
-      clearCart();
-    } else if (oid) {
-         // Fallback if tempCart is gone but we have OID (e.g. refresh)
-         const transactions = JSON.parse(localStorage.getItem("transactions") || "[]");
-         const exists = transactions.find((t) => t.id === oid);
-         if (exists) {
-             setOrder(exists);
-         } else {
-             // Just show basic info
-             setOrder({
-                 id: oid,
-                 amount: amt,
-                 refId: refId,
-                 method: method,
-                 items: [],
-                 date: new Date().toLocaleString(),
-                 status: "Success"
-             });
-         }
-    }
+    fetchOrder();
   }, []);
 
   if (!order) {

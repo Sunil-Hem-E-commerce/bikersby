@@ -37,4 +37,28 @@ const sendVerificationEmail = async (to, token) => {
   await transporter.sendMail(mailOptions);
 };
 
-module.exports = { sendVerificationEmail };
+const sendOrderConfirmationEmail = async (to, order) => {
+  if (!transporter) {
+    console.log(
+      "[email] Skipping order confirmation (EMAIL_USER/EMAIL_PASS not configured).",
+    );
+    return;
+  }
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to,
+    subject: `Order Confirmation #${order.id}`,
+    html: `
+            <h1>Thank you for your order!</h1>
+            <p>Your order #${order.id} has been placed successfully.</p>
+            <p>Total Amount: Rs. ${order.amount}</p>
+            <p>Status: ${order.status}</p>
+            <br>
+            <p>We will notify you when your order ships.</p>
+        `,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+module.exports = { sendVerificationEmail, sendOrderConfirmationEmail };

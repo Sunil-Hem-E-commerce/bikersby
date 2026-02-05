@@ -20,7 +20,7 @@ module.exports = {
 
   async addUser(req, res, next) {
     try {
-      const { username, email, password } = req.body;
+      const { username, email, password, role } = req.body;
       if (password.length < 4) {
         return res
           .status(400)
@@ -31,6 +31,12 @@ module.exports = {
 
       const db = await initDb();
 
+      // Determine role: Only admin can create non-user roles
+      let userRole = "user";
+      if (req.user && req.user.role === "admin" && role) {
+        userRole = role;
+      }
+
       const [savedUser] = await db
         .insert(users)
         .values({
@@ -40,6 +46,7 @@ module.exports = {
           emailVerificationToken,
           isEmailVerified: false,
           provider: "local",
+          role: userRole,
         })
         .returning();
       await sendVerificationEmail(email, emailVerificationToken);
@@ -88,6 +95,28 @@ module.exports = {
       const id = Number(req.params.id);
       await db.delete(users).where(eq(users.id, id));
       res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async updateUser(req, res, next) {
+    try {
+      const id = Number(req.params.id);
+      const { role, username, email } = req.body;
+      const db = await initDb();
+      
+      const updateData = {};
+      if (role) updateData.role = role;
+      if (username) updateData.username = username;
+      if (email) updateData.email = email;
+
+      const [updated] = await db.update(users)
+        .set(updateData)
+        .where(eq(users.id, id))
+        .returning();
+      
+      res.json(updated);
     } catch (error) {
       next(error);
     }

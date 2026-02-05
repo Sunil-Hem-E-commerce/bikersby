@@ -43,7 +43,8 @@ module.exports = {
         accessToken: token,
         fullName: user.username,
         email: user.email,
-        user: { id: user.id },
+        role: user.role,
+        user: { id: user.id, role: user.role },
         orders: cartRows,
       });
     } catch (error) {

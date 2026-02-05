@@ -1,6 +1,7 @@
 import { useProductContext } from "../context/productContext";
 import Product from "./Product";
 import React, { useEffect, useRef, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const FeatureProduct = () => {
   const { isLoading, featureProducts } = useProductContext();
@@ -23,22 +24,26 @@ const FeatureProduct = () => {
   }, [featureProducts]);
 
   if (isLoading) {
-    return <div>...Loading</div>;
+    return (
+      <div className="py-24 text-center">
+        <div className="inline-block w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   return (
-    <section className="py-[9rem] bg-[#F6F8FA] dark:bg-gray-900">
-      <div className="max-w-[120rem] mx-auto px-[3.2rem]">
-        <div className="text-[#8490ff] uppercase mb-0">Check Now!</div>
-        <div className="text-[3.8rem] font-semibold mb-[6rem] capitalize text-[#1d1d1d] dark:text-white">
-          Our Featured Products
+    <section className="py-24 bg-[#f8fafc] dark:bg-gray-900">
+      <div className="container">
+        <div className="mb-12">
+          <p className="text-indigo-600 font-bold uppercase tracking-widest mb-2 text-sm">Check Now!</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white capitalize">
+            Our Featured Products
+          </h2>
         </div>
-        <div
-          className="relative mt-[2rem] bg-white dark:bg-gray-800 rounded-[1.2rem] py-[1rem] shadow-sm"
-          aria-label="Featured products"
-        >
+        
+        <div className="relative group" aria-label="Featured products">
           <button
-            className="absolute top-1/2 -translate-y-1/2 left-[-1.6rem] border-none bg-white/85 text-[#1d1d1d] shadow-md w-[4rem] h-[4rem] rounded-full cursor-pointer text-[2rem] z-10 flex items-center justify-center hover:bg-white transition-all"
+            className="absolute top-1/2 -translate-y-1/2 left-[-2rem] md:left-[-3rem] w-14 h-14 bg-white text-indigo-600 rounded-full shadow-lg flex items-center justify-center text-2xl z-10 opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-600 hover:text-white hover:scale-110 focus:opacity-100"
             onClick={() =>
               trackRef.current.scrollBy({
                 left: -trackRef.current.clientWidth,
@@ -47,26 +52,28 @@ const FeatureProduct = () => {
             }
             aria-label="Previous slide"
           >
-            ‹
+            <FaChevronLeft />
           </button>
+          
           <div
-            className="grid grid-flow-col auto-cols-[100%] overflow-x-auto snap-x snap-mandatory scrollbar-hide h-[40rem] no-scrollbar"
+            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-8 pb-12 pt-4"
             ref={trackRef}
             style={{ scrollbarWidth: "none" }}
           >
             {featureProducts.map((curElem) => (
               <div
-                className="snap-start p-[2rem] flex items-center justify-center"
+                className="min-w-full md:min-w-[calc(50%-2rem)] lg:min-w-[calc(33.333%-2rem)] snap-center flex justify-center"
                 key={curElem.id}
               >
-                <div className="w-[90%] max-w-[100rem] scale-[1.02]">
+                <div className="w-full">
                   <Product {...curElem} />
                 </div>
               </div>
             ))}
           </div>
+          
           <button
-            className="absolute top-1/2 -translate-y-1/2 right-[-1.6rem] border-none bg-white/85 text-[#1d1d1d] shadow-md w-[4rem] h-[4rem] rounded-full cursor-pointer text-[2rem] z-10 flex items-center justify-center hover:bg-white transition-all"
+            className="absolute top-1/2 -translate-y-1/2 right-[-2rem] md:right-[-3rem] w-14 h-14 bg-white text-indigo-600 rounded-full shadow-lg flex items-center justify-center text-2xl z-10 opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-600 hover:text-white hover:scale-110 focus:opacity-100"
             onClick={() =>
               trackRef.current.scrollBy({
                 left: trackRef.current.clientWidth,
@@ -75,17 +82,20 @@ const FeatureProduct = () => {
             }
             aria-label="Next slide"
           >
-            ›
+            <FaChevronRight />
           </button>
+          
           <div
-            className="absolute bottom-[1rem] left-1/2 -translate-x-1/2 flex gap-[0.6rem]"
+            className="flex justify-center gap-3 mt-4"
             role="tablist"
             aria-label="Slide pagination"
           >
             {featureProducts.map((_, i) => (
               <button
                 key={i}
-                className={`w-[0.8rem] h-[0.8rem] rounded-full border-none cursor-pointer ${i === index ? "bg-[#8490ff]" : "bg-gray-300"}`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  i === index ? "bg-indigo-600 w-8" : "bg-gray-300 hover:bg-indigo-400"
+                }`}
                 onClick={() => {
                   setIndex(i);
                   trackRef.current.scrollTo({

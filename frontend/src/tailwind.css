@@ -4,42 +4,62 @@
 
 @layer base {
   * {
-    @apply m-0 p-0 box-border font-['Work_Sans',sans-serif];
+    @apply m-0 p-0 box-border font-['Work_Sans',sans-serif] antialiased;
   }
   html {
     font-size: 62.5%;
-    @apply overflow-x-hidden;
+    @apply overflow-x-hidden scroll-smooth;
   }
   body {
-    @apply overflow-x-hidden bg-[#F6F8FA] text-[rgba(29,29,29,0.8)] transition-colors duration-300 ease-linear;
-    scrollbar-color: rgb(98 84 243) transparent;
+    @apply overflow-x-hidden bg-[#f8fafc] text-slate-800 transition-colors duration-300 ease-linear;
+    scrollbar-color: rgb(99 102 241) transparent;
     scrollbar-width: thin;
   }
   body::-webkit-scrollbar {
-    @apply w-[1.5rem];
+    @apply w-[0.8rem];
   }
   body::-webkit-scrollbar-track {
-    @apply bg-[rgb(24,24,29)];
+    @apply bg-transparent;
   }
   body::-webkit-scrollbar-thumb {
-    @apply bg-white rounded-[9px] border-[5px] border-solid border-transparent bg-clip-content;
+    @apply bg-indigo-500/50 rounded-full hover:bg-indigo-600;
   }
   h1 {
-    @apply text-[6rem] font-black text-[rgb(24,24,29)];
+    @apply text-[5rem] md:text-[6rem] font-extrabold text-slate-900 tracking-tight leading-tight;
   }
   h2 {
-    @apply text-[4.4rem] font-light whitespace-normal text-[rgb(24,24,29)];
+    @apply text-[3.6rem] md:text-[4.4rem] font-bold text-slate-900 tracking-tight;
   }
   h3 {
-    @apply text-[1.8rem] font-normal;
+    @apply text-[2rem] font-semibold text-slate-800;
   }
-  p, button {
-    @apply text-[1.65rem] leading-[1.5] font-normal text-[rgba(29,29,29,0.8)];
+  p,
+  button {
+    @apply text-[1.6rem] leading-relaxed font-normal text-slate-600;
   }
   a {
-    @apply no-underline text-[#8490ff] transition-colors duration-200 ease-linear;
+    @apply no-underline text-indigo-600 transition-all duration-200 ease-in-out hover:text-indigo-700;
   }
   li {
     @apply list-none;
+  }
+
+  /* Glassmorphism Utilities */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .glass-dark {
+    @apply bg-slate-900/70 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-indigo-600 text-white rounded-lg font-semibold text-[1.6rem] transition-all hover:bg-indigo-700 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm focus:ring-4 focus:ring-indigo-500/30;
+  }
+
+  .container {
+    @apply max-w-[120rem] mx-auto px-6 md:px-12;
   }
 }

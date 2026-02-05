@@ -49,6 +49,16 @@ const requireAuth = (request, response, next) => {
   return next();
 };
 
+const requireAdmin = (request, response, next) => {
+  if (!request.user) {
+    return response.status(401).json({ error: "authentication required" });
+  }
+  if (request.user.role !== 'admin') {
+     return response.status(403).json({ error: "admin permission required" });
+  }
+  return next();
+};
+
 const errorHandler = (error, request, response, next) => {
   logger.info("---------");
   logger.error(error.message);
@@ -72,4 +82,5 @@ module.exports = {
   tokenExtractor,
   userExtractor,
   requireAuth,
+  requireAdmin,
 };

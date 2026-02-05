@@ -115,6 +115,11 @@ const Wrapper = styled.section`
       font-weight: bold;
     }
 
+    .status-pending {
+      color: #f39c12;
+      font-weight: bold;
+    }
+
     .btn-small {
       padding: 0.5rem 1rem;
       font-size: 1.2rem;

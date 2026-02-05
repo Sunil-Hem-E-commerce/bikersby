@@ -1,27 +1,45 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import FormatPrice from "../Helpers/FormatPrice";
+import { FaEye, FaShoppingCart } from "react-icons/fa";
 
 const Product = (curElem) => {
   const { id, name, image, price, category } = curElem;
   return (
-    <NavLink to={`/singleproduct/${id}`}>
-      <div className="card bg-white dark:bg-gray-800 rounded-[1rem] overflow-hidden shadow-sm hover:shadow-md transition-all group">
-        <figure className="relative overflow-hidden w-auto flex justify-center items-center after:content-[''] after:absolute after:top-0 after:left-0 after:w-0 after:h-full after:bg-black/50 after:transition-all after:duration-200 after:cursor-pointer hover:after:w-full">
-          <img 
-            src={image} 
-            alt={name} 
-            className="max-w-[90%] mt-[1.5rem] h-[20rem] object-cover transition-transform duration-200 group-hover:scale-120" 
+    <NavLink to={`/singleproduct/${id}`} className="group block h-full">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 h-full flex flex-col border border-gray-100 dark:border-gray-700">
+        <figure className="relative overflow-hidden pt-[75%]">
+          <img
+            src={image}
+            alt={name}
+            className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
           />
-          <figcaption className="absolute top-[15%] right-[10%] uppercase bg-[#F6F8FA] dark:bg-gray-900 text-[#8490ff] py-[0.8rem] px-[2rem] text-[1.2rem] rounded-[2rem]">
+          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded-full shadow-sm">
             {category}
-          </figcaption>
+          </div>
+
+          {/* Hover Overlay Actions */}
+          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+            <div className="bg-white text-slate-800 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 hover:bg-indigo-600 hover:text-white">
+              <FaEye />
+            </div>
+          </div>
         </figure>
 
-        <div className="p-[2rem]">
-          <div className="flex justify-between items-center my-[2rem]">
-            <h3 className="text-[1.8rem] font-medium capitalize text-[#1d1d1d] dark:text-white">{name}</h3>
-            <p className="text-[#8490ff]">{<FormatPrice price={price} />}</p>
+        <div className="p-6 flex flex-col flex-grow">
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="text-xl font-bold capitalize text-slate-800 dark:text-white line-clamp-2 group-hover:text-indigo-600 transition-colors">
+              {name}
+            </h3>
+          </div>
+          <div className="mt-auto flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-700">
+            <p className="text-indigo-600 font-bold text-xl">
+              <FormatPrice price={price} />
+            </p>
+            <span className="text-sm text-slate-400 group-hover:text-indigo-500 transition-colors">
+              View Details &rarr;
+            </span>
           </div>
         </div>
       </div>

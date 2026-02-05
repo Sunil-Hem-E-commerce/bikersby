@@ -1,4 +1,11 @@
-import { pgTable, serial, text, boolean, integer, timestamp } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  serial,
+  text,
+  boolean,
+  integer,
+  timestamp,
+} from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -10,6 +17,7 @@ export const users = pgTable("users", {
   emailVerificationToken: text("email_verification_token"),
   provider: text("provider"),
   providerId: text("provider_id"),
+  role: text("role").default("user"), // user, admin
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });
@@ -62,3 +70,43 @@ export const cartItems = pgTable("cart_items", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });
 
+export const orders = pgTable("orders", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id, {
+    onDelete: "cascade",
+  }),
+  amount: integer("amount").notNull(),
+  status: text("status").default("pending"),
+  paymentStatus: text("payment_status").default("pending"),
+  paymentMethod: text("payment_method").default("cod"),
+  shippingAddress: text("shipping_address"),
+  contactNumber: text("contact_number"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});
+
+export const orderItems = pgTable("order_items", {
+  id: serial("id").primaryKey(),
+  orderId: integer("order_id")
+    .notNull()
+    .references(() => orders.id, { onDelete: "cascade" }),
+  productId: integer("product_id").notNull(),
+  name: text("name").notNull(),
+  price: integer("price").notNull(),
+  quantity: integer("quantity").notNull(),
+  image: text("image"),
+  color: text("color"),
+});
+
+export const payments = pgTable("payments", {
+  id: serial("id").primaryKey(),
+  orderId: integer("order_id")
+    .notNull()
+    .references(() => orders.id, { onDelete: "cascade" }),
+  gateway: text("gateway").notNull(),
+  transactionId: text("transaction_id"),
+  amount: integer("amount").notNull(),
+  status: text("status").default("pending"),
+  responseJson: text("response_json"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+});

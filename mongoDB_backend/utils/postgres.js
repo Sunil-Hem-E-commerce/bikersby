@@ -77,6 +77,41 @@ const initDb = async () => {
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS orders (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      amount INTEGER NOT NULL,
+      status TEXT DEFAULT 'pending',
+      payment_status TEXT DEFAULT 'pending',
+      payment_method TEXT DEFAULT 'cod',
+      shipping_address TEXT,
+      contact_number TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS order_items (
+      id SERIAL PRIMARY KEY,
+      order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+      product_id INTEGER NOT NULL,
+      name TEXT NOT NULL,
+      price INTEGER NOT NULL,
+      quantity INTEGER NOT NULL,
+      image TEXT,
+      color TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS payments (
+      id SERIAL PRIMARY KEY,
+      order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+      gateway TEXT NOT NULL,
+      transaction_id TEXT,
+      amount INTEGER NOT NULL,
+      status TEXT DEFAULT 'pending',
+      response_json TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    );
   `);
 
   dbInstance = db;

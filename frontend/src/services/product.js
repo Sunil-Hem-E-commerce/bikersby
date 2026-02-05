@@ -13,4 +13,45 @@ const getOneProduct = async (id) => {
   return response.data;
 };
 
-export { getAllProducts, getOneProduct };
+let token = null;
+
+const setToken = (newToken) => {
+  token = `Bearer ${newToken}`;
+};
+
+const createProduct = async (productData) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.post("/api/admin/products", productData, config);
+  return response.data;
+};
+
+const updateProduct = async (id, productData) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(
+    `/api/admin/products/${id}`,
+    productData,
+    config,
+  );
+  return response.data;
+};
+
+const deleteProduct = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.delete(`/api/admin/products/${id}`, config);
+  return response.data;
+};
+
+export {
+  getAllProducts,
+  getOneProduct,
+  setToken,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};

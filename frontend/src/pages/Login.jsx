@@ -7,6 +7,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginUser } from "../services/login";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import axios from "axios";
+import { setToken as setProductToken } from "../services/product";
+import orderService from "../services/order";
 
 const LoginForm = () => {
   const { setUser } = useUserContext();
@@ -141,12 +143,19 @@ const LoginForm = () => {
           email: response.data.email,
           accessToken: response.data.accessToken,
           id: response.data.user?.id,
+          role: response.data.role, // Added role
         };
         setUser(payload);
+        setProductToken(payload.accessToken);
+        orderService.setToken(payload.accessToken);
         localStorage.setItem("loggedInUser", JSON.stringify(payload));
         toast.success("User Logged In successfully!");
         setUiMsg({ type: "success", text: "Welcome back! You're logged in." });
-        navigate("/");
+        if (payload.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       }
     } catch (err) {
       const msg =

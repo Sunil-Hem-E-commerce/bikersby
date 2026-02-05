@@ -5,37 +5,45 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 
 const Services = () => {
   return (
-    <section className="py-[9rem] bg-white dark:bg-gray-900">
-      <div className="max-w-[120rem] mx-auto px-[3.2rem]">
-        <div className="grid grid-cols-3 gap-[4.8rem] max-md:grid-cols-1">
-          <div className="w-auto h-[30rem] flex flex-col justify-center items-center bg-[#F6F8FA] dark:bg-gray-800 text-center rounded-[2rem] shadow-sm transition-all hover:scale-105 duration-300">
-            <div className="flex flex-col items-center">
-              <TbTruckDelivery className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
-              <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Super Fast and Free Delivery</h3>
+    <section className="py-24 bg-white dark:bg-gray-900">
+      <div className="container">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          
+          {/* Card 1 */}
+          <div className="bg-[#f8fafc] dark:bg-gray-800 rounded-3xl p-12 text-center shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group h-[30rem] flex flex-col justify-center items-center">
+            <div className="bg-white p-6 rounded-full text-indigo-600 mb-6 shadow-md group-hover:scale-110 transition-transform">
+              <TbTruckDelivery className="w-12 h-12" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Super Fast Delivery</h3>
+            <p className="text-slate-500">Free shipping on orders over $50</p>
+          </div>
+
+          {/* Card 2 - Split Column */}
+          <div className="grid grid-rows-2 gap-8 h-[30rem]">
+            <div className="bg-[#f8fafc] dark:bg-gray-800 rounded-3xl p-6 flex items-center justify-center gap-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+              <div className="bg-white p-4 rounded-full text-indigo-600 shadow-md group-hover:scale-110 transition-transform">
+                <MdSecurity className="w-10 h-10" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white">Non-Contact Shipping</h3>
+            </div>
+            
+            <div className="bg-[#f8fafc] dark:bg-gray-800 rounded-3xl p-6 flex items-center justify-center gap-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+              <div className="bg-white p-4 rounded-full text-indigo-600 shadow-md group-hover:scale-110 transition-transform">
+                <GiReceiveMoney className="w-10 h-10" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white">Money-back Guaranteed</h3>
             </div>
           </div>
 
-          <div className="w-auto h-[30rem] flex flex-col justify-center items-center gap-[4rem] bg-transparent shadow-none">
-            <div className="bg-[#F6F8FA] dark:bg-gray-800 flex flex-row flex-1 justify-center items-center rounded-[2rem] shadow-sm w-full transition-all hover:scale-105 duration-300">
-              <div className="flex flex-row justify-center items-center gap-[1rem]">
-                <MdSecurity className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
-                <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Genuine Wellness Products</h3>
-              </div>
+          {/* Card 3 */}
+          <div className="bg-[#f8fafc] dark:bg-gray-800 rounded-3xl p-12 text-center shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group h-[30rem] flex flex-col justify-center items-center">
+            <div className="bg-white p-6 rounded-full text-indigo-600 mb-6 shadow-md group-hover:scale-110 transition-transform">
+              <RiSecurePaymentLine className="w-12 h-12" />
             </div>
-            <div className="bg-[#F6F8FA] dark:bg-gray-800 flex flex-row flex-1 justify-center items-center rounded-[2rem] shadow-sm w-full transition-all hover:scale-105 duration-300">
-              <div className="flex flex-row justify-center items-center gap-[1rem]">
-                <GiReceiveMoney className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
-                <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Money-back Guaranteed</h3>
-              </div>
-            </div>
+            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Super Secure Payment</h3>
+            <p className="text-slate-500">100% secure payment gateways</p>
           </div>
-
-          <div className="w-auto h-[30rem] flex flex-col justify-center items-center bg-[#F6F8FA] dark:bg-gray-800 text-center rounded-[2rem] shadow-sm transition-all hover:scale-105 duration-300">
-            <div className="flex flex-col items-center">
-              <RiSecurePaymentLine className="w-[8rem] h-[8rem] p-[2rem] rounded-full bg-white text-[#5138ee]" />
-              <h3 className="mt-[1.4rem] text-[2rem] text-[#1d1d1d] dark:text-white font-medium">Super Secure Payment System</h3>
-            </div>
-          </div>
+          
         </div>
       </div>
     </section>
